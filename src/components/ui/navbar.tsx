@@ -10,8 +10,6 @@ import { Menu, X } from 'lucide-react';
 export default function Navbar() {
   // ====== State Management ======
   const [isOpen, setIsOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const pathname = usePathname();
   const [hoveredPath, setHoveredPath] = useState(pathname);
 
@@ -23,24 +21,6 @@ export default function Navbar() {
       document.body.style.overflow = 'unset';
     }
   }, [isOpen]);
-
-  // ====== Navbar Hide/Show on Scroll ======
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      if (currentScrollY > lastScrollY && currentScrollY > 50) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
-      }
-      
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
 
   // ====== Update Hovered Path when Route Changes ======
   useEffect(() => {
@@ -61,8 +41,7 @@ export default function Navbar() {
     fixed z-[100] transition-all duration-300 
     w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)] 
     left-1/2 -translate-x-1/2 top-2 lg:top-4
-    bg-black/90 backdrop-blur-lg shadow-lg rounded-full border border-[#C6A355]/20
-    ${isVisible ? 'translate-y-0' : '-translate-y-[150%]'}
+    bg-black/10 backdrop-blur-xl shadow-lg rounded-full border border-[#C6A355]/20
   `;
 
   return (
