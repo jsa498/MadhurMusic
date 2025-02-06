@@ -30,8 +30,7 @@ export default function Home() {
         >
           <div className="bg-black/30 backdrop-blur-lg rounded-[2.5rem] p-8 md:p-12 max-w-4xl mx-auto shadow-2xl border border-[#C6A355]/20">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 text-center gold-gradient-text">
-              MADHUR GURMAT<br />
-              Sangeet Vidyala
+              MADHUR GURMAT
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-center text-white">
               Discover the rich heritage of Indian classical music through expert guidance and traditional teaching methods
