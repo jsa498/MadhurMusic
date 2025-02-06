@@ -8,7 +8,7 @@ export default function OverlayWarning() {
   const [hasAccepted, setHasAccepted] = useState(false);
 
   useEffect(() => {
-    const accepted = localStorage.getItem('devfloe-warning-accepted');
+    const accepted = localStorage.getItem('devflow-warning-accepted');
     if (accepted === 'true') {
       setHasAccepted(true);
       setIsVisible(false);
@@ -16,7 +16,7 @@ export default function OverlayWarning() {
   }, []);
 
   const handleAccept = () => {
-    localStorage.setItem('devfloe-warning-accepted', 'true');
+    localStorage.setItem('devflow-warning-accepted', 'true');
     setHasAccepted(true);
     setIsVisible(false);
   };
@@ -39,7 +39,7 @@ export default function OverlayWarning() {
             className="bg-black/80 rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto border border-[#C6A355]/20 text-center"
           >
             <h2 className="text-2xl md:text-3xl font-bold mb-6 gold-gradient-text">
-              Welcome DevFloe Customer!
+              Welcome DevFlow Customer!
             </h2>
             <div className="space-y-4 text-white mb-8">
               <p>
@@ -59,10 +59,10 @@ export default function OverlayWarning() {
                 Yes, Let Me See
               </button>
               <a
-                href="https://devfloe.com"
+                href="https://devflow.com"
                 className="px-6 py-2 rounded-full border border-[#C6A355] text-[#DFB87A] hover:bg-[#C6A355]/10 transition-colors"
               >
-                Return to DevFloe
+                Return to DevFlow
               </a>
             </div>
           </motion.div>
