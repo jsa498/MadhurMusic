@@ -224,6 +224,18 @@ export default function Contact() {
                   >
                     {isSubmitting ? 'Sending...' : 'Send Message'}
                   </button>
+
+                  {/* Status Messages */}
+                  {submitStatus === 'success' && (
+                    <p className="mt-4 text-green-500 text-center">
+                      Message sent successfully! We&apos;ll get back to you soon.
+                    </p>
+                  )}
+                  {submitStatus === 'error' && (
+                    <p className="mt-4 text-red-500 text-center">
+                      Something went wrong. Please try again later.
+                    </p>
+                  )}
                 </div>
               </form>
             </div>
