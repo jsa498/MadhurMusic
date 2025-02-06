@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/ui/navbar";
+import OverlayWarning from "@/components/ui/overlay-warning";
 import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -50,6 +51,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={inter.className}>
+        <OverlayWarning />
         <Navbar />
         <main className="min-h-screen pt-24 lg:pt-28">{children}</main>
         <footer className="bg-black border-t border-[#C6A355]/20">
