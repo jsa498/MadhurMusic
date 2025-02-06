@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Music, Clock, Users, BookOpen, Star, Award } from 'lucide-react';
+import { Clock, Users, BookOpen, Star, Award } from 'lucide-react';
 
 const courses = [
   {
