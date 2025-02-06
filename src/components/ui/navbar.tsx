@@ -76,13 +76,15 @@ export default function Navbar() {
           {/* ====== Logo ====== */}
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center">
-              <Image 
-                src="/logo.png" 
-                alt="Madhur Gurmat Sangeet Vidyala" 
-                width={48} 
-                height={48} 
-                className="h-12 w-auto" 
-              />
+              <div className="relative w-12 h-12 rounded-full overflow-hidden">
+                <Image 
+                  src="/logo.png" 
+                  alt="Madhur Gurmat Sangeet Vidyala" 
+                  width={48} 
+                  height={48}
+                  className="object-cover scale-150" 
+                />
+              </div>
             </Link>
           </div>
 
