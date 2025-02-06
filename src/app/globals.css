@@ -10,32 +10,32 @@
     @apply bg-background text-foreground;
   }
   :root {
-    --background: 0 0% 0%;
-    --foreground: 38 42% 76%;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
 
-    --card: 0 0% 4%;
-    --card-foreground: 38 42% 76%;
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 0%;
 
-    --popover: 0 0% 4%;
-    --popover-foreground: 38 42% 76%;
+    --popover: 0 0% 98%;
+    --popover-foreground: 0 0% 0%;
 
     --primary: 38 42% 76%;
     --primary-foreground: 0 0% 0%;
 
     --secondary: 38 42% 56%;
-    --secondary-foreground: 0 0% 0%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 38 42% 16%;
-    --muted-foreground: 38 42% 76%;
+    --muted: 38 42% 96%;
+    --muted-foreground: 0 0% 40%;
 
     --accent: 38 42% 76%;
     --accent-foreground: 0 0% 0%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 38 42% 96%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 38 42% 26%;
-    --input: 38 42% 26%;
+    --border: 38 42% 76%;
+    --input: 38 42% 76%;
     --ring: 38 42% 76%;
 
     --radius: 0.75rem;
@@ -76,7 +76,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #000000;
+  background: #ffffff;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -91,13 +91,13 @@
 /* Smooth Scrolling */
 html {
   scroll-behavior: smooth;
-  background-color: black;
-  color: #DFB87A;
+  background-color: white;
+  color: black;
 }
 
 /* Custom gradient text */
 .gold-gradient-text {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-[#DFB87A] to-[#C6A355];
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-[#C6A355] to-[#DFB87A];
 }
 
 /* Custom gradient background */
@@ -107,17 +107,17 @@ html {
 
 /* Custom border gradient */
 .gold-border-gradient {
-  @apply border-2 border-[#C6A355]/50;
+  @apply border-2 border-[#C6A355];
 }
 
 /* Custom hover effects */
 .gold-hover {
-  @apply hover:text-[#DFB87A] transition-colors duration-300;
+  @apply hover:text-[#C6A355] transition-colors duration-300;
 }
 
 /* Custom button styles */
 .gold-button {
-  @apply px-6 py-2 text-black bg-gradient-to-r from-[#DFB87A] to-[#C6A355] 
+  @apply px-6 py-2 text-white bg-gradient-to-r from-[#DFB87A] to-[#C6A355] 
          hover:from-[#C6A355] hover:to-[#DFB87A] rounded-full transition-all duration-300 
          font-semibold shadow-lg hover:shadow-[#C6A355]/20 hover:scale-105;
 }
