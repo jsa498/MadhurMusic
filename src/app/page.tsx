@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-gray-50 to-orange-50">
+    <div className="relative min-h-screen bg-black">
       {/* Hero Section */}
       <section className="relative h-screen -mt-24 lg:-mt-28 flex items-center justify-center overflow-hidden">
         {/* Background Image with Gradient Overlay */}
@@ -18,7 +18,7 @@ export default function Home() {
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-orange-50/90" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black" />
         </div>
 
         {/* Hero Content */}
@@ -28,38 +28,32 @@ export default function Home() {
           transition={{ duration: 0.8 }}
           className="relative z-10 container mx-auto px-4"
         >
-          <div className="bg-white/10 backdrop-blur-lg rounded-[2.5rem] p-8 md:p-12 max-w-4xl mx-auto shadow-2xl border border-white/20">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-white to-orange-100">
+          <div className="bg-black/30 backdrop-blur-lg rounded-[2.5rem] p-8 md:p-12 max-w-4xl mx-auto shadow-2xl border border-[#C6A355]/20">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-center gold-gradient-text">
               Madhur Gurmat Sangeet Vidyala
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-center text-white/90">
+            <p className="text-xl md:text-2xl mb-8 text-center text-white">
               Discover the rich heritage of Indian classical music through expert guidance and traditional teaching methods
             </p>
             <div className="text-center">
-              <Link
-                href="/register"
-                className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover:shadow-xl hover:scale-105 inline-block"
-              >
+              <Link href="/register" className="gold-button">
                 Start Your Journey
               </Link>
             </div>
           </div>
         </motion.div>
-
-        {/* Bottom Gradient Blend */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-orange-50 to-transparent" />
       </section>
 
       {/* Features Section */}
-      <section className="py-20 relative overflow-hidden">
+      <section className="py-20 relative overflow-hidden bg-black">
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-white/80 backdrop-blur-sm rounded-[2.5rem] p-8 md:p-12 shadow-xl"
+            className="bg-black/50 backdrop-blur-sm rounded-[2.5rem] p-8 md:p-12 shadow-xl border border-[#C6A355]/20"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-orange-900">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 gold-gradient-text">
               Why Choose Us?
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -86,13 +80,13 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.2 }}
-                  className="bg-gradient-to-b from-orange-50 to-white rounded-[2rem] p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group"
+                  className="bg-black/40 backdrop-blur-sm rounded-[2rem] p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group border border-[#C6A355]/10"
                 >
-                  <div className="bg-gradient-to-br from-orange-100 to-orange-200 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 text-2xl group-hover:scale-110 transition-transform duration-300">
+                  <div className="bg-gradient-to-br from-[#DFB87A] to-[#C6A355] w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 text-2xl group-hover:scale-110 transition-transform duration-300">
                     {feature.icon}
                   </div>
-                  <h3 className="text-xl font-semibold mb-4 text-center text-gray-800">{feature.title}</h3>
-                  <p className="text-gray-600 text-center">{feature.description}</p>
+                  <h3 className="text-xl font-semibold mb-4 text-center text-[#DFB87A]">{feature.title}</h3>
+                  <p className="text-white text-center">{feature.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -101,33 +95,30 @@ export default function Home() {
 
         {/* Decorative Background Elements */}
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-orange-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" />
-          <div className="absolute top-40 right-10 w-72 h-72 bg-orange-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000" />
-          <div className="absolute bottom-20 left-1/2 w-72 h-72 bg-orange-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000" />
+          <div className="absolute top-20 left-10 w-72 h-72 bg-[#C6A355] rounded-full mix-blend-overlay filter blur-xl opacity-20 animate-blob" />
+          <div className="absolute top-40 right-10 w-72 h-72 bg-[#DFB87A] rounded-full mix-blend-overlay filter blur-xl opacity-20 animate-blob animation-delay-2000" />
+          <div className="absolute bottom-20 left-1/2 w-72 h-72 bg-[#C6A355] rounded-full mix-blend-overlay filter blur-xl opacity-20 animate-blob animation-delay-4000" />
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 relative overflow-hidden">
+      <section className="py-20 relative overflow-hidden bg-black">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-gradient-to-r from-orange-600 to-orange-500 rounded-[2.5rem] p-12 relative overflow-hidden"
+            className="bg-black/50 backdrop-blur-lg rounded-[2.5rem] p-12 relative overflow-hidden border border-[#C6A355]/20"
           >
-            <div className="absolute inset-0 bg-[url('/pattern.png')] opacity-10" />
+            <div className="absolute inset-0 bg-[url('/pattern.png')] opacity-5" />
             <div className="relative z-10 max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-white">
+              <h2 className="text-3xl md:text-4xl font-bold mb-8 gold-gradient-text">
                 Begin Your Musical Journey Today
               </h2>
-              <p className="text-xl mb-12 text-white/90">
+              <p className="text-xl mb-12 text-white">
                 Join our community of passionate learners and start your journey in Indian classical music
               </p>
-              <Link
-                href="/register"
-                className="bg-white text-orange-600 hover:bg-orange-50 px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover:shadow-xl inline-block hover:scale-105"
-              >
+              <Link href="/register" className="gold-button">
                 Enroll Now
               </Link>
             </div>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/ui/navbar";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,6 +36,12 @@ export const metadata: Metadata = {
   robots: "index, follow",
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -45,41 +52,41 @@ export default function RootLayout({
       <body className={inter.className}>
         <Navbar />
         <main className="min-h-screen pt-24 lg:pt-28">{children}</main>
-        <footer className="bg-black/95 text-white py-8">
-          <div className="container mx-auto px-4">
+        <footer className="bg-black border-t border-[#C6A355]/20">
+          <div className="container mx-auto px-4 py-12">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               <div>
-                <h3 className="text-lg font-semibold mb-4">About Us</h3>
-                <p className="text-gray-300">
+                <h3 className="text-lg font-semibold mb-4 text-[#DFB87A]">About Us</h3>
+                <p className="text-[#C6A355]">
                   Madhur Gurmat Sangeet Vidyala is dedicated to preserving and teaching traditional Indian classical music.
                 </p>
               </div>
               <div>
-                <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+                <h3 className="text-lg font-semibold mb-4 text-[#DFB87A]">Quick Links</h3>
                 <ul className="space-y-2">
-                  <li><a href="/about" className="text-gray-300 hover:text-white">About</a></li>
-                  <li><a href="/courses" className="text-gray-300 hover:text-white">Courses</a></li>
-                  <li><a href="/register" className="text-gray-300 hover:text-white">Register</a></li>
-                  <li><a href="/contact" className="text-gray-300 hover:text-white">Contact</a></li>
+                  <li><Link href="/about" className="text-[#C6A355] hover:text-[#DFB87A] transition-colors">About</Link></li>
+                  <li><Link href="/courses" className="text-[#C6A355] hover:text-[#DFB87A] transition-colors">Courses</Link></li>
+                  <li><Link href="/register" className="text-[#C6A355] hover:text-[#DFB87A] transition-colors">Register</Link></li>
+                  <li><Link href="/contact" className="text-[#C6A355] hover:text-[#DFB87A] transition-colors">Contact</Link></li>
                 </ul>
               </div>
               <div>
-                <h3 className="text-lg font-semibold mb-4">Contact Info</h3>
-                <ul className="space-y-2 text-gray-300">
+                <h3 className="text-lg font-semibold mb-4 text-[#DFB87A]">Contact Info</h3>
+                <ul className="space-y-2 text-[#C6A355]">
                   <li>Email: info@mgsvidyala.com</li>
                   <li>Phone: +1 (123) 456-7890</li>
                   <li>Address: Your Location</li>
                 </ul>
               </div>
               <div>
-                <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
+                <h3 className="text-lg font-semibold mb-4 text-[#DFB87A]">Follow Us</h3>
                 <div className="flex space-x-4">
                   {/* Add social media icons/links here */}
                 </div>
               </div>
             </div>
-            <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
-              <p>&copy; {new Date().getFullYear()} Madhur Gurmat Sangeet Vidyala. All rights reserved.</p>
+            <div className="mt-8 pt-8 border-t border-[#C6A355]/20 text-center">
+              <p className="text-[#C6A355]">&copy; {new Date().getFullYear()} Madhur Gurmat Sangeet Vidyala. All rights reserved.</p>
             </div>
           </div>
         </footer>

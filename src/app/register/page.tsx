@@ -41,7 +41,6 @@ export default function Register() {
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     try {
-      // Here we'll add the API route to handle form submission
       const response = await fetch('/api/register', {
         method: 'POST',
         headers: {
@@ -50,11 +49,11 @@ export default function Register() {
         body: JSON.stringify(data),
       });
 
-      if (!response.ok) throw new Error('Submission failed');
+      if (!response.ok) throw new Error('Registration failed');
 
       setSubmitStatus('success');
       reset();
-    } catch (error) {
+    } catch (_error) {
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -62,131 +61,148 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen py-20 bg-gradient-to-b from-orange-50 to-white">
-      <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="max-w-2xl mx-auto"
-        >
-          <h1 className="text-4xl font-bold text-center mb-8">Register for Classes</h1>
-          <p className="text-gray-600 text-center mb-12">
-            Join our community of music enthusiasts and begin your journey in Indian classical music
-          </p>
+    <div className="min-h-screen bg-black">
+      {/* Hero Section */}
+      <section className="-mt-24 lg:-mt-28 py-32 bg-gradient-to-b from-black to-black">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 gold-gradient-text">
+              Register for Classes
+            </h1>
+            <p className="text-xl text-white">
+              Begin your musical journey with us today
+            </p>
+          </motion.div>
+        </div>
+      </section>
 
-          <div className="bg-white rounded-2xl shadow-xl p-8">
+      {/* Registration Form */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-2xl mx-auto bg-black/50 backdrop-blur-lg rounded-[2.5rem] p-8 md:p-12 shadow-xl border border-[#C6A355]/20"
+          >
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               {/* Full Name */}
               <div>
-                <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="fullName" className="block text-[#DFB87A] mb-2">
                   Full Name *
                 </label>
                 <input
                   {...register('fullName')}
                   type="text"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  className="w-full px-4 py-3 rounded-xl bg-black/40 border border-[#C6A355]/20 text-white placeholder-[#C6A355]/50 focus:outline-none focus:border-[#DFB87A] transition-colors"
                   placeholder="Enter your full name"
                 />
                 {errors.fullName && (
-                  <p className="mt-1 text-sm text-red-600">{errors.fullName.message}</p>
+                  <p className="mt-1 text-sm text-red-500">{errors.fullName.message}</p>
                 )}
               </div>
 
               {/* Email */}
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="email" className="block text-[#DFB87A] mb-2">
                   Email *
                 </label>
                 <input
                   {...register('email')}
                   type="email"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  className="w-full px-4 py-3 rounded-xl bg-black/40 border border-[#C6A355]/20 text-white placeholder-[#C6A355]/50 focus:outline-none focus:border-[#DFB87A] transition-colors"
                   placeholder="Enter your email"
                 />
                 {errors.email && (
-                  <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+                  <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
                 )}
               </div>
 
               {/* Phone */}
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="phone" className="block text-[#DFB87A] mb-2">
                   Phone Number *
                 </label>
                 <input
                   {...register('phone')}
                   type="tel"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  className="w-full px-4 py-3 rounded-xl bg-black/40 border border-[#C6A355]/20 text-white placeholder-[#C6A355]/50 focus:outline-none focus:border-[#DFB87A] transition-colors"
                   placeholder="Enter your phone number"
                 />
                 {errors.phone && (
-                  <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>
+                  <p className="mt-1 text-sm text-red-500">{errors.phone.message}</p>
                 )}
               </div>
 
               {/* Age */}
               <div>
-                <label htmlFor="age" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="age" className="block text-[#DFB87A] mb-2">
                   Age *
                 </label>
                 <input
                   {...register('age')}
                   type="number"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  className="w-full px-4 py-3 rounded-xl bg-black/40 border border-[#C6A355]/20 text-white placeholder-[#C6A355]/50 focus:outline-none focus:border-[#DFB87A] transition-colors"
                   placeholder="Enter your age"
                 />
-                {errors.age && <p className="mt-1 text-sm text-red-600">{errors.age.message}</p>}
+                {errors.age && (
+                  <p className="mt-1 text-sm text-red-500">{errors.age.message}</p>
+                )}
               </div>
 
               {/* Course Level */}
               <div>
-                <label htmlFor="course" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="course" className="block text-[#DFB87A] mb-2">
                   Course Level *
                 </label>
                 <select
                   {...register('course')}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  className="w-full px-4 py-3 rounded-xl bg-black/40 border border-[#C6A355]/20 text-white placeholder-[#C6A355]/50 focus:outline-none focus:border-[#DFB87A] transition-colors"
                 >
-                  <option value="">Select course level</option>
-                  <option value="beginner">Beginner</option>
-                  <option value="intermediate">Intermediate</option>
-                  <option value="advanced">Advanced</option>
+                  <option value="" className="text-white bg-black">Select course level</option>
+                  <option value="beginner" className="text-white bg-black">Beginner</option>
+                  <option value="intermediate" className="text-white bg-black">Intermediate</option>
+                  <option value="advanced" className="text-white bg-black">Advanced</option>
                 </select>
                 {errors.course && (
-                  <p className="mt-1 text-sm text-red-600">{errors.course.message}</p>
+                  <p className="mt-1 text-sm text-red-500">{errors.course.message}</p>
                 )}
               </div>
 
               {/* Instrument */}
               <div>
-                <label htmlFor="instrument" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="instrument" className="block text-[#DFB87A] mb-2">
                   Instrument *
                 </label>
                 <select
                   {...register('instrument')}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  className="w-full px-4 py-3 rounded-xl bg-black/40 border border-[#C6A355]/20 text-white placeholder-[#C6A355]/50 focus:outline-none focus:border-[#DFB87A] transition-colors"
                 >
-                  <option value="">Select instrument</option>
-                  <option value="vocal">Vocal</option>
-                  <option value="harmonium">Harmonium</option>
-                  <option value="tabla">Tabla</option>
-                  <option value="other">Other</option>
+                  <option value="" className="text-white bg-black">Select instrument</option>
+                  <option value="vocal" className="text-white bg-black">Vocal</option>
+                  <option value="harmonium" className="text-white bg-black">Harmonium</option>
+                  <option value="tabla" className="text-white bg-black">Tabla</option>
+                  <option value="other" className="text-white bg-black">Other</option>
                 </select>
                 {errors.instrument && (
-                  <p className="mt-1 text-sm text-red-600">{errors.instrument.message}</p>
+                  <p className="mt-1 text-sm text-red-500">{errors.instrument.message}</p>
                 )}
               </div>
 
               {/* Message */}
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="message" className="block text-[#DFB87A] mb-2">
                   Additional Message (Optional)
                 </label>
                 <textarea
                   {...register('message')}
                   rows={4}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  className="w-full px-4 py-3 rounded-xl bg-black/40 border border-[#C6A355]/20 text-white placeholder-[#C6A355]/50 focus:outline-none focus:border-[#DFB87A] transition-colors resize-none"
                   placeholder="Any additional information you'd like to share"
                 />
               </div>
@@ -195,30 +211,26 @@ export default function Register() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full py-3 px-4 rounded-lg text-white font-semibold transition-colors ${
-                  isSubmitting
-                    ? 'bg-gray-400 cursor-not-allowed'
-                    : 'bg-orange-500 hover:bg-orange-600'
-                }`}
+                className={`gold-button w-full ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
                 {isSubmitting ? 'Submitting...' : 'Submit Registration'}
               </button>
 
               {/* Status Messages */}
               {submitStatus === 'success' && (
-                <p className="text-green-600 text-center">
+                <p className="text-green-500 text-center">
                   Registration submitted successfully! We'll contact you soon.
                 </p>
               )}
               {submitStatus === 'error' && (
-                <p className="text-red-600 text-center">
+                <p className="text-red-500 text-center">
                   Something went wrong. Please try again later.
                 </p>
               )}
             </form>
-          </div>
-        </motion.div>
-      </div>
+          </motion.div>
+        </div>
+      </section>
     </div>
   );
 } 
