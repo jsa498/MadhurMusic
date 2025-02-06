@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Music, GraduationCap, Users, ChevronRight } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -28,16 +29,20 @@ export default function Home() {
           transition={{ duration: 0.8 }}
           className="relative z-10 container mx-auto px-4"
         >
-          <div className="bg-black/30 backdrop-blur-lg rounded-[2.5rem] p-8 md:p-12 max-w-4xl mx-auto shadow-2xl border border-[#C6A355]/20">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-center gold-gradient-text">
+          <div className="bg-[#1A1A1A]/80 backdrop-blur-xl rounded-[2.5rem] p-12 md:p-16 max-w-4xl mx-auto shadow-2xl border border-[#333333]">
+            <h1 className="text-4xl md:text-6xl font-bold mb-8 text-center text-white">
               MADHUR GURMAT
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-center text-white">
+            <p className="text-xl md:text-2xl mb-10 text-center text-gray-300">
               Discover the rich heritage of Indian classical music through expert guidance and traditional teaching methods
             </p>
             <div className="text-center">
-              <Link href="/register" className="gold-button">
+              <Link 
+                href="/register" 
+                className="inline-flex items-center px-10 py-4 bg-[#C6A355] hover:bg-[#DFB87A] text-black text-lg font-semibold rounded-full transition-all duration-300"
+              >
                 Start Your Journey
+                <ChevronRight className="w-5 h-5 ml-2" />
               </Link>
             </div>
           </div>
@@ -45,83 +50,78 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 relative overflow-hidden bg-black">
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.div
+      <section className="py-20 relative overflow-hidden">
+        <div className="container mx-auto px-4">
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-black/50 backdrop-blur-sm rounded-[2.5rem] p-8 md:p-12 shadow-xl border border-[#C6A355]/20"
+            className="text-4xl font-bold text-center mb-16 text-white"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 gold-gradient-text">
-              Why Choose Us?
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                {
-                  title: "Expert Instructors",
-                  description: "Learn from experienced teachers who are masters in traditional Indian classical music",
-                  icon: "🎵"
-                },
-                {
-                  title: "Comprehensive Curriculum",
-                  description: "Structured learning path covering theory, practice, and performance aspects",
-                  icon: "📚"
-                },
-                {
-                  title: "Personalized Attention",
-                  description: "Small batch sizes ensuring individual attention and faster progress",
-                  icon: "👤"
-                }
-              ].map((feature, index) => (
-                <motion.div
-                  key={feature.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.2 }}
-                  className="bg-black/40 backdrop-blur-sm rounded-[2rem] p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group border border-[#C6A355]/10"
-                >
-                  <div className="bg-gradient-to-br from-[#DFB87A] to-[#C6A355] w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 text-2xl group-hover:scale-110 transition-transform duration-300">
+            Why Choose Us?
+          </motion.h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Expert Instructors",
+                description: "Learn from experienced teachers who are masters in traditional Indian classical music",
+                icon: <GraduationCap className="w-8 h-8" />
+              },
+              {
+                title: "Comprehensive Curriculum",
+                description: "Structured learning path covering theory, practice, and performance aspects",
+                icon: <Music className="w-8 h-8" />
+              },
+              {
+                title: "Personalized Attention",
+                description: "Small batch sizes ensuring individual attention and faster progress",
+                icon: <Users className="w-8 h-8" />
+              }
+            ].map((feature, index) => (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-[#1A1A1A] rounded-[2.5rem] p-10 border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300"
+              >
+                <div className="w-16 h-16 rounded-full bg-[#C6A355] flex items-center justify-center mx-auto mb-6">
+                  <div className="text-black">
                     {feature.icon}
                   </div>
-                  <h3 className="text-xl font-semibold mb-4 text-center text-[#DFB87A]">{feature.title}</h3>
-                  <p className="text-white text-center">{feature.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Decorative Background Elements */}
-        <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-[#C6A355] rounded-full mix-blend-overlay filter blur-xl opacity-20 animate-blob" />
-          <div className="absolute top-40 right-10 w-72 h-72 bg-[#DFB87A] rounded-full mix-blend-overlay filter blur-xl opacity-20 animate-blob animation-delay-2000" />
-          <div className="absolute bottom-20 left-1/2 w-72 h-72 bg-[#C6A355] rounded-full mix-blend-overlay filter blur-xl opacity-20 animate-blob animation-delay-4000" />
+                </div>
+                <h3 className="text-2xl font-semibold mb-4 text-white text-center">{feature.title}</h3>
+                <p className="text-gray-400 text-lg text-center">{feature.description}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 relative overflow-hidden bg-black">
+      <section className="py-20">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-black/50 backdrop-blur-lg rounded-[2.5rem] p-12 relative overflow-hidden border border-[#C6A355]/20"
+            className="bg-[#1A1A1A] rounded-[2.5rem] p-16 border border-[#333333] text-center max-w-4xl mx-auto"
           >
-            <div className="absolute inset-0 bg-[url('/pattern.png')] opacity-5" />
-            <div className="relative z-10 max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-8 gold-gradient-text">
-                Begin Your Musical Journey Today
-              </h2>
-              <p className="text-xl mb-12 text-white">
-                Join our community of passionate learners and start your journey in Indian classical music
-              </p>
-              <Link href="/register" className="gold-button">
-                Enroll Now
-              </Link>
-            </div>
+            <h2 className="text-4xl font-bold mb-6 text-white">
+              Begin Your Musical Journey Today
+            </h2>
+            <p className="text-xl text-gray-300 mb-10">
+              Join our community of passionate learners and start your journey in Indian classical music
+            </p>
+            <Link 
+              href="/register" 
+              className="inline-flex items-center px-10 py-4 bg-[#C6A355] hover:bg-[#DFB87A] text-black text-lg font-semibold rounded-full transition-all duration-300"
+            >
+              Enroll Now
+              <ChevronRight className="w-5 h-5 ml-2" />
+            </Link>
           </motion.div>
         </div>
       </section>
