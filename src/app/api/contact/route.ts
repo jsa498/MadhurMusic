@@ -1,12 +1,23 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = process.env.RESEND_API_KEY 
+  ? new Resend(process.env.RESEND_API_KEY)
+  : null;
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { name, email, subject, message } = body;
+
+    if (!resend) {
+      // For development/testing without API key
+      console.log('Email would be sent:', { name, email, subject, message });
+      return NextResponse.json(
+        { message: 'Message received (development mode)' },
+        { status: 200 }
+      );
+    }
 
     // Send notification email to admin
     await resend.emails.send({
@@ -38,7 +49,7 @@ export async function POST(request: Request) {
           <h1 style="color: #ea580c;">Thank You for Contacting Us</h1>
           <p>Dear ${name},</p>
           <p>Thank you for reaching out to Madhur Gurmat Sangeet Vidyala. We have received your message and will get back to you shortly.</p>
-          <p>For your reference, here's a copy of your message:</p>
+          <p>For your reference, here is a copy of your message:</p>
           <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
             <p><strong>Subject:</strong> ${subject}</p>
             <p><strong>Message:</strong></p>

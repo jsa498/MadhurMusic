@@ -1,12 +1,23 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = process.env.RESEND_API_KEY 
+  ? new Resend(process.env.RESEND_API_KEY)
+  : null;
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { fullName, email, phone, age, course, instrument, message } = body;
+
+    if (!resend) {
+      // For development/testing without API key
+      console.log('Registration email would be sent:', { fullName, email, course, instrument });
+      return NextResponse.json(
+        { message: 'Registration received (development mode)' },
+        { status: 200 }
+      );
+    }
 
     // Send confirmation email to student
     await resend.emails.send({
@@ -29,7 +40,7 @@ export async function POST(request: Request) {
             <li><strong>Age:</strong> ${age}</li>
             ${message ? `<li><strong>Additional Message:</strong> ${message}</li>` : ''}
           </ul>
-          <p>If you have any questions, please don't hesitate to contact us.</p>
+          <p>If you have any questions, please do not hesitate to contact us.</p>
           <p>Best regards,<br>Madhur Gurmat Sangeet Vidyala Team</p>
         </div>
       `,
