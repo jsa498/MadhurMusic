@@ -53,7 +53,8 @@ export default function Register() {
 
       setSubmitStatus('success');
       reset();
-    } catch (_error) {
+    } catch (error) {
+      console.error('Registration error:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -203,7 +204,7 @@ export default function Register() {
                   {...register('message')}
                   rows={4}
                   className="w-full px-4 py-3 rounded-xl bg-black/40 border border-[#C6A355]/20 text-white placeholder-[#C6A355]/50 focus:outline-none focus:border-[#DFB87A] transition-colors resize-none"
-                  placeholder="Any additional information you'd like to share"
+                  placeholder="Any additional information you&apos;d like to share"
                 />
               </div>
 

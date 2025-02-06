@@ -50,7 +50,8 @@ export default function Contact() {
 
       setSubmitStatus('success');
       reset();
-    } catch (_error) {
+    } catch (error) {
+      console.error('Contact form error:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -153,6 +154,9 @@ export default function Contact() {
                       placeholder="Your name"
                       required
                     />
+                    {errors.name && (
+                      <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>
+                    )}
                   </div>
                   <div>
                     <label htmlFor="email" className="block text-[#DFB87A] mb-2">
@@ -169,6 +173,9 @@ export default function Contact() {
                       placeholder="Your email"
                       required
                     />
+                    {errors.email && (
+                      <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
+                    )}
                   </div>
                 </div>
                 <div>
@@ -186,6 +193,9 @@ export default function Contact() {
                     placeholder="Message subject"
                     required
                   />
+                  {errors.subject && (
+                    <p className="mt-1 text-sm text-red-500">{errors.subject.message}</p>
+                  )}
                 </div>
                 <div>
                   <label htmlFor="message" className="block text-[#DFB87A] mb-2">
@@ -202,6 +212,9 @@ export default function Contact() {
                     placeholder="Your message"
                     required
                   />
+                  {errors.message && (
+                    <p className="mt-1 text-sm text-red-500">{errors.message.message}</p>
+                  )}
                 </div>
                 <div className="text-center">
                   <button
