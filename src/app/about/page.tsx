@@ -217,7 +217,8 @@ export default function About() {
                 role: "INSTRUMENTAL INSTRUCTOR",
                 bio: "Expert in multiple traditional instruments with a passion for teaching young musicians.",
                 image: "/Mgsv photos/3e2dcedb-0315-4065-873c-10fed4345d36.jpg",
-                objectPosition: "95% center"
+                objectPosition: "160% center",
+                scale: 2.7
               },
               {
                 name: "Gurnoor Singh",
@@ -246,7 +247,10 @@ export default function About() {
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                   sizes="(max-width: 768px) 100vw, 33vw"
                   loading={index === 0 ? "eager" : "lazy"}
-                  style={{ objectPosition: member.objectPosition || "center center" }}
+                  style={{ 
+                    objectPosition: member.objectPosition || "center center",
+                    transform: `scale(${member.scale || 1})`
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 
