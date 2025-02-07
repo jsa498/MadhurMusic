@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://mgsvidyala.com",
+    url: "https://mgsvidyala.ca",
     title: "Madhur Gurmat Sangeet Vidyala",
     description: "Premier institution for traditional Indian classical music education",
     siteName: "Madhur Gurmat Sangeet Vidyala",
