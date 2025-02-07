@@ -202,21 +202,30 @@ export default function Classes() {
 
       {/* Classes Section */}
       <motion.section 
-        variants={containerVariants}
+        variants={{
+          hidden: { opacity: 0 },
+          visible: { opacity: 1 }
+        }}
         initial="hidden"
-        animate="visible"
+        whileInView="visible"
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, type: "tween" }}
         className="relative py-20"
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black via-[#1A1A1A]/50 to-black" />
         <div className="container relative mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {classes.map((classItem) => (
+            {classes.map((classItem, index) => (
               <motion.div
                 key={classItem.title}
-                variants={itemVariants}
-                initial="hidden"
-                whileInView="visible"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
                 viewport={{ once: true, margin: "-50px" }}
+                transition={{ 
+                  duration: 0.5,
+                  delay: index * 0.1,
+                  type: "tween"
+                }}
                 className="bg-[#1A1A1A]/80 backdrop-blur-sm rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300 group"
               >
                 <div className="relative h-56 overflow-hidden">
@@ -224,8 +233,8 @@ export default function Classes() {
                     src={classItem.image}
                     alt={classItem.title}
                     fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    loading="eager"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading={index === 0 ? "eager" : "lazy"}
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-[#1A1A1A]/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />

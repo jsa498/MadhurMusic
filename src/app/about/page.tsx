@@ -21,10 +21,10 @@ export default function About() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.3 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, type: "tween" }}
               className="bg-[#1A1A1A]/90 backdrop-blur-xl rounded-[2.5rem] p-12 border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300 shadow-2xl"
             >
               <h2 className="text-5xl font-bold mb-8 bg-gradient-to-r from-[#DFB87A] to-[#C6A355] bg-clip-text text-transparent">Our Mission</h2>
@@ -39,17 +39,17 @@ export default function About() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.3 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, type: "tween" }}
               className="relative h-[400px] rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300 group shadow-2xl"
             >
               <Image
                 src="/Mgsv photos/mission.jpeg"
                 alt="Our Mission"
                 fill
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
                 loading="eager"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
@@ -260,9 +260,10 @@ export default function About() {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.5, type: "tween" }}
             className="text-4xl font-bold text-center mb-16 text-white"
           >
             Our Core Values
@@ -285,14 +286,13 @@ export default function About() {
             ].map((value, index) => (
               <motion.div
                 key={value.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ 
                   duration: 0.5,
-                  delay: index * 0.15,
-                  type: "tween",
-                  ease: "easeOut"
+                  delay: index * 0.1,
+                  type: "tween"
                 }}
                 className="bg-[#1A1A1A] rounded-[2rem] p-8 border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300"
               >
