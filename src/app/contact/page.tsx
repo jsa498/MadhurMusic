@@ -71,46 +71,44 @@ export default function Contact() {
             className="bg-[#1A1A1A] rounded-2xl p-8 border border-[#333333]"
           >
             <h2 className="text-3xl font-bold mb-8 text-white">Get In Touch</h2>
-            <div className="space-y-6">
-              {[
-                {
-                  icon: <Phone className="w-6 h-6" />,
-                  title: "Phone",
-                  info: "+1 (604) 700-7466",
-                  subInfo: null
-                },
-                {
-                  icon: <Mail className="w-6 h-6" />,
-                  title: "Email",
-                  info: "mgsvidyala@gmail.com",
-                  subInfo: null
-                },
-                {
-                  icon: <MapPin className="w-6 h-6" />,
-                  title: "Location",
-                  info: "123 Music Street",
-                  subInfo: "New York, NY 10001"
-                },
-                {
-                  icon: <Clock className="w-6 h-6" />,
-                  title: "Hours",
-                  info: "Mon-Fri: 9am to 6pm",
-                  subInfo: "Sat-Sun: Closed"
-                }
-              ].map((item) => (
-                <div key={item.title} className="flex items-start space-x-4">
-                  <div className="w-12 h-12 rounded-full bg-[#C6A355] flex items-center justify-center flex-shrink-0">
-                    <div className="text-black">
-                      {item.icon}
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-white">{item.title}</h3>
-                    <p className="text-[#C6A355]">{item.info}</p>
-                    {item.subInfo && <p className="text-gray-400">{item.subInfo}</p>}
-                  </div>
+            <div className="space-y-8">
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 rounded-full bg-[#C6A355]/10 flex items-center justify-center">
+                  <Phone className="w-6 h-6 text-[#C6A355]" />
                 </div>
-              ))}
+                <div>
+                  <h3 className="text-lg font-semibold text-white">Phone</h3>
+                  <p className="text-[#C6A355]">+1 (604) 700-7466</p>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 rounded-full bg-[#C6A355]/10 flex items-center justify-center">
+                  <Mail className="w-6 h-6 text-[#C6A355]" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-white">Email</h3>
+                  <p className="text-[#C6A355]">mgsvidyala@gmail.com</p>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 rounded-full bg-[#C6A355]/10 flex items-center justify-center">
+                  <MapPin className="w-6 h-6 text-[#C6A355]" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-white">Location</h3>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 rounded-full bg-[#C6A355]/10 flex items-center justify-center">
+                  <Clock className="w-6 h-6 text-[#C6A355]" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-white">Hours</h3>
+                </div>
+              </div>
             </div>
           </motion.div>
 

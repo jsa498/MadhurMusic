@@ -33,6 +33,7 @@ export default function HeroSection({
             fill
             className="object-cover scale-100 md:scale-[1.02] object-center md:object-[50%_35%] brightness-75"
             priority
+            sizes="100vw"
           />
           {/* Subtle Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70" />

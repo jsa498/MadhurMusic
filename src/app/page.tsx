@@ -138,6 +138,7 @@ export default function Home() {
                         alt="Gallery Image"
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        sizes="(max-width: 768px) 100vw, 450px"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
@@ -178,7 +179,7 @@ export default function Home() {
                 title: "Gurmat Kirtan",
                 icon: <BookOpen className="w-8 h-8" />,
                 description: "Learn the sacred art of Gurmat Kirtan with proper techniques and understanding of ragas, from basic compositions to advanced kirtans.",
-                image: "/Mgsv photos/IMG_7828.jpg"
+                image: "/Mgsv photos/c3f107bf-f274-43a9-b6e2-ecdc7b3db2f6.jpg"
               },
               {
                 title: "Tabla",
@@ -201,6 +202,7 @@ export default function Home() {
                     alt={item.title}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-[#1A1A1A]/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
                   <div className="absolute bottom-4 left-6 right-6">
@@ -240,6 +242,7 @@ export default function Home() {
                 alt="Madhur Gurmat Sangeet Vidyala"
                 fill
                 className="object-cover brightness-75"
+                sizes="100vw"
               />
             </div>
             {/* Subtle Gradient Overlay */}

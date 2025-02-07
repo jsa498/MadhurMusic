@@ -163,6 +163,7 @@ export default function Classes() {
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                     loading="eager"
+                    sizes="(max-width: 768px) 100vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-[#1A1A1A]/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
                   <div className="absolute bottom-6 left-6 z-10">
@@ -234,6 +235,7 @@ export default function Classes() {
                 alt="Madhur Gurmat Sangeet Vidyala"
                 fill
                 className="object-cover brightness-75"
+                sizes="100vw"
               />
             </div>
             {/* Subtle Gradient Overlay */}
