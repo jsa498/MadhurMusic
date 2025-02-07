@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Music, ChevronRight, Award, BookOpen } from 'lucide-react';
@@ -9,6 +9,12 @@ import { useImageLoad } from '@/hooks/useImageLoad';
 
 export default function Home() {
   const storyImageLoaded = useImageLoad('/Mgsv photos/mission.jpeg');
+  const classImages = [
+    '/Mgsv photos/IMG_5611.JPG',
+    '/Mgsv photos/6.jpg',
+    '/Mgsv photos/IMG_5002.PNG'
+  ];
+  const classImagesLoaded = classImages.map(image => useImageLoad(image));
 
   return (
     <div className="relative min-h-screen bg-black">
@@ -176,67 +182,63 @@ export default function Home() {
                 title: "Tanti Saaj",
                 icon: <Music className="w-8 h-8" />,
                 description: "Master the fundamentals of Indian classical string instruments with comprehensive training in ragas, taal, and traditional techniques.",
-                image: "/Mgsv photos/IMG_5611.JPG",
+                image: classImages[0],
                 objectPosition: "center 70%"
               },
               {
                 title: "Gurmat Kirtan",
                 icon: <BookOpen className="w-8 h-8" />,
                 description: "Learn the sacred art of Gurmat Kirtan with proper techniques and understanding of ragas, from basic compositions to advanced kirtans.",
-                image: "/Mgsv photos/6.jpg",
+                image: classImages[1],
                 objectPosition: "center center"
               },
               {
                 title: "Tabla",
                 icon: <Award className="w-8 h-8" />,
                 description: "Discover the rhythmic world of tabla through systematic training in various taals and traditional compositions.",
-                image: "/Mgsv photos/IMG_5002.PNG",
+                image: classImages[2],
                 objectPosition: "center 70%"
               }
-            ].map((item, index) => {
-              const imageLoaded = useImageLoad(item.image);
-              
-              return (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: imageLoaded ? 1 : 0 }}
-                  transition={{ duration: 0.7, ease: "easeOut", delay: index * 0.1 }}
-                  className="group bg-[#1A1A1A]/80 backdrop-blur-sm rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700"
-                >
-                  <div className="relative h-48 overflow-hidden">
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      style={{ objectPosition: item.objectPosition }}
-                      loading={index === 0 ? "eager" : "lazy"}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-[#1A1A1A]/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
-                    <div className="absolute bottom-4 left-6 right-6">
-                      <div className="inline-flex items-center px-4 py-2 rounded-lg bg-black/50 backdrop-blur-md border border-white/5 shadow-lg">
-                        <div className="w-1 h-6 bg-[#C6A355] mr-3"></div>
-                        <h3 className="text-xl font-medium tracking-wide text-white/95">{item.title}</h3>
-                      </div>
+            ].map((item, index) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: classImagesLoaded[index] ? 1 : 0 }}
+                transition={{ duration: 0.7, ease: "easeOut", delay: index * 0.1 }}
+                className="group bg-[#1A1A1A]/80 backdrop-blur-sm rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700"
+              >
+                <div className="relative h-48 overflow-hidden">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    style={{ objectPosition: item.objectPosition }}
+                    loading={index === 0 ? "eager" : "lazy"}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-[#1A1A1A]/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
+                  <div className="absolute bottom-4 left-6 right-6">
+                    <div className="inline-flex items-center px-4 py-2 rounded-lg bg-black/50 backdrop-blur-md border border-white/5 shadow-lg">
+                      <div className="w-1 h-6 bg-[#C6A355] mr-3"></div>
+                      <h3 className="text-xl font-medium tracking-wide text-white/95">{item.title}</h3>
                     </div>
                   </div>
-                  <div className="p-6">
-                    <p className="text-gray-300 text-lg mb-6">{item.description}</p>
-                    <div className="flex justify-center">
-                      <Link
-                        href="/classes"
-                        className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#DFB87A] to-[#C6A355] hover:from-[#C6A355] hover:to-[#DFB87A] text-black text-lg font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-[#C6A355]/20"
-                      >
-                        View All Classes
-                        <ChevronRight className="w-5 h-5 ml-2" />
-                      </Link>
-                    </div>
+                </div>
+                <div className="p-6">
+                  <p className="text-gray-300 text-lg mb-6">{item.description}</p>
+                  <div className="flex justify-center">
+                    <Link
+                      href="/classes"
+                      className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#DFB87A] to-[#C6A355] hover:from-[#C6A355] hover:to-[#DFB87A] text-black text-lg font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-[#C6A355]/20"
+                    >
+                      View All Classes
+                      <ChevronRight className="w-5 h-5 ml-2" />
+                    </Link>
                   </div>
-                </motion.div>
-              );
-            })}
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
