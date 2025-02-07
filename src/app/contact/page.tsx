@@ -18,8 +18,6 @@ export default function Contact() {
     message: ''
   });
 
-  const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -66,8 +64,7 @@ ${formData.message}`;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setHasAttemptedSubmit(true);
-
+    
     if (!validateForm()) {
       return;
     }
@@ -93,7 +90,8 @@ ${formData.message}`;
           window.location.href = emailUrl;
         }
       }, 500);
-    } catch (error) {
+    } catch (err) {
+      console.error('Failed to open SMS:', err);
       // Fallback to email if SMS fails
       const emailUrl = `mailto:mgsvidyala@gmail.com?subject=New Message from ${formData.fullName}&body=${encodedMessage}`;
       window.location.href = emailUrl;
