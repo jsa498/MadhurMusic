@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
+import HeroSection from '@/components/ui/hero-section';
 
 const contactFormSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -54,6 +55,12 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-black">
+      <HeroSection
+        title="Contact Us"
+        subtitle="Get in touch with us for any questions or inquiries about our music programs"
+        backgroundImage="/hero-bg.jpg"
+      />
+
       <div className="container mx-auto px-4 py-20 lg:py-32">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Contact Information - Left Column */}

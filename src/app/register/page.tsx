@@ -1,258 +1,461 @@
 'use client';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import Image from 'next/image';
-import { ChevronRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronRight, User2, Music, Check, X, Users2, Clock } from 'lucide-react';
+import HeroSection from '@/components/ui/hero-section';
 
-// Form validation schema
-const formSchema = z.object({
-  fullName: z.string().min(2, 'Full name must be at least 2 characters'),
-  email: z.string().email('Please enter a valid email address'),
-  phone: z.string().min(10, 'Please enter a valid phone number'),
-  age: z.string().refine((val) => !isNaN(Number(val)) && Number(val) > 0, {
-    message: 'Please enter a valid age',
-  }),
-  course: z.enum(['beginner', 'intermediate', 'advanced'], {
-    required_error: 'Please select a course level',
-  }),
-  instrument: z.enum(['vocal', 'harmonium', 'tabla', 'other'], {
-    required_error: 'Please select an instrument',
-  }),
-  message: z.string().optional(),
-});
+const steps = [
+  {
+    id: 'personal',
+    name: 'Personal',
+    icon: <User2 className="w-5 h-5" />
+  },
+  {
+    id: 'class',
+    name: 'Class',
+    icon: <Music className="w-5 h-5" />
+  }
+];
 
-type FormData = z.infer<typeof formSchema>;
+const classTypes = [
+  { 
+    id: 'tanti_saaj', 
+    label: 'Tanti Saaj',
+    icon: <Music className="w-6 h-6" />,
+    description: 'Learn traditional string instruments and ragas'
+  },
+  { 
+    id: 'gurmat_kirtan', 
+    label: 'Gurmat Kirtan',
+    icon: <Users2 className="w-6 h-6" />,
+    description: 'Master the art of Gurmat Kirtan and compositions'
+  },
+  { 
+    id: 'tabla', 
+    label: 'Tabla',
+    icon: <Music className="w-6 h-6" />,
+    description: 'Learn rhythmic patterns and tabla techniques'
+  }
+];
+
+const experienceLevels = [
+  { 
+    id: 'beginner', 
+    label: 'Beginner',
+    icon: <Users2 className="w-6 h-6" />,
+    description: 'New to music or just starting your journey'
+  },
+  { 
+    id: 'intermediate', 
+    label: 'Intermediate',
+    icon: <Users2 className="w-6 h-6" />,
+    description: 'Have some experience and looking to improve'
+  },
+  { 
+    id: 'advanced', 
+    label: 'Advanced',
+    icon: <Users2 className="w-6 h-6" />,
+    description: 'Experienced musician seeking to master the art'
+  }
+];
 
 export default function Register() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<FormData>({
-    resolver: zodResolver(formSchema),
+  const [currentStep, setCurrentStep] = useState('personal');
+  const [showExperiencePopup, setShowExperiencePopup] = useState(false);
+  const [showClassTypesPopup, setShowClassTypesPopup] = useState(false);
+  const [formData, setFormData] = useState({
+    parentName: '',
+    childName: '',
+    email: '',
+    phone: '',
+    experience: '',
+    selectedClasses: [] as string[],
+    additionalInfo: ''
   });
 
-  const onSubmit = async (data: FormData) => {
-    setIsSubmitting(true);
-    try {
-      const response = await fetch('/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) throw new Error('Registration failed');
-
-      setSubmitStatus('success');
-      reset();
-    } catch (error) {
-      console.error('Registration error:', error);
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
+  // Add useEffect to control navbar visibility
+  useEffect(() => {
+    const navbar = document.querySelector('nav');
+    if (navbar) {
+      if (showExperiencePopup || showClassTypesPopup) {
+        navbar.style.display = 'none';
+      } else {
+        navbar.style.display = 'block';
+      }
     }
+    
+    // Cleanup function
+    return () => {
+      const navbar = document.querySelector('nav');
+      if (navbar) {
+        navbar.style.display = 'block';
+      }
+    };
+  }, [showExperiencePopup, showClassTypesPopup]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleClassSelection = (classId: string) => {
+    setFormData(prev => {
+      const isSelected = prev.selectedClasses.includes(classId);
+      const updatedClasses = isSelected
+        ? prev.selectedClasses.filter(id => id !== classId)
+        : [...prev.selectedClasses, classId];
+      
+      return {
+        ...prev,
+        selectedClasses: updatedClasses
+      };
+    });
+  };
+
+  const handleExperienceSelection = (level: string) => {
+    setFormData(prev => ({ ...prev, experience: level }));
+    setShowExperiencePopup(false);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Form submitted:', formData);
+  };
+
+  const handleNext = () => {
+    if (currentStep === 'personal') setCurrentStep('class');
+  };
+
+  const handlePrevious = () => {
+    if (currentStep === 'class') setCurrentStep('personal');
+  };
+
+  const Modal = ({ 
+    isOpen, 
+    onClose, 
+    title, 
+    subtitle,
+    children,
+    showDoneButton,
+    onDone
+  }: { 
+    isOpen: boolean; 
+    onClose: () => void; 
+    title: string;
+    subtitle: string;
+    children: React.ReactNode;
+    showDoneButton?: boolean;
+    onDone?: () => void;
+  }) => {
+    return (
+      <div className={`fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+        <div className={`relative w-full max-w-lg bg-[#1A1A1A] rounded-[2rem] flex flex-col max-h-[85vh] transition-all duration-300 ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          {/* Header */}
+          <div className="p-6 border-b border-[#333333]">
+            <button
+              onClick={onClose}
+              className="absolute right-6 top-6 text-gray-400 hover:text-white transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            <h3 className="text-2xl font-bold text-white mb-2">{title}</h3>
+            <p className="text-gray-400">{subtitle}</p>
+          </div>
+
+          {/* Content with Scroll */}
+          <div className="flex-1 overflow-y-auto p-6 min-h-0">
+            {children}
+          </div>
+
+          {/* Footer with Done Button */}
+          {showDoneButton && (
+            <div className="p-6 border-t border-[#333333]">
+              <button
+                type="button"
+                onClick={onDone}
+                className="w-full inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-[#DFB87A] to-[#C6A355] hover:from-[#C6A355] hover:to-[#DFB87A] text-black font-semibold rounded-full transition-all duration-300"
+              >
+                Done
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  const handleClassSelectionDone = () => {
+    setShowClassTypesPopup(false);
+  };
+
+  const getSelectedClassesDisplay = () => {
+    return formData.selectedClasses
+      .map(id => classTypes.find(type => type.id === id)?.label)
+      .filter(Boolean)
+      .join(', ');
   };
 
   return (
     <div className="min-h-screen bg-black">
-      {/* Hero Section */}
-      <section className="relative h-[50vh] min-h-[500px]">
-        <div className="absolute inset-0">
-          <Image
-            src="/hero-bg.jpg"
-            alt="Traditional Indian Music"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-black/60" />
-        </div>
-        
-        <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black" />
-        
-        <div className="relative h-full flex items-center">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="max-w-3xl mx-auto text-center"
-            >
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
-                Register for Classes
-              </h1>
-              <p className="text-xl text-gray-300">
-                Begin your musical journey with us today
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      <div className={`transition-opacity duration-300 ${(showExperiencePopup || showClassTypesPopup) ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+        <HeroSection
+          title="Start Your Journey"
+          subtitle="Register for classes and embark on your musical journey with us"
+          backgroundImage="/hero-bg.jpg"
+        />
+      </div>
 
-      {/* Registration Form */}
-      <section className="py-20 -mt-20">
+      <section className="py-20">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-2xl mx-auto bg-[#1A1A1A] rounded-[2.5rem] p-10 border border-[#333333]"
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-3xl mx-auto"
           >
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-              {/* Full Name */}
-              <div>
-                <label htmlFor="fullName" className="block text-gray-400 mb-2">
-                  Full Name *
-                </label>
-                <input
-                  {...register('fullName')}
-                  type="text"
-                  className="w-full px-6 py-4 rounded-full bg-[#0D0D0D] border border-[#333333] text-white placeholder-gray-600 focus:outline-none focus:border-[#C6A355] transition-colors"
-                  placeholder="Enter your full name"
-                />
-                {errors.fullName && (
-                  <p className="mt-2 text-sm text-red-500 pl-6">{errors.fullName.message}</p>
+            {/* Navigation Tabs */}
+            <div className={`flex justify-center mb-12 transition-opacity duration-300 ${(showExperiencePopup || showClassTypesPopup) ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+              <div className="inline-flex rounded-full bg-[#1A1A1A]/80 backdrop-blur-xl p-1.5 border border-[#333333]">
+                {steps.map((step) => (
+                  <button
+                    key={step.id}
+                    onClick={() => setCurrentStep(step.id)}
+                    className={`flex items-center px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                      currentStep === step.id
+                        ? 'bg-[#C6A355] text-black'
+                        : 'text-gray-400 hover:text-white'
+                    }`}
+                  >
+                    <span className="mr-2">{step.icon}</span>
+                    {step.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Form Container */}
+            <div className={`bg-[#1A1A1A]/80 backdrop-blur-xl rounded-[2rem] p-8 md:p-12 border border-[#333333] transition-opacity duration-300 ${(showExperiencePopup || showClassTypesPopup) ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+              <h2 className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-[#DFB87A] to-[#C6A355] bg-clip-text text-transparent">
+                Register for Classes
+              </h2>
+
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Personal Information Step */}
+                {currentStep === 'personal' && (
+                  <div className="space-y-6">
+                    <div>
+                      <label className="block text-gray-300 mb-2">Parent's Name *</label>
+                      <input
+                        type="text"
+                        name="parentName"
+                        value={formData.parentName}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-3 rounded-xl bg-black/50 border border-[#333333] text-white focus:border-[#C6A355] focus:ring-1 focus:ring-[#C6A355] transition-all duration-300"
+                        placeholder="Enter parent's name"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-300 mb-2">Child's Name *</label>
+                      <input
+                        type="text"
+                        name="childName"
+                        value={formData.childName}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-3 rounded-xl bg-black/50 border border-[#333333] text-white focus:border-[#C6A355] focus:ring-1 focus:ring-[#C6A355] transition-all duration-300"
+                        placeholder="Enter child's name"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-300 mb-2">Email</label>
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 rounded-xl bg-black/50 border border-[#333333] text-white focus:border-[#C6A355] focus:ring-1 focus:ring-[#C6A355] transition-all duration-300"
+                        placeholder="Enter email (optional)"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-300 mb-2">Phone Number *</label>
+                      <input
+                        type="tel"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-3 rounded-xl bg-black/50 border border-[#333333] text-white focus:border-[#C6A355] focus:ring-1 focus:ring-[#C6A355] transition-all duration-300"
+                        placeholder="Enter phone number"
+                      />
+                    </div>
+                  </div>
                 )}
-              </div>
 
-              {/* Email */}
-              <div>
-                <label htmlFor="email" className="block text-gray-400 mb-2">
-                  Email *
-                </label>
-                <input
-                  {...register('email')}
-                  type="email"
-                  className="w-full px-6 py-4 rounded-full bg-[#0D0D0D] border border-[#333333] text-white placeholder-gray-600 focus:outline-none focus:border-[#C6A355] transition-colors"
-                  placeholder="Enter your email"
-                />
-                {errors.email && (
-                  <p className="mt-2 text-sm text-red-500 pl-6">{errors.email.message}</p>
+                {/* Class Preferences Step */}
+                {currentStep === 'class' && (
+                  <div className="space-y-6">
+                    <div className="relative">
+                      <label className="block text-gray-300 mb-2">Your Experience Level *</label>
+                      <button
+                        type="button"
+                        onClick={() => setShowExperiencePopup(true)}
+                        className="w-full px-4 py-3 rounded-xl bg-black/50 border border-[#333333] text-left text-white focus:border-[#C6A355] focus:ring-1 focus:ring-[#C6A355] transition-all duration-300"
+                      >
+                        {formData.experience || 'Select your experience level'}
+                      </button>
+                    </div>
+
+                    <div>
+                      <label className="block text-gray-300 mb-2">Class Types *</label>
+                      <div className="relative">
+                        <button
+                          type="button"
+                          onClick={() => setShowClassTypesPopup(true)}
+                          className="w-full px-4 py-3 rounded-xl bg-black/50 border border-[#333333] text-left text-white focus:border-[#C6A355] focus:ring-1 focus:ring-[#C6A355] transition-all duration-300"
+                        >
+                          {formData.selectedClasses.length > 0
+                            ? getSelectedClassesDisplay()
+                            : 'Select class types'}
+                        </button>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-gray-300 mb-2">Additional Information</label>
+                      <textarea
+                        name="additionalInfo"
+                        value={formData.additionalInfo}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 rounded-xl bg-black/50 border border-[#333333] text-white focus:border-[#C6A355] focus:ring-1 focus:ring-[#C6A355] transition-all duration-300 min-h-[120px]"
+                        placeholder="Any additional information you would like to share"
+                      />
+                    </div>
+                  </div>
                 )}
-              </div>
 
-              {/* Phone */}
-              <div>
-                <label htmlFor="phone" className="block text-gray-400 mb-2">
-                  Phone Number *
-                </label>
-                <input
-                  {...register('phone')}
-                  type="tel"
-                  className="w-full px-6 py-4 rounded-full bg-[#0D0D0D] border border-[#333333] text-white placeholder-gray-600 focus:outline-none focus:border-[#C6A355] transition-colors"
-                  placeholder="Enter your phone number"
-                />
-                {errors.phone && (
-                  <p className="mt-2 text-sm text-red-500 pl-6">{errors.phone.message}</p>
-                )}
-              </div>
-
-              {/* Age */}
-              <div>
-                <label htmlFor="age" className="block text-gray-400 mb-2">
-                  Age *
-                </label>
-                <input
-                  {...register('age')}
-                  type="number"
-                  className="w-full px-6 py-4 rounded-full bg-[#0D0D0D] border border-[#333333] text-white placeholder-gray-600 focus:outline-none focus:border-[#C6A355] transition-colors"
-                  placeholder="Enter your age"
-                />
-                {errors.age && (
-                  <p className="mt-2 text-sm text-red-500 pl-6">{errors.age.message}</p>
-                )}
-              </div>
-
-              {/* Course Level */}
-              <div>
-                <label htmlFor="course" className="block text-gray-400 mb-2">
-                  Course Level *
-                </label>
-                <select
-                  {...register('course')}
-                  className="w-full px-6 py-4 rounded-full bg-[#0D0D0D] border border-[#333333] text-white placeholder-gray-600 focus:outline-none focus:border-[#C6A355] transition-colors appearance-none"
-                >
-                  <option value="" className="bg-[#0D0D0D]">Select course level</option>
-                  <option value="beginner" className="bg-[#0D0D0D]">Beginner</option>
-                  <option value="intermediate" className="bg-[#0D0D0D]">Intermediate</option>
-                  <option value="advanced" className="bg-[#0D0D0D]">Advanced</option>
-                </select>
-                {errors.course && (
-                  <p className="mt-2 text-sm text-red-500 pl-6">{errors.course.message}</p>
-                )}
-              </div>
-
-              {/* Instrument */}
-              <div>
-                <label htmlFor="instrument" className="block text-gray-400 mb-2">
-                  Instrument *
-                </label>
-                <select
-                  {...register('instrument')}
-                  className="w-full px-6 py-4 rounded-full bg-[#0D0D0D] border border-[#333333] text-white placeholder-gray-600 focus:outline-none focus:border-[#C6A355] transition-colors appearance-none"
-                >
-                  <option value="" className="bg-[#0D0D0D]">Select instrument</option>
-                  <option value="vocal" className="bg-[#0D0D0D]">Vocal</option>
-                  <option value="harmonium" className="bg-[#0D0D0D]">Harmonium</option>
-                  <option value="tabla" className="bg-[#0D0D0D]">Tabla</option>
-                  <option value="other" className="bg-[#0D0D0D]">Other</option>
-                </select>
-                {errors.instrument && (
-                  <p className="mt-2 text-sm text-red-500 pl-6">{errors.instrument.message}</p>
-                )}
-              </div>
-
-              {/* Message */}
-              <div>
-                <label htmlFor="message" className="block text-gray-400 mb-2">
-                  Additional Message (Optional)
-                </label>
-                <textarea
-                  {...register('message')}
-                  rows={4}
-                  className="w-full px-6 py-4 rounded-[2rem] bg-[#0D0D0D] border border-[#333333] text-white placeholder-gray-600 focus:outline-none focus:border-[#C6A355] transition-colors resize-none"
-                  placeholder="Any additional information you would like to share"
-                />
-              </div>
-
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full inline-flex items-center justify-center px-8 py-4 bg-[#C6A355] hover:bg-[#DFB87A] text-black text-lg font-semibold rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isSubmitting ? 'Submitting...' : 'Submit Registration'}
-                <ChevronRight className="w-5 h-5 ml-2" />
-              </button>
-
-              {/* Status Messages */}
-              {submitStatus === 'success' && (
-                <div className="mt-6 p-4 bg-green-500/10 border border-green-500/20 rounded-full">
-                  <p className="text-green-500 text-center">
-                    Registration submitted successfully! We will contact you soon.
-                  </p>
+                {/* Navigation Buttons */}
+                <div className="flex justify-between pt-6">
+                  {currentStep !== 'personal' && (
+                    <button
+                      type="button"
+                      onClick={handlePrevious}
+                      className="px-6 py-3 text-[#C6A355] hover:text-[#DFB87A] transition-colors duration-300"
+                    >
+                      Previous
+                    </button>
+                  )}
+                  <div className="ml-auto">
+                    {currentStep === 'personal' ? (
+                      <button
+                        type="button"
+                        onClick={handleNext}
+                        className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-[#DFB87A] to-[#C6A355] hover:from-[#C6A355] hover:to-[#DFB87A] text-black font-semibold rounded-full transition-all duration-300"
+                      >
+                        Next
+                        <ChevronRight className="w-5 h-5 ml-2" />
+                      </button>
+                    ) : (
+                      <button
+                        type="submit"
+                        className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-[#DFB87A] to-[#C6A355] hover:from-[#C6A355] hover:to-[#DFB87A] text-black font-semibold rounded-full transition-all duration-300"
+                      >
+                        Register Now
+                        <ChevronRight className="w-5 h-5 ml-2" />
+                      </button>
+                    )}
+                  </div>
                 </div>
-              )}
-              {submitStatus === 'error' && (
-                <div className="mt-6 p-4 bg-red-500/10 border border-red-500/20 rounded-full">
-                  <p className="text-red-500 text-center">
-                    Something went wrong. Please try again later.
-                  </p>
-                </div>
-              )}
-            </form>
+              </form>
+            </div>
           </motion.div>
         </div>
+
+        {/* Experience Level Modal */}
+        <Modal
+          isOpen={showExperiencePopup}
+          onClose={() => setShowExperiencePopup(false)}
+          title="Select Experience Level"
+          subtitle="Choose your current level of musical experience"
+        >
+          <div className="space-y-3">
+            {experienceLevels.map((level) => (
+              <button
+                key={level.id}
+                onClick={() => handleExperienceSelection(level.label)}
+                className="w-full flex items-start gap-4 p-4 rounded-xl hover:bg-[#333333] transition-colors group"
+              >
+                <div className="w-12 h-12 rounded-xl bg-[#333333] group-hover:bg-[#C6A355] flex items-center justify-center transition-colors">
+                  <div className="text-[#C6A355] group-hover:text-black transition-colors">
+                    {level.icon}
+                  </div>
+                </div>
+                <div className="flex-1 text-left">
+                  <div className="font-medium text-white group-hover:text-[#C6A355] transition-colors">
+                    {level.label}
+                  </div>
+                  <div className="text-sm text-gray-400">
+                    {level.description}
+                  </div>
+                </div>
+                {formData.experience === level.label && (
+                  <Check className="w-5 h-5 text-[#C6A355] mt-1" />
+                )}
+              </button>
+            ))}
+          </div>
+        </Modal>
+
+        {/* Class Types Modal */}
+        <Modal
+          isOpen={showClassTypesPopup}
+          onClose={() => setShowClassTypesPopup(false)}
+          title="Select Class Types"
+          subtitle="Choose one or more classes you're interested in"
+          showDoneButton
+          onDone={() => setShowClassTypesPopup(false)}
+        >
+          <div className="space-y-3">
+            {classTypes.map((classType) => (
+              <div
+                key={classType.id}
+                onClick={() => handleClassSelection(classType.id)}
+                className={`p-4 rounded-xl cursor-pointer transition-all duration-300 ${
+                  formData.selectedClasses.includes(classType.id)
+                    ? 'bg-[#C6A355]/20 border-[#C6A355]'
+                    : 'bg-[#1A1A1A] border-[#333333]'
+                } border hover:border-[#C6A355]/50`}
+              >
+                <div className="flex items-center space-x-4">
+                  <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-colors duration-300 ${
+                    formData.selectedClasses.includes(classType.id)
+                      ? 'bg-[#C6A355]'
+                      : 'bg-[#333333]'
+                  }`}>
+                    <div className={`transition-colors duration-300 ${formData.selectedClasses.includes(classType.id) ? 'text-black' : 'text-[#C6A355]'}`}>
+                      {classType.icon}
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className={`text-lg font-semibold transition-colors duration-300 ${
+                      formData.selectedClasses.includes(classType.id)
+                        ? 'text-[#C6A355]'
+                        : 'text-white'
+                    }`}>
+                      {classType.label}
+                    </h3>
+                    <p className="text-gray-400 text-sm">{classType.description}</p>
+                  </div>
+                  <div className={`flex-shrink-0 transition-opacity duration-300 ${formData.selectedClasses.includes(classType.id) ? 'opacity-100' : 'opacity-0'}`}>
+                    <Check className="w-5 h-5 text-[#C6A355]" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Modal>
       </section>
     </div>
   );
