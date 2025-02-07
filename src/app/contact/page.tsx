@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { Suspense } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -16,6 +17,17 @@ const contactFormSchema = z.object({
 });
 
 type ContactFormData = z.infer<typeof contactFormSchema>;
+
+function LoadingCard() {
+  return (
+    <div className="bg-[#1A1A1A]/80 backdrop-blur-sm rounded-[2.5rem] overflow-hidden border border-[#333333] animate-pulse">
+      <div className="p-8 space-y-4">
+        <div className="h-4 bg-gray-800 rounded w-3/4" />
+        <div className="h-4 bg-gray-800 rounded w-1/2" />
+      </div>
+    </div>
+  );
+}
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -55,154 +67,172 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-black">
-      <HeroSection
-        title="Contact Us"
-        subtitle="Get in touch with us for any questions or inquiries about our music programs"
-        backgroundImage="/hero-bg.jpg"
-      />
+      <Suspense fallback={<div className="h-[60vh] bg-gray-900 animate-pulse" />}>
+        <HeroSection
+          title="Contact Us"
+          subtitle="Get in touch with us for any questions or inquiries about our music programs"
+          backgroundImage="/hero-bg.jpg"
+        />
+      </Suspense>
 
-      <div className="container mx-auto px-4 py-20 lg:py-32">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Contact Information - Left Column */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="bg-[#1A1A1A] rounded-2xl p-8 border border-[#333333]"
-          >
-            <h2 className="text-3xl font-bold mb-8 text-white">Get In Touch</h2>
-            <div className="space-y-8">
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 rounded-full bg-[#C6A355]/10 flex items-center justify-center">
-                  <Phone className="w-6 h-6 text-[#C6A355]" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-white">Phone</h3>
-                  <p className="text-[#C6A355]">+1 (604) 700-7466</p>
-                </div>
-              </div>
-
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 rounded-full bg-[#C6A355]/10 flex items-center justify-center">
-                  <Mail className="w-6 h-6 text-[#C6A355]" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-white">Email</h3>
-                  <p className="text-[#C6A355]">mgsvidyala@gmail.com</p>
-                </div>
-              </div>
-
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 rounded-full bg-[#C6A355]/10 flex items-center justify-center">
-                  <MapPin className="w-6 h-6 text-[#C6A355]" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-white">Location</h3>
-                </div>
-              </div>
-
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 rounded-full bg-[#C6A355]/10 flex items-center justify-center">
-                  <Clock className="w-6 h-6 text-[#C6A355]" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-white">Hours</h3>
-                </div>
-              </div>
+      <AnimatePresence>
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="container mx-auto px-4 py-20 lg:py-32"
+        >
+          <Suspense fallback={
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <LoadingCard />
+              <LoadingCard />
             </div>
-          </motion.div>
-
-          {/* Contact Form - Right Column */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="bg-[#1A1A1A] rounded-2xl p-8 border border-[#333333]"
-          >
-            <h2 className="text-3xl font-bold mb-8 text-white">Send Message</h2>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-gray-400 mb-2">
-                  Full Name *
-                </label>
-                <input
-                  {...register('name')}
-                  type="text"
-                  className="w-full px-4 py-3 rounded-xl bg-[#0D0D0D] border border-[#333333] text-white placeholder-gray-500 focus:outline-none focus:border-[#C6A355] transition-colors"
-                  placeholder="John Doe"
-                />
-                {errors.name && (
-                  <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>
-                )}
-              </div>
-
-              <div>
-                <label htmlFor="email" className="block text-gray-400 mb-2">
-                  Email Address *
-                </label>
-                <input
-                  {...register('email')}
-                  type="email"
-                  className="w-full px-4 py-3 rounded-xl bg-[#0D0D0D] border border-[#333333] text-white placeholder-gray-500 focus:outline-none focus:border-[#C6A355] transition-colors"
-                  placeholder="john@example.com"
-                />
-                {errors.email && (
-                  <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
-                )}
-              </div>
-
-              <div>
-                <label htmlFor="phone" className="block text-gray-400 mb-2">
-                  Phone Number
-                </label>
-                <input
-                  {...register('phone')}
-                  type="tel"
-                  className="w-full px-4 py-3 rounded-xl bg-[#0D0D0D] border border-[#333333] text-white placeholder-gray-500 focus:outline-none focus:border-[#C6A355] transition-colors"
-                  placeholder="(123) 456-7890"
-                />
-                {errors.phone && (
-                  <p className="mt-1 text-sm text-red-500">{errors.phone.message}</p>
-                )}
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-gray-400 mb-2">
-                  Message *
-                </label>
-                <textarea
-                  {...register('message')}
-                  rows={4}
-                  className="w-full px-4 py-3 rounded-xl bg-[#0D0D0D] border border-[#333333] text-white placeholder-gray-500 focus:outline-none focus:border-[#C6A355] transition-colors resize-none"
-                  placeholder="How can we help you?"
-                />
-                {errors.message && (
-                  <p className="mt-1 text-sm text-red-500">{errors.message.message}</p>
-                )}
-              </div>
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full px-8 py-3 bg-[#C6A355] hover:bg-[#DFB87A] text-black font-semibold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+          }>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Contact Information - Left Column */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="bg-[#1A1A1A] rounded-2xl p-8 border border-[#333333]"
               >
-                {isSubmitting ? 'Sending...' : 'Send Message'}
-              </button>
+                <h2 className="text-3xl font-bold mb-8 text-white">Get In Touch</h2>
+                <div className="space-y-8">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 rounded-full bg-[#C6A355]/10 flex items-center justify-center">
+                      <Phone className="w-6 h-6 text-[#C6A355]" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-white">Phone</h3>
+                      <p className="text-[#C6A355]">+1 (604) 700-7466</p>
+                    </div>
+                  </div>
 
-              {submitStatus === 'success' && (
-                <p className="mt-4 text-green-500 text-center">
-                  Message sent successfully! We&apos;ll get back to you soon.
-                </p>
-              )}
-              {submitStatus === 'error' && (
-                <p className="mt-4 text-red-500 text-center">
-                  Something went wrong. Please try again later.
-                </p>
-              )}
-            </form>
-          </motion.div>
-        </div>
-      </div>
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 rounded-full bg-[#C6A355]/10 flex items-center justify-center">
+                      <Mail className="w-6 h-6 text-[#C6A355]" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-white">Email</h3>
+                      <p className="text-[#C6A355]">mgsvidyala@gmail.com</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 rounded-full bg-[#C6A355]/10 flex items-center justify-center">
+                      <MapPin className="w-6 h-6 text-[#C6A355]" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-white">Location</h3>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 rounded-full bg-[#C6A355]/10 flex items-center justify-center">
+                      <Clock className="w-6 h-6 text-[#C6A355]" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-white">Hours</h3>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Contact Form - Right Column */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="bg-[#1A1A1A] rounded-2xl p-8 border border-[#333333]"
+              >
+                <h2 className="text-3xl font-bold mb-8 text-white">Send Message</h2>
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                  <div>
+                    <label htmlFor="name" className="block text-gray-400 mb-2">
+                      Full Name *
+                    </label>
+                    <input
+                      {...register('name')}
+                      type="text"
+                      className="w-full px-4 py-3 rounded-xl bg-[#0D0D0D] border border-[#333333] text-white placeholder-gray-500 focus:outline-none focus:border-[#C6A355] transition-colors"
+                      placeholder="John Doe"
+                    />
+                    {errors.name && (
+                      <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label htmlFor="email" className="block text-gray-400 mb-2">
+                      Email Address *
+                    </label>
+                    <input
+                      {...register('email')}
+                      type="email"
+                      className="w-full px-4 py-3 rounded-xl bg-[#0D0D0D] border border-[#333333] text-white placeholder-gray-500 focus:outline-none focus:border-[#C6A355] transition-colors"
+                      placeholder="john@example.com"
+                    />
+                    {errors.email && (
+                      <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label htmlFor="phone" className="block text-gray-400 mb-2">
+                      Phone Number
+                    </label>
+                    <input
+                      {...register('phone')}
+                      type="tel"
+                      className="w-full px-4 py-3 rounded-xl bg-[#0D0D0D] border border-[#333333] text-white placeholder-gray-500 focus:outline-none focus:border-[#C6A355] transition-colors"
+                      placeholder="(123) 456-7890"
+                    />
+                    {errors.phone && (
+                      <p className="mt-1 text-sm text-red-500">{errors.phone.message}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label htmlFor="message" className="block text-gray-400 mb-2">
+                      Message *
+                    </label>
+                    <textarea
+                      {...register('message')}
+                      rows={4}
+                      className="w-full px-4 py-3 rounded-xl bg-[#0D0D0D] border border-[#333333] text-white placeholder-gray-500 focus:outline-none focus:border-[#C6A355] transition-colors resize-none"
+                      placeholder="How can we help you?"
+                    />
+                    {errors.message && (
+                      <p className="mt-1 text-sm text-red-500">{errors.message.message}</p>
+                    )}
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full px-8 py-3 bg-[#C6A355] hover:bg-[#DFB87A] text-black font-semibold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
+                  </button>
+
+                  {submitStatus === 'success' && (
+                    <p className="mt-4 text-green-500 text-center">
+                      Message sent successfully! We&apos;ll get back to you soon.
+                    </p>
+                  )}
+                  {submitStatus === 'error' && (
+                    <p className="mt-4 text-red-500 text-center">
+                      Something went wrong. Please try again later.
+                    </p>
+                  )}
+                </form>
+              </motion.div>
+            </div>
+          </Suspense>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 } 
