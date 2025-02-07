@@ -40,7 +40,8 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: storyImageLoaded ? 1 : 0, y: storyImageLoaded ? 0 : 20 }}
+              animate={{ opacity: storyImageLoaded ? 1 : 0 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.7, ease: "easeOut" }}
               className="space-y-8"
@@ -81,7 +82,8 @@ export default function Home() {
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: storyImageLoaded ? 1 : 0, y: storyImageLoaded ? 0 : 20 }}
+              animate={{ opacity: storyImageLoaded ? 1 : 0 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
               className="relative h-[400px] rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700 group shadow-2xl"
@@ -224,7 +226,8 @@ export default function Home() {
               <motion.div
                 key={item.title}
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: classImagesLoaded[index] ? 1 : 0, y: classImagesLoaded[index] ? 0 : 20 }}
+                animate={{ opacity: classImagesLoaded[index] ? 1 : 0 }}
+                whileInView={{ y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ 
                   duration: 0.7,
