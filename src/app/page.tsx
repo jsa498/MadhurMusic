@@ -9,12 +9,18 @@ import { useImageLoad } from '@/hooks/useImageLoad';
 
 export default function Home() {
   const storyImageLoaded = useImageLoad('/Mgsv photos/mission.jpeg');
+  
+  const firstClassImageLoaded = useImageLoad('/Mgsv photos/IMG_5611.JPG');
+  const secondClassImageLoaded = useImageLoad('/Mgsv photos/6.jpg');
+  const thirdClassImageLoaded = useImageLoad('/Mgsv photos/IMG_5002.PNG');
+  
+  const classImagesLoaded = [firstClassImageLoaded, secondClassImageLoaded, thirdClassImageLoaded];
+  
   const classImages = [
     '/Mgsv photos/IMG_5611.JPG',
     '/Mgsv photos/6.jpg',
     '/Mgsv photos/IMG_5002.PNG'
   ];
-  const classImagesLoaded = classImages.map(image => useImageLoad(image));
 
   return (
     <div className="relative min-h-screen bg-black">

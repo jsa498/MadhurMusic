@@ -86,8 +86,13 @@ const classes = [
 ];
 
 export default function Classes() {
-  const classImages = classes.map(classItem => classItem.image);
-  const classImagesLoaded = classImages.map(image => useImageLoad(image));
+  // Move hook calls to the top level
+  const firstImageLoaded = useImageLoad('/Mgsv photos/IMG_5041.JPG');
+  const secondImageLoaded = useImageLoad('/Mgsv photos/c3f107bf-f274-43a9-b6e2-ecdc7b3db2f6.jpg');
+  const thirdImageLoaded = useImageLoad('/Mgsv photos/IMG_5001.PNG');
+  
+  // Create an array of loading states that corresponds to the classes array
+  const classImagesLoaded = [firstImageLoaded, secondImageLoaded, thirdImageLoaded];
 
   return (
     <div className="min-h-screen bg-black">
