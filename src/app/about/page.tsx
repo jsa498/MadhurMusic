@@ -114,19 +114,20 @@ export default function About() {
           <div className="md:hidden relative">
             <motion.div
               animate={{
-                x: [0, -200 + '%']
+                x: [0, -100 + '%']
               }}
               transition={{
                 x: {
                   duration: 40,
                   repeat: Infinity,
                   ease: "linear",
-                  repeatType: "loop"
+                  repeatType: "loop",
+                  repeatDelay: 0
                 }
               }}
               className="flex gap-4 w-fit"
             >
-              {[...Array(4)].map((_, setIndex) => (
+              {[...Array(8)].map((_, setIndex) => (
                 <div key={setIndex} className="flex gap-4">
                   {[
                     { 
