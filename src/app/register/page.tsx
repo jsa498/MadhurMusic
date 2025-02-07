@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, User2, Music, Check, X, Users2, Clock } from 'lucide-react';
 import HeroSection from '@/components/ui/hero-section';
+import Image from 'next/image';
 
 const steps = [
   {
@@ -457,6 +458,14 @@ export default function Register() {
           </div>
         </Modal>
       </section>
+
+      <p className="text-gray-300 text-lg mb-8">
+        We&apos;ll get back to you within 24 hours to confirm your registration.
+      </p>
+
+      <p className="text-gray-300 text-lg mb-8">
+        We&apos;re excited to have you join our musical community!
+      </p>
     </div>
   );
 } 

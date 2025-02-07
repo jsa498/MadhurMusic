@@ -254,7 +254,7 @@ export default function Home() {
               Ready to Begin Your Musical Journey?
             </h2>
             <p className="text-xl text-gray-300 mb-10">
-              Join our community of passionate learners and start your journey in Indian classical music
+              Join our community and experience the difference of learning with dedicated professionals.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link 

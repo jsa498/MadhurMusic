@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Clock, Users, BookOpen, Star, Award, ChevronRight } from 'lucide-react';
+import { Clock, Users, BookOpen, Star, Award, ChevronRight, Music } from 'lucide-react';
 import HeroSection from '@/components/ui/hero-section';
 
 const containerVariants = {
@@ -119,7 +119,7 @@ export default function Classes() {
                 title: "Expert Teachers",
                 description: "Learn from experienced masters"
               }
-            ].map((feature, index) => (
+            ].map((feature, _) => (
               <motion.div
                 key={feature.title}
                 variants={itemVariants}
@@ -150,7 +150,7 @@ export default function Classes() {
         <div className="absolute inset-0 bg-gradient-to-b from-black via-[#1A1A1A]/50 to-black" />
         <div className="container relative mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {classes.map((classItem, index) => (
+            {classes.map((classItem, _) => (
               <motion.div
                 key={classItem.title}
                 variants={itemVariants}

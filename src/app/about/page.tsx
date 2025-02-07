@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { GraduationCap, Music, Award, Users, Clock } from 'lucide-react';
+import { Music, Award, Users, Clock } from 'lucide-react';
 import HeroSection from '@/components/ui/hero-section';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
@@ -88,13 +88,13 @@ export default function About() {
                 icon: <Music className="w-8 h-8" />,
                 description: "Committed to student success"
               }
-            ].map((stat, index) => (
+            ].map((stat, _) => (
               <motion.div
                 key={stat.label}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.5, delay: _ * 0.1 }}
                 className="bg-[#1A1A1A] rounded-[2rem] p-8 border border-[#333333] text-center hover:border-[#C6A355]/50 transition-all duration-300 group"
               >
                 <div className="w-16 h-16 rounded-full bg-[#C6A355]/10 group-hover:bg-[#C6A355] flex items-center justify-center mx-auto mb-6 transition-all duration-300">
