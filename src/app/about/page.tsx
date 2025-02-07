@@ -217,8 +217,8 @@ export default function About() {
                 role: "INSTRUMENTAL INSTRUCTOR",
                 bio: "Expert in multiple traditional instruments with a passion for teaching young musicians.",
                 image: "/Mgsv photos/3e2dcedb-0315-4065-873c-10fed4345d36.jpg",
-                objectPosition: "160% center",
-                scale: 2.7
+                objectPosition: "140% center",
+                scale: 1.8
               },
               {
                 name: "Gurnoor Singh",
