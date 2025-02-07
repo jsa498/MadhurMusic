@@ -62,6 +62,7 @@ export default function About() {
       {/* Stats Section */}
       <section className="py-20 overflow-hidden">
         <div className="container mx-auto px-4">
+          {/* Desktop Grid */}
           <div className="hidden md:grid md:grid-cols-4 gap-8">
             {[
               { 
@@ -113,11 +114,11 @@ export default function About() {
           <div className="md:hidden relative">
             <motion.div
               animate={{
-                x: [0, -200 + '%'],
+                x: [0, -200 + '%']
               }}
               transition={{
                 x: {
-                  duration: 60,
+                  duration: 40,
                   repeat: Infinity,
                   ease: "linear",
                   repeatType: "loop"
@@ -212,8 +213,13 @@ export default function About() {
                 key={member.name}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ 
+                  duration: 0.5,
+                  delay: index * 0.2,
+                  type: "tween",
+                  ease: "easeOut"
+                }}
                 className="relative h-[400px] rounded-[2.5rem] overflow-hidden group"
               >
                 <Image
@@ -222,6 +228,7 @@ export default function About() {
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                   sizes="(max-width: 768px) 100vw, 33vw"
+                  loading={index === 0 ? "eager" : "lazy"}
                   style={{ objectPosition: member.objectPosition || "center center" }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
@@ -279,8 +286,13 @@ export default function About() {
                 key={value.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ 
+                  duration: 0.5,
+                  delay: index * 0.15,
+                  type: "tween",
+                  ease: "easeOut"
+                }}
                 className="bg-[#1A1A1A] rounded-[2rem] p-8 border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300"
               >
                 <h3 className="text-2xl font-semibold mb-4 text-[#C6A355] text-center">{value.title}</h3>

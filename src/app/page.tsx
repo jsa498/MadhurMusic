@@ -16,6 +16,7 @@ export default function Home() {
         backgroundImage="/hero-bg.jpg"
         buttonText="Start Your Journey"
         buttonLink="/register"
+        priority={true}
       />
 
       {/* About Preview Section */}
@@ -65,6 +66,7 @@ export default function Home() {
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
                 loading="eager"
                 sizes="(max-width: 768px) 100vw, 50vw"
+                priority={true}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
             </motion.div>
@@ -72,14 +74,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Photo Gallery Carousel */}
+      {/* Photo Gallery Section */}
       <section className="relative py-20 overflow-hidden">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.3 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, type: "tween", ease: "easeOut" }}
             className="text-center mb-16"
           >
             <h2 className="text-4xl font-bold bg-gradient-to-r from-[#DFB87A] to-[#C6A355] bg-clip-text text-transparent mb-6">Our Gallery</h2>
@@ -91,11 +93,11 @@ export default function Home() {
           <div className="relative">
             <motion.div
               animate={{
-                x: [0, -200 + '%'],
+                x: [0, -50 + '%']
               }}
               transition={{
                 x: {
-                  duration: 240,
+                  duration: 50,
                   repeat: Infinity,
                   ease: "linear",
                   repeatType: "loop"
@@ -103,7 +105,7 @@ export default function Home() {
               }}
               className="flex gap-6 w-fit"
             >
-              {[...Array(3)].map((_, setIndex) => (
+              {[...Array(2)].map((_, setIndex) => (
                 <div key={setIndex} className="flex gap-6">
                   {[
                     "/Mgsv photos/3.png",
@@ -138,7 +140,8 @@ export default function Home() {
                         alt="Gallery Image"
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-110"
-                        sizes="(max-width: 768px) 100vw, 450px"
+                        sizes="450px"
+                        loading={index < 3 ? "eager" : "lazy"}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>

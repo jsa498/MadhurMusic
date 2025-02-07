@@ -11,6 +11,7 @@ interface HeroProps {
   buttonText?: string;
   buttonLink?: string;
   isHomePage?: boolean;
+  priority?: boolean;
 }
 
 export default function HeroSection({
@@ -20,6 +21,7 @@ export default function HeroSection({
   buttonText,
   buttonLink,
   isHomePage = false,
+  priority = false,
 }: HeroProps) {
   return (
     <section className={`relative ${isHomePage ? 'h-[70vh] md:h-[85vh]' : 'h-[50vh] md:h-[60vh]'} mt-4 md:mt-12`}>
@@ -32,7 +34,7 @@ export default function HeroSection({
             alt="Hero Background"
             fill
             className="object-cover scale-100 md:scale-[1.02] object-center md:object-[50%_35%] brightness-75"
-            priority
+            priority={priority}
             sizes="100vw"
           />
           {/* Subtle Gradient Overlay */}

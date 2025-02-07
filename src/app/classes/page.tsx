@@ -11,8 +11,10 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
-      when: "beforeChildren"
+      staggerChildren: 0.15,
+      delayChildren: 0.2,
+      when: "beforeChildren",
+      type: "tween"
     }
   }
 };
@@ -23,7 +25,9 @@ const itemVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.3
+      duration: 0.5,
+      type: "tween",
+      ease: "easeOut"
     }
   }
 };
@@ -97,7 +101,8 @@ export default function Classes() {
       <motion.section 
         variants={containerVariants}
         initial="hidden"
-        animate="visible"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
         className="relative py-20"
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black via-[#1A1A1A]/50 to-black" />
@@ -143,11 +148,11 @@ export default function Classes() {
           <div className="md:hidden relative overflow-hidden">
             <motion.div
               animate={{
-                x: [0, -800 + '%'],
+                x: [0, -200 + '%']
               }}
               transition={{
                 x: {
-                  duration: 240,
+                  duration: 40,
                   repeat: Infinity,
                   ease: "linear",
                   repeatType: "loop"
@@ -155,7 +160,7 @@ export default function Classes() {
               }}
               className="flex gap-4 w-fit"
             >
-              {[...Array(8)].map((_, setIndex) => (
+              {[...Array(4)].map((_, setIndex) => (
                 <div key={setIndex} className="flex gap-4">
                   {[
                     {
@@ -183,8 +188,8 @@ export default function Classes() {
                           {feature.icon}
                         </div>
                       </div>
-                      <div className="text-3xl font-bold text-white mb-2">{feature.title}</div>
-                      <div className="text-gray-400 text-base font-medium mb-1">{feature.description}</div>
+                      <div className="text-2xl font-bold text-white mb-2">{feature.title}</div>
+                      <div className="text-gray-400 text-sm">{feature.description}</div>
                     </div>
                   ))}
                 </div>
@@ -204,10 +209,13 @@ export default function Classes() {
         <div className="absolute inset-0 bg-gradient-to-b from-black via-[#1A1A1A]/50 to-black" />
         <div className="container relative mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {classes.map((classItem) => (
+            {classes.map((classItem, index) => (
               <motion.div
                 key={classItem.title}
                 variants={itemVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-50px" }}
                 className="bg-[#1A1A1A]/80 backdrop-blur-sm rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300 group"
               >
                 <div className="relative h-56 overflow-hidden">
