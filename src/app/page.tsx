@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Music, GraduationCap, Users, ChevronRight, Award, Clock, BookOpen } from 'lucide-react';
+import { Music, ChevronRight, Award, BookOpen } from 'lucide-react';
 import HeroSection from '@/components/ui/hero-section';
 
 export default function Home() {

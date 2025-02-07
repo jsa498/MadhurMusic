@@ -1,9 +1,9 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Clock, Users, BookOpen, Star, Award, ChevronRight, Music } from 'lucide-react';
+import { Clock, Users, BookOpen, Star, ChevronRight } from 'lucide-react';
 import HeroSection from '@/components/ui/hero-section';
 
 const containerVariants = {
