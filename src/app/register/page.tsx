@@ -241,7 +241,7 @@ export default function Register() {
                 {currentStep === 'personal' && (
                   <div className="space-y-6">
                     <div>
-                      <label className="block text-gray-300 mb-2">Parent's Name *</label>
+                      <label className="block text-gray-300 mb-2">Parent&apos;s Name *</label>
                       <input
                         type="text"
                         name="parentName"
@@ -249,11 +249,11 @@ export default function Register() {
                         onChange={handleInputChange}
                         required
                         className="w-full px-4 py-3 rounded-xl bg-black/50 border border-[#333333] text-white focus:border-[#C6A355] focus:ring-1 focus:ring-[#C6A355] transition-all duration-300"
-                        placeholder="Enter parent's name"
+                        placeholder="Enter parent&apos;s name"
                       />
                     </div>
                     <div>
-                      <label className="block text-gray-300 mb-2">Child's Name *</label>
+                      <label className="block text-gray-300 mb-2">Child&apos;s Name *</label>
                       <input
                         type="text"
                         name="childName"
@@ -261,7 +261,7 @@ export default function Register() {
                         onChange={handleInputChange}
                         required
                         className="w-full px-4 py-3 rounded-xl bg-black/50 border border-[#333333] text-white focus:border-[#C6A355] focus:ring-1 focus:ring-[#C6A355] transition-all duration-300"
-                        placeholder="Enter child's name"
+                        placeholder="Enter child&apos;s name"
                       />
                     </div>
                     <div>
