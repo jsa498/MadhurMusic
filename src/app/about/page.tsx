@@ -24,8 +24,9 @@ export default function About() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: missionImageLoaded ? 1 : 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: missionImageLoaded ? 1 : 0, y: missionImageLoaded ? 0 : 20 }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.7, ease: "easeOut" }}
               className="bg-[#1A1A1A]/90 backdrop-blur-xl rounded-[2.5rem] p-12 border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700 shadow-2xl"
             >
@@ -41,9 +42,10 @@ export default function About() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: missionImageLoaded ? 1 : 0 }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: missionImageLoaded ? 1 : 0, y: missionImageLoaded ? 0 : 20 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
               className="relative h-[400px] rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700 group shadow-2xl"
             >
               <Image
@@ -53,6 +55,7 @@ export default function About() {
                 className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                 loading="eager"
                 sizes="(max-width: 768px) 100vw, 50vw"
+                priority={true}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
             </motion.div>

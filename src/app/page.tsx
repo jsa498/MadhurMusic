@@ -39,8 +39,9 @@ export default function Home() {
         <div className="container relative mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: storyImageLoaded ? 1 : 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: storyImageLoaded ? 1 : 0, y: storyImageLoaded ? 0 : 20 }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.7, ease: "easeOut" }}
               className="space-y-8"
             >
@@ -49,14 +50,26 @@ export default function Home() {
                 With over 20 years of experience, we&apos;ve guided hundreds of students in mastering Indian classical music through authentic teaching methods and dedicated mentorship.
               </p>
               <div className="grid grid-cols-2 gap-6">
-                <div className="bg-[#1A1A1A]/80 backdrop-blur-sm rounded-2xl p-8 border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300 transform hover:scale-105">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+                  className="bg-[#1A1A1A]/80 backdrop-blur-sm rounded-2xl p-8 border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300 transform hover:scale-105"
+                >
                   <div className="text-4xl font-bold text-[#C6A355] mb-3">500+</div>
                   <div className="text-gray-300 text-lg">Students Taught</div>
-                </div>
-                <div className="bg-[#1A1A1A]/80 backdrop-blur-sm rounded-2xl p-8 border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300 transform hover:scale-105">
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
+                  className="bg-[#1A1A1A]/80 backdrop-blur-sm rounded-2xl p-8 border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300 transform hover:scale-105"
+                >
                   <div className="text-4xl font-bold text-[#C6A355] mb-3">20+</div>
                   <div className="text-gray-300 text-lg">Years Experience</div>
-                </div>
+                </motion.div>
               </div>
               <Link 
                 href="/about" 
@@ -67,9 +80,10 @@ export default function Home() {
               </Link>
             </motion.div>
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: storyImageLoaded ? 1 : 0 }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: storyImageLoaded ? 1 : 0, y: storyImageLoaded ? 0 : 20 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
               className="relative h-[400px] rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700 group shadow-2xl"
             >
               <Image
@@ -171,8 +185,9 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-black via-[#1A1A1A]/50 to-black" />
         <div className="container relative mx-auto px-4">
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="text-center mb-16"
           >
@@ -208,9 +223,14 @@ export default function Home() {
             ].map((item, index) => (
               <motion.div
                 key={item.title}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: classImagesLoaded[index] ? 1 : 0 }}
-                transition={{ duration: 0.7, ease: "easeOut", delay: index * 0.1 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: classImagesLoaded[index] ? 1 : 0, y: classImagesLoaded[index] ? 0 : 20 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ 
+                  duration: 0.7,
+                  delay: index * 0.1,
+                  ease: "easeOut"
+                }}
                 className="group bg-[#1A1A1A]/80 backdrop-blur-sm rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700"
               >
                 <div className="relative h-48 overflow-hidden">
@@ -222,6 +242,7 @@ export default function Home() {
                     sizes="(max-width: 768px) 100vw, 33vw"
                     style={{ objectPosition: item.objectPosition }}
                     loading={index === 0 ? "eager" : "lazy"}
+                    priority={index === 0}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-[#1A1A1A]/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
                   <div className="absolute bottom-4 left-6 right-6">

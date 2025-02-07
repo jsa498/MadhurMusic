@@ -210,7 +210,8 @@ export default function Classes() {
       {/* Classes Section */}
       <motion.section 
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.7, ease: "easeOut" }}
         className="relative py-20"
       >
@@ -220,8 +221,9 @@ export default function Classes() {
             {classes.map((classItem, index) => (
               <motion.div
                 key={classItem.title}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: classImagesLoaded[index] ? 1 : 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: classImagesLoaded[index] ? 1 : 0, y: classImagesLoaded[index] ? 0 : 20 }}
+                viewport={{ once: true, margin: "-50px" }}
                 transition={{ 
                   duration: 0.7,
                   delay: index * 0.1,
@@ -237,6 +239,7 @@ export default function Classes() {
                     className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                     loading={index === 0 ? "eager" : "lazy"}
                     sizes="(max-width: 768px) 100vw, 33vw"
+                    priority={index === 0}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-[#1A1A1A]/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
                   <div className="absolute bottom-6 left-6 z-10">
