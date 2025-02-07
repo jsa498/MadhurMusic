@@ -1,7 +1,6 @@
 'use client';
 
-import { Suspense } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Clock, Users, BookOpen, Star, ChevronRight } from 'lucide-react';
@@ -83,230 +82,195 @@ const classes = [
   }
 ];
 
-function LoadingCard() {
-  return (
-    <div className="bg-[#1A1A1A]/80 backdrop-blur-sm rounded-[2.5rem] overflow-hidden border border-[#333333] animate-pulse">
-      <div className="h-56 bg-gray-800" />
-      <div className="p-8 space-y-4">
-        <div className="h-4 bg-gray-800 rounded w-3/4" />
-        <div className="h-4 bg-gray-800 rounded w-1/2" />
-      </div>
-    </div>
-  );
-}
-
-function FeatureCard({ feature, setIndex }: { feature: any; setIndex?: number }) {
-  return (
-    <div
-      key={`${setIndex}-${feature.title}`}
-      className="bg-[#1A1A1A] rounded-[2rem] p-6 border border-[#333333] text-center min-w-[250px]"
-    >
-      <div className="w-14 h-14 rounded-full bg-[#C6A355]/10 flex items-center justify-center mx-auto mb-4">
-        <div className="text-[#C6A355]">
-          {feature.icon}
-        </div>
-      </div>
-      <div className="text-3xl font-bold text-white mb-2">{feature.title}</div>
-      <div className="text-gray-400 text-base font-medium mb-1">{feature.description}</div>
-    </div>
-  );
-}
-
 export default function Classes() {
   return (
     <div className="min-h-screen bg-black">
-      <Suspense fallback={<div className="h-[60vh] bg-gray-900 animate-pulse" />}>
-        <HeroSection
-          title="Our Classes"
-          subtitle="Comprehensive music education programs designed for all skill levels"
-          backgroundImage="/hero-bg.jpg"
-          buttonText="Register Now"
-          buttonLink="/register"
-        />
-      </Suspense>
+      <HeroSection
+        title="Our Classes"
+        subtitle="Comprehensive music education programs designed for all skill levels"
+        backgroundImage="/hero-bg.jpg"
+        buttonText="Register Now"
+        buttonLink="/register"
+      />
 
       {/* Features Section */}
-      <AnimatePresence>
-        <motion.section 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="relative py-20"
-        >
-          <div className="absolute inset-0 bg-gradient-to-b from-black via-[#1A1A1A]/50 to-black" />
-          <div className="container relative mx-auto px-4">
-            {/* Desktop Grid */}
-            <div className="hidden md:grid md:grid-cols-3 gap-8">
-              {[
-                {
-                  icon: <Users className="w-8 h-8" />,
-                  title: "Batch Size",
-                  description: "Personal attention for every student"
-                },
-                {
-                  icon: <Clock className="w-8 h-8" />,
-                  title: "Flexible Schedule",
-                  description: "Classes that fit your timeline"
-                },
-                {
-                  icon: <Star className="w-8 h-8" />,
-                  title: "Expert Teachers",
-                  description: "Learn from experienced masters"
-                }
-              ].map((feature) => (
-                <motion.div
-                  key={feature.title}
-                  variants={itemVariants}
-                  className="bg-gradient-to-b from-[#1A1A1A]/95 to-black/95 backdrop-blur-xl rounded-[2rem] p-10 border border-[#333333] hover:border-[#C6A355] transition-all duration-500 group hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-[#C6A355]/10 flex flex-col items-center text-center"
-                >
-                  <div className="w-20 h-20 rounded-full bg-gradient-to-r from-[#DFB87A] to-[#C6A355] p-[2px] mb-8 group-hover:scale-110 transition-all duration-500">
-                    <div className="w-full h-full rounded-full bg-gradient-to-b from-black to-[#1A1A1A] flex items-center justify-center">
-                      <div className="text-[#C6A355] transform group-hover:scale-110 transition-all duration-500">
-                        {feature.icon}
-                      </div>
+      <motion.section 
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="relative py-20"
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-[#1A1A1A]/50 to-black" />
+        <div className="container relative mx-auto px-4">
+          {/* Desktop Grid */}
+          <div className="hidden md:grid md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: <Users className="w-8 h-8" />,
+                title: "Batch Size",
+                description: "Personal attention for every student"
+              },
+              {
+                icon: <Clock className="w-8 h-8" />,
+                title: "Flexible Schedule",
+                description: "Classes that fit your timeline"
+              },
+              {
+                icon: <Star className="w-8 h-8" />,
+                title: "Expert Teachers",
+                description: "Learn from experienced masters"
+              }
+            ].map((feature) => (
+              <motion.div
+                key={feature.title}
+                variants={itemVariants}
+                className="bg-gradient-to-b from-[#1A1A1A]/95 to-black/95 backdrop-blur-xl rounded-[2rem] p-10 border border-[#333333] hover:border-[#C6A355] transition-all duration-500 group hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-[#C6A355]/10 flex flex-col items-center text-center"
+              >
+                <div className="w-20 h-20 rounded-full bg-gradient-to-r from-[#DFB87A] to-[#C6A355] p-[2px] mb-8 group-hover:scale-110 transition-all duration-500">
+                  <div className="w-full h-full rounded-full bg-gradient-to-b from-black to-[#1A1A1A] flex items-center justify-center">
+                    <div className="text-[#C6A355] transform group-hover:scale-110 transition-all duration-500">
+                      {feature.icon}
                     </div>
                   </div>
-                  <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#DFB87A] to-[#C6A355] mb-4 group-hover:scale-105 transition-all duration-500">{feature.title}</h3>
-                  <p className="text-gray-400 text-lg leading-relaxed group-hover:text-gray-300 transition-colors duration-500">{feature.description}</p>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Mobile Carousel */}
-            <div className="md:hidden relative overflow-hidden">
-              <motion.div
-                initial={{ x: 0 }}
-                animate={{
-                  x: [0, -800 + '%'],
-                }}
-                transition={{
-                  x: {
-                    duration: 240,
-                    repeat: Infinity,
-                    ease: "linear",
-                    repeatType: "loop"
-                  }
-                }}
-                className="flex gap-4 w-fit"
-              >
-                {[...Array(8)].map((_, setIndex) => (
-                  <div key={setIndex} className="flex gap-4">
-                    {[
-                      {
-                        icon: <Users className="w-8 h-8" />,
-                        title: "Batch Size",
-                        description: "Personal attention for every student"
-                      },
-                      {
-                        icon: <Clock className="w-8 h-8" />,
-                        title: "Flexible Schedule",
-                        description: "Classes that fit your timeline"
-                      },
-                      {
-                        icon: <Star className="w-8 h-8" />,
-                        title: "Expert Teachers",
-                        description: "Learn from experienced masters"
-                      }
-                    ].map((feature) => (
-                      <FeatureCard key={`${setIndex}-${feature.title}`} feature={feature} setIndex={setIndex} />
-                    ))}
-                  </div>
-                ))}
+                </div>
+                <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#DFB87A] to-[#C6A355] mb-4 group-hover:scale-105 transition-all duration-500">{feature.title}</h3>
+                <p className="text-gray-400 text-lg leading-relaxed group-hover:text-gray-300 transition-colors duration-500">{feature.description}</p>
               </motion.div>
-            </div>
+            ))}
           </div>
-        </motion.section>
-      </AnimatePresence>
+
+          {/* Mobile Carousel */}
+          <div className="md:hidden relative overflow-hidden">
+            <motion.div
+              animate={{
+                x: [0, -800 + '%'],
+              }}
+              transition={{
+                x: {
+                  duration: 240,
+                  repeat: Infinity,
+                  ease: "linear",
+                  repeatType: "loop"
+                }
+              }}
+              className="flex gap-4 w-fit"
+            >
+              {[...Array(8)].map((_, setIndex) => (
+                <div key={setIndex} className="flex gap-4">
+                  {[
+                    {
+                      icon: <Users className="w-8 h-8" />,
+                      title: "Batch Size",
+                      description: "Personal attention for every student"
+                    },
+                    {
+                      icon: <Clock className="w-8 h-8" />,
+                      title: "Flexible Schedule",
+                      description: "Classes that fit your timeline"
+                    },
+                    {
+                      icon: <Star className="w-8 h-8" />,
+                      title: "Expert Teachers",
+                      description: "Learn from experienced masters"
+                    }
+                  ].map((feature) => (
+                    <div
+                      key={`${setIndex}-${feature.title}`}
+                      className="bg-[#1A1A1A] rounded-[2rem] p-6 border border-[#333333] text-center min-w-[250px]"
+                    >
+                      <div className="w-14 h-14 rounded-full bg-[#C6A355]/10 flex items-center justify-center mx-auto mb-4">
+                        <div className="text-[#C6A355]">
+                          {feature.icon}
+                        </div>
+                      </div>
+                      <div className="text-3xl font-bold text-white mb-2">{feature.title}</div>
+                      <div className="text-gray-400 text-base font-medium mb-1">{feature.description}</div>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </motion.section>
 
       {/* Classes Section */}
-      <AnimatePresence>
-        <motion.section 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="relative py-20"
-        >
-          <div className="absolute inset-0 bg-gradient-to-b from-black via-[#1A1A1A]/50 to-black" />
-          <div className="container relative mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              <Suspense fallback={
-                <>
-                  <LoadingCard />
-                  <LoadingCard />
-                  <LoadingCard />
-                </>
-              }>
-                {classes.map((classItem) => (
-                  <motion.div
-                    key={classItem.title}
-                    variants={itemVariants}
-                    className="bg-[#1A1A1A]/80 backdrop-blur-sm rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300 group"
-                  >
-                    <div className="relative h-56 overflow-hidden">
-                      <Image
-                        src={classItem.image}
-                        alt={classItem.title}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-110"
-                        loading="eager"
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-[#1A1A1A]/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
-                      <div className="absolute bottom-6 left-6 z-10">
-                        <div className="inline-flex items-center px-4 py-2 rounded-lg bg-black/50 backdrop-blur-md border border-white/5 shadow-lg">
-                          <div className="w-1 h-6 bg-[#C6A355] mr-3"></div>
-                          <h3 className="text-xl font-medium tracking-wide text-white/95">{classItem.title}</h3>
-                        </div>
-                      </div>
+      <motion.section 
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="relative py-20"
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-[#1A1A1A]/50 to-black" />
+        <div className="container relative mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {classes.map((classItem) => (
+              <motion.div
+                key={classItem.title}
+                variants={itemVariants}
+                className="bg-[#1A1A1A]/80 backdrop-blur-sm rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300 group"
+              >
+                <div className="relative h-56 overflow-hidden">
+                  <Image
+                    src={classItem.image}
+                    alt={classItem.title}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    loading="eager"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-[#1A1A1A]/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
+                  <div className="absolute bottom-6 left-6 z-10">
+                    <div className="inline-flex items-center px-4 py-2 rounded-lg bg-black/50 backdrop-blur-md border border-white/5 shadow-lg">
+                      <div className="w-1 h-6 bg-[#C6A355] mr-3"></div>
+                      <h3 className="text-xl font-medium tracking-wide text-white/95">{classItem.title}</h3>
                     </div>
+                  </div>
+                </div>
 
-                    <div className="p-8">
-                      <p className="text-gray-300 text-lg mb-8">{classItem.description}</p>
-                      
-                      <div className="flex items-center gap-4 mb-8">
-                        <div className="w-12 h-12 rounded-full bg-[#C6A355]/10 flex items-center justify-center">
-                          <BookOpen className="w-6 h-6 text-[#C6A355]" />
-                        </div>
-                        <div>
-                          <p className="text-sm text-gray-400">Available Schedules</p>
-                          <div className="flex flex-wrap gap-2 mt-2">
-                            {classItem.scheduleOptions.map((schedule) => (
-                              <span
-                                key={schedule}
-                                className="px-3 py-1 bg-[#C6A355]/10 text-[#C6A355] text-sm rounded-full"
-                              >
-                                {schedule}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="space-y-4 mb-8">
-                        {classItem.features.map((feature) => (
-                          <div key={feature} className="flex items-center gap-3">
-                            <div className="w-2 h-2 rounded-full bg-[#C6A355]" />
-                            <span className="text-gray-300 text-lg">{feature}</span>
-                          </div>
+                <div className="p-8">
+                  <p className="text-gray-300 text-lg mb-8">{classItem.description}</p>
+                  
+                  <div className="flex items-center gap-4 mb-8">
+                    <div className="w-12 h-12 rounded-full bg-[#C6A355]/10 flex items-center justify-center">
+                      <BookOpen className="w-6 h-6 text-[#C6A355]" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-400">Available Schedules</p>
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {classItem.scheduleOptions.map((schedule) => (
+                          <span
+                            key={schedule}
+                            className="px-3 py-1 bg-[#C6A355]/10 text-[#C6A355] text-sm rounded-full"
+                          >
+                            {schedule}
+                          </span>
                         ))}
                       </div>
-
-                      <Link
-                        href="/register"
-                        className="block w-full px-8 py-4 bg-gradient-to-r from-[#DFB87A] to-[#C6A355] hover:from-[#C6A355] hover:to-[#DFB87A] text-black font-semibold rounded-full text-lg text-center transition-all duration-300 shadow-lg hover:shadow-[#C6A355]/20"
-                      >
-                        Enroll Now
-                      </Link>
                     </div>
-                  </motion.div>
-                ))}
-              </Suspense>
-            </div>
+                  </div>
+
+                  <div className="space-y-4 mb-8">
+                    {classItem.features.map((feature) => (
+                      <div key={feature} className="flex items-center gap-3">
+                        <div className="w-2 h-2 rounded-full bg-[#C6A355]" />
+                        <span className="text-gray-300 text-lg">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <Link
+                    href="/register"
+                    className="block w-full px-8 py-4 bg-gradient-to-r from-[#DFB87A] to-[#C6A355] hover:from-[#C6A355] hover:to-[#DFB87A] text-black font-semibold rounded-full text-lg text-center transition-all duration-300 shadow-lg hover:shadow-[#C6A355]/20"
+                  >
+                    Enroll Now
+                  </Link>
+                </div>
+              </motion.div>
+            ))}
           </div>
-        </motion.section>
-      </AnimatePresence>
+        </div>
+      </motion.section>
 
       {/* CTA Section */}
       <motion.section 
