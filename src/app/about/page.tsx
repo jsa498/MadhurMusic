@@ -6,8 +6,11 @@ import { Music, Award, Users, Clock } from 'lucide-react';
 import HeroSection from '@/components/ui/hero-section';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
+import { useImageLoad } from '@/hooks/useImageLoad';
 
 export default function About() {
+  const missionImageLoaded = useImageLoad('/Mgsv photos/mission.jpeg');
+
   return (
     <div className="min-h-screen bg-black">
       <HeroSection
@@ -22,8 +25,7 @@ export default function About() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: "-25px" }}
+              animate={{ opacity: missionImageLoaded ? 1 : 0 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
               className="bg-[#1A1A1A]/90 backdrop-blur-xl rounded-[2.5rem] p-12 border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700 shadow-2xl"
             >
@@ -40,8 +42,7 @@ export default function About() {
 
             <motion.div
               initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: "-25px" }}
+              animate={{ opacity: missionImageLoaded ? 1 : 0 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
               className="relative h-[400px] rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700 group shadow-2xl"
             >
@@ -261,8 +262,7 @@ export default function About() {
         <div className="container mx-auto px-4">
           <motion.h2
             initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="text-4xl font-bold text-center mb-16 text-white"
           >
@@ -287,8 +287,7 @@ export default function About() {
               <motion.div
                 key={value.title}
                 initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true, margin: "-25px" }}
+                animate={{ opacity: 1 }}
                 transition={{ 
                   duration: 0.7,
                   delay: index * 0.1,

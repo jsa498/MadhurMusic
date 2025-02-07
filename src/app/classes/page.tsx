@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Clock, Users, BookOpen, Star, ChevronRight } from 'lucide-react';
 import HeroSection from '@/components/ui/hero-section';
+import { useImageLoad } from '@/hooks/useImageLoad';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -200,90 +201,88 @@ export default function Classes() {
 
       {/* Classes Section */}
       <motion.section 
-        variants={{
-          hidden: { opacity: 0 },
-          visible: { opacity: 1 }
-        }}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
         className="relative py-20"
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black via-[#1A1A1A]/50 to-black" />
         <div className="container relative mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {classes.map((classItem, index) => (
-              <motion.div
-                key={classItem.title}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true, margin: "-25px" }}
-                transition={{ 
-                  duration: 0.7,
-                  delay: index * 0.1,
-                  ease: "easeOut"
-                }}
-                className="bg-[#1A1A1A]/80 backdrop-blur-sm rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700 group"
-              >
-                <div className="relative h-56 overflow-hidden">
-                  <Image
-                    src={classItem.image}
-                    alt={classItem.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                    loading={index === 0 ? "eager" : "lazy"}
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-[#1A1A1A]/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
-                  <div className="absolute bottom-6 left-6 z-10">
-                    <div className="inline-flex items-center px-4 py-2 rounded-lg bg-black/50 backdrop-blur-md border border-white/5 shadow-lg">
-                      <div className="w-1 h-6 bg-[#C6A355] mr-3"></div>
-                      <h3 className="text-xl font-medium tracking-wide text-white/95">{classItem.title}</h3>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-8">
-                  <p className="text-gray-300 text-lg mb-8">{classItem.description}</p>
-                  
-                  <div className="flex items-center gap-4 mb-8">
-                    <div className="w-12 h-12 rounded-full bg-[#C6A355]/10 flex items-center justify-center">
-                      <BookOpen className="w-6 h-6 text-[#C6A355]" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-400">Available Schedules</p>
-                      <div className="flex flex-wrap gap-2 mt-2">
-                        {classItem.scheduleOptions.map((schedule) => (
-                          <span
-                            key={schedule}
-                            className="px-3 py-1 bg-[#C6A355]/10 text-[#C6A355] text-sm rounded-full"
-                          >
-                            {schedule}
-                          </span>
-                        ))}
+            {classes.map((classItem, index) => {
+              const imageLoaded = useImageLoad(classItem.image);
+              
+              return (
+                <motion.div
+                  key={classItem.title}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: imageLoaded ? 1 : 0 }}
+                  transition={{ 
+                    duration: 0.7,
+                    delay: index * 0.1,
+                    ease: "easeOut"
+                  }}
+                  className="bg-[#1A1A1A]/80 backdrop-blur-sm rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700 group"
+                >
+                  <div className="relative h-56 overflow-hidden">
+                    <Image
+                      src={classItem.image}
+                      alt={classItem.title}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                      loading={index === 0 ? "eager" : "lazy"}
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-[#1A1A1A]/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
+                    <div className="absolute bottom-6 left-6 z-10">
+                      <div className="inline-flex items-center px-4 py-2 rounded-lg bg-black/50 backdrop-blur-md border border-white/5 shadow-lg">
+                        <div className="w-1 h-6 bg-[#C6A355] mr-3"></div>
+                        <h3 className="text-xl font-medium tracking-wide text-white/95">{classItem.title}</h3>
                       </div>
                     </div>
                   </div>
 
-                  <div className="space-y-4 mb-8">
-                    {classItem.features.map((feature) => (
-                      <div key={feature} className="flex items-center gap-3">
-                        <div className="w-2 h-2 rounded-full bg-[#C6A355]" />
-                        <span className="text-gray-300 text-lg">{feature}</span>
+                  <div className="p-8">
+                    <p className="text-gray-300 text-lg mb-8">{classItem.description}</p>
+                    
+                    <div className="flex items-center gap-4 mb-8">
+                      <div className="w-12 h-12 rounded-full bg-[#C6A355]/10 flex items-center justify-center">
+                        <BookOpen className="w-6 h-6 text-[#C6A355]" />
                       </div>
-                    ))}
-                  </div>
+                      <div>
+                        <p className="text-sm text-gray-400">Available Schedules</p>
+                        <div className="flex flex-wrap gap-2 mt-2">
+                          {classItem.scheduleOptions.map((schedule) => (
+                            <span
+                              key={schedule}
+                              className="px-3 py-1 bg-[#C6A355]/10 text-[#C6A355] text-sm rounded-full"
+                            >
+                              {schedule}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
 
-                  <Link
-                    href="/register"
-                    className="block w-full px-8 py-4 bg-gradient-to-r from-[#DFB87A] to-[#C6A355] hover:from-[#C6A355] hover:to-[#DFB87A] text-black font-semibold rounded-full text-lg text-center transition-all duration-300 shadow-lg hover:shadow-[#C6A355]/20"
-                  >
-                    Enroll Now
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
+                    <div className="space-y-4 mb-8">
+                      {classItem.features.map((feature) => (
+                        <div key={feature} className="flex items-center gap-3">
+                          <div className="w-2 h-2 rounded-full bg-[#C6A355]" />
+                          <span className="text-gray-300 text-lg">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <Link
+                      href="/register"
+                      className="block w-full px-8 py-4 bg-gradient-to-r from-[#DFB87A] to-[#C6A355] hover:from-[#C6A355] hover:to-[#DFB87A] text-black font-semibold rounded-full text-lg text-center transition-all duration-300 shadow-lg hover:shadow-[#C6A355]/20"
+                    >
+                      Enroll Now
+                    </Link>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </motion.section>
