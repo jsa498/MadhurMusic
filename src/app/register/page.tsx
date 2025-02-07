@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, User2, Music, Check, X, Users2 } from 'lucide-react';
 import HeroSection from '@/components/ui/hero-section';
+import emailjs from '@emailjs/browser';
 
 const steps = [
   {
@@ -64,6 +65,16 @@ export default function Register() {
   const [currentStep, setCurrentStep] = useState('personal');
   const [showExperiencePopup, setShowExperiencePopup] = useState(false);
   const [showClassTypesPopup, setShowClassTypesPopup] = useState(false);
+  const [showSuccessNotification, setShowSuccessNotification] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
+  const [errors, setErrors] = useState({
+    parentName: '',
+    childName: '',
+    phone: '',
+    experience: '',
+    selectedClasses: ''
+  });
   const [formData, setFormData] = useState({
     parentName: '',
     childName: '',
@@ -97,6 +108,10 @@ export default function Register() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+    // Clear error when user starts typing
+    if (errors[name as keyof typeof errors]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
+    }
   };
 
   const handleClassSelection = (classId: string) => {
@@ -105,6 +120,11 @@ export default function Register() {
       const updatedClasses = isSelected
         ? prev.selectedClasses.filter(id => id !== classId)
         : [...prev.selectedClasses, classId];
+      
+      // Clear the selectedClasses error when user makes a selection
+      if (errors.selectedClasses) {
+        setErrors(prev => ({ ...prev, selectedClasses: '' }));
+      }
       
       return {
         ...prev,
@@ -115,16 +135,147 @@ export default function Register() {
 
   const handleExperienceSelection = (level: string) => {
     setFormData(prev => ({ ...prev, experience: level }));
+    // Clear the experience error when user makes a selection
+    if (errors.experience) {
+      setErrors(prev => ({ ...prev, experience: '' }));
+    }
     setShowExperiencePopup(false);
+  };
+
+  const validatePersonalStep = () => {
+    const newErrors = {
+      parentName: '',
+      childName: '',
+      phone: '',
+      experience: '',
+      selectedClasses: ''
+    };
+    let isValid = true;
+
+    if (!formData.parentName.trim()) {
+      newErrors.parentName = 'Parent\'s name is required';
+      isValid = false;
+    }
+
+    if (!formData.childName.trim()) {
+      newErrors.childName = 'Child\'s name is required';
+      isValid = false;
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone number is required';
+      isValid = false;
+    }
+
+    if (hasAttemptedSubmit) {
+      setErrors(newErrors);
+    }
+    return isValid;
+  };
+
+  const validateClassStep = () => {
+    const newErrors = {
+      parentName: '',
+      childName: '',
+      phone: '',
+      experience: '',
+      selectedClasses: ''
+    };
+    let isValid = true;
+
+    if (!formData.experience) {
+      newErrors.experience = 'Please select your experience level';
+      isValid = false;
+    }
+
+    if (formData.selectedClasses.length === 0) {
+      newErrors.selectedClasses = 'Please select at least one class';
+      isValid = false;
+    }
+
+    if (hasAttemptedSubmit) {
+      setErrors(newErrors);
+    }
+    return isValid;
+  };
+
+  const handleNext = () => {
+    setHasAttemptedSubmit(true);
+    if (currentStep === 'personal' && validatePersonalStep()) {
+      setCurrentStep('class');
+      setHasAttemptedSubmit(false); // Reset attempt flag when moving to next step
+      setErrors({
+        parentName: '',
+        childName: '',
+        phone: '',
+        experience: '',
+        selectedClasses: ''
+      });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-  };
+    setHasAttemptedSubmit(true);
+    
+    if (!validateClassStep()) {
+      return;
+    }
 
-  const handleNext = () => {
-    if (currentStep === 'personal') setCurrentStep('class');
+    setIsSubmitting(true);
+
+    try {
+      // Initialize EmailJS
+      emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '');
+
+      const templateParams = {
+        parent_name: formData.parentName,
+        child_name: formData.childName,
+        email: formData.email || "No email provided",
+        phone: formData.phone,
+        experience_level: formData.experience,
+        class_types: getSelectedClassesDisplay(),
+        additional_info: formData.additionalInfo || "No additional information provided"
+      };
+
+      console.log('Sending registration with data:', templateParams);
+
+      // Send the email using EmailJS
+      const response = await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
+        templateParams
+      );
+
+      console.log('EmailJS Response:', response);
+
+      if (response.status === 200) {
+        console.log('Registration successful, showing notification');
+        setShowSuccessNotification(true);
+        
+        // Reset form after 5 seconds
+        setTimeout(() => {
+          setFormData({
+            parentName: '',
+            childName: '',
+            email: '',
+            phone: '',
+            experience: '',
+            selectedClasses: [],
+            additionalInfo: ''
+          });
+          setCurrentStep('personal');
+          setShowSuccessNotification(false);
+        }, 5000);
+      } else {
+        throw new Error('Failed to send registration');
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+      alert('Failed to submit registration. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handlePrevious = () => {
@@ -194,6 +345,30 @@ export default function Register() {
 
   return (
     <div className="min-h-screen bg-black">
+      {/* Success Notification */}
+      <AnimatePresence>
+        {showSuccessNotification && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          >
+            <div className="w-full max-w-md bg-[#1A1A1A] rounded-[2rem] p-8 border border-[#C6A355]/20 shadow-2xl">
+              <div className="flex flex-col items-center text-center space-y-6">
+                <div className="w-16 h-16 rounded-full bg-[#C6A355]/20 flex items-center justify-center">
+                  <Check className="w-8 h-8 text-[#DFB87A]" />
+                </div>
+                <h3 className="text-2xl font-bold text-white">Registration Successful!</h3>
+                <p className="text-gray-400 text-lg">
+                  One of our instructors will contact you within 24 hours.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className={`transition-opacity duration-300 ${(showExperiencePopup || showClassTypesPopup) ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
         <HeroSection
           title="Start Your Journey"
@@ -216,7 +391,17 @@ export default function Register() {
                 {steps.map((step) => (
                   <button
                     key={step.id}
-                    onClick={() => setCurrentStep(step.id)}
+                    onClick={() => {
+                      setCurrentStep(step.id);
+                      setHasAttemptedSubmit(false);
+                      setErrors({
+                        parentName: '',
+                        childName: '',
+                        phone: '',
+                        experience: '',
+                        selectedClasses: ''
+                      });
+                    }}
                     className={`flex items-center px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
                       currentStep === step.id
                         ? 'bg-[#C6A355] text-black'
@@ -247,10 +432,12 @@ export default function Register() {
                         name="parentName"
                         value={formData.parentName}
                         onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 rounded-xl bg-black/50 border border-[#333333] text-white focus:border-[#C6A355] focus:ring-1 focus:ring-[#C6A355] transition-all duration-300"
-                        placeholder="Enter parent&apos;s name"
+                        className={`w-full px-4 py-3 rounded-xl bg-black/50 border ${errors.parentName ? 'border-red-500' : 'border-[#333333]'} text-white focus:border-[#C6A355] focus:ring-1 focus:ring-[#C6A355] transition-all duration-300`}
+                        placeholder="Enter parent's name"
                       />
+                      {errors.parentName && (
+                        <p className="mt-2 text-red-500 text-sm">{errors.parentName}</p>
+                      )}
                     </div>
                     <div>
                       <label className="block text-gray-300 mb-2">Child&apos;s Name *</label>
@@ -259,10 +446,12 @@ export default function Register() {
                         name="childName"
                         value={formData.childName}
                         onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 rounded-xl bg-black/50 border border-[#333333] text-white focus:border-[#C6A355] focus:ring-1 focus:ring-[#C6A355] transition-all duration-300"
-                        placeholder="Enter child&apos;s name"
+                        className={`w-full px-4 py-3 rounded-xl bg-black/50 border ${errors.childName ? 'border-red-500' : 'border-[#333333]'} text-white focus:border-[#C6A355] focus:ring-1 focus:ring-[#C6A355] transition-all duration-300`}
+                        placeholder="Enter child's name"
                       />
+                      {errors.childName && (
+                        <p className="mt-2 text-red-500 text-sm">{errors.childName}</p>
+                      )}
                     </div>
                     <div>
                       <label className="block text-gray-300 mb-2">Email</label>
@@ -282,10 +471,12 @@ export default function Register() {
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 rounded-xl bg-black/50 border border-[#333333] text-white focus:border-[#C6A355] focus:ring-1 focus:ring-[#C6A355] transition-all duration-300"
+                        className={`w-full px-4 py-3 rounded-xl bg-black/50 border ${errors.phone ? 'border-red-500' : 'border-[#333333]'} text-white focus:border-[#C6A355] focus:ring-1 focus:ring-[#C6A355] transition-all duration-300`}
                         placeholder="Enter phone number"
                       />
+                      {errors.phone && (
+                        <p className="mt-2 text-red-500 text-sm">{errors.phone}</p>
+                      )}
                     </div>
                   </div>
                 )}
@@ -298,10 +489,13 @@ export default function Register() {
                       <button
                         type="button"
                         onClick={() => setShowExperiencePopup(true)}
-                        className="w-full px-4 py-3 rounded-xl bg-black/50 border border-[#333333] text-left text-white focus:border-[#C6A355] focus:ring-1 focus:ring-[#C6A355] transition-all duration-300"
+                        className={`w-full px-4 py-3 rounded-xl bg-black/50 border ${errors.experience ? 'border-red-500' : 'border-[#333333]'} text-left text-white focus:border-[#C6A355] focus:ring-1 focus:ring-[#C6A355] transition-all duration-300`}
                       >
                         {formData.experience || 'Select your experience level'}
                       </button>
+                      {errors.experience && (
+                        <p className="mt-2 text-red-500 text-sm">{errors.experience}</p>
+                      )}
                     </div>
 
                     <div>
@@ -310,12 +504,15 @@ export default function Register() {
                         <button
                           type="button"
                           onClick={() => setShowClassTypesPopup(true)}
-                          className="w-full px-4 py-3 rounded-xl bg-black/50 border border-[#333333] text-left text-white focus:border-[#C6A355] focus:ring-1 focus:ring-[#C6A355] transition-all duration-300"
+                          className={`w-full px-4 py-3 rounded-xl bg-black/50 border ${errors.selectedClasses ? 'border-red-500' : 'border-[#333333]'} text-left text-white focus:border-[#C6A355] focus:ring-1 focus:ring-[#C6A355] transition-all duration-300`}
                         >
                           {formData.selectedClasses.length > 0
                             ? getSelectedClassesDisplay()
                             : 'Select class types'}
                         </button>
+                        {errors.selectedClasses && (
+                          <p className="mt-2 text-red-500 text-sm">{errors.selectedClasses}</p>
+                        )}
                       </div>
                     </div>
 
@@ -356,9 +553,10 @@ export default function Register() {
                     ) : (
                       <button
                         type="submit"
-                        className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-[#DFB87A] to-[#C6A355] hover:from-[#C6A355] hover:to-[#DFB87A] text-black font-semibold rounded-full transition-all duration-300"
+                        disabled={isSubmitting}
+                        className={`inline-flex items-center px-8 py-3 bg-gradient-to-r from-[#DFB87A] to-[#C6A355] hover:from-[#C6A355] hover:to-[#DFB87A] text-black font-semibold rounded-full transition-all duration-300 ${isSubmitting ? 'opacity-75 cursor-not-allowed' : ''}`}
                       >
-                        Register Now
+                        {isSubmitting ? 'Submitting...' : 'Submit Registration'}
                         <ChevronRight className="w-5 h-5 ml-2" />
                       </button>
                     )}
