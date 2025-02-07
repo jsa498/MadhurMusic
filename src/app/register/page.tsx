@@ -453,14 +453,6 @@ export default function Register() {
           </div>
         </Modal>
       </section>
-
-      <p className="text-gray-400 text-lg mb-8">
-        We&apos;ll get back to you within 24 hours to confirm your registration.
-      </p>
-
-      <p className="text-gray-400 text-lg mb-8">
-        We&apos;re excited to have you join our musical community!
-      </p>
     </div>
   );
 } 

@@ -3,12 +3,13 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/ui/navbar";
 import Link from "next/link";
+import Script from 'next/script';
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Madhur Gurmat Sangeet Vidyala - Traditional Indian Classical Music Academy",
-  description: "Learn traditional Indian classical music at Madhur Gurmat Sangeet Vidyala. Expert instructors, comprehensive courses, and a rich musical heritage.",
+  description: "Learn traditional Indian classical music at Madhur Gurmat Sangeet Vidyala. Expert instructors, comprehensive courses in Gurmat Kirtan, Tanti Saaj, and Tabla. Join our vibrant musical community in Surrey, BC.",
   keywords: [
     "Indian Classical Music",
     "Music Academy",
@@ -17,6 +18,11 @@ export const metadata: Metadata = {
     "Traditional Music",
     "Music Classes",
     "Indian Music School",
+    "Kirtan Classes",
+    "Tabla Classes",
+    "Surrey Music School",
+    "BC Music Academy",
+    "Classical Music Training"
   ],
   authors: [{ name: "Madhur Gurmat Sangeet Vidyala" }],
   openGraph: {
@@ -26,13 +32,38 @@ export const metadata: Metadata = {
     title: "Madhur Gurmat Sangeet Vidyala",
     description: "Premier institution for traditional Indian classical music education",
     siteName: "Madhur Gurmat Sangeet Vidyala",
+    images: [
+      {
+        url: "https://mgsvidyala.ca/logo.png",
+        width: 800,
+        height: 600,
+        alt: "Madhur Gurmat Sangeet Vidyala Logo"
+      }
+    ]
   },
   twitter: {
     card: "summary_large_image",
     title: "Madhur Gurmat Sangeet Vidyala",
     description: "Premier institution for traditional Indian classical music education",
+    images: ["https://mgsvidyala.ca/logo.png"],
   },
-  robots: "index, follow",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'your-google-verification-code', // You'll need to add this
+  },
+  alternates: {
+    canonical: 'https://mgsvidyala.ca'
+  }
 };
 
 export const viewport = {
@@ -48,6 +79,41 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <Script
+          id="json-ld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "MusicSchool",
+              "name": "Madhur Gurmat Sangeet Vidyala",
+              "description": "Traditional Indian classical music academy offering comprehensive courses in Gurmat Kirtan, Tanti Saaj, and Tabla.",
+              "url": "https://mgsvidyala.ca",
+              "telephone": "+1 (604) 700-7466",
+              "email": "mgsvidyala@gmail.com",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Surrey",
+                "addressRegion": "BC",
+                "addressCountry": "CA"
+              },
+              "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": "49.1267",
+                "longitude": "-122.8777"
+              },
+              "sameAs": [
+                "https://www.instagram.com/mgsvidyala"
+              ],
+              "offers": {
+                "@type": "Offer",
+                "category": "Music Lessons"
+              }
+            })
+          }}
+        />
+      </head>
       <body className={inter.className}>
         <Navbar />
         <main className="min-h-screen pt-24 lg:pt-28">{children}</main>
