@@ -31,7 +31,7 @@ export default function Home() {
             >
               <h2 className="text-5xl font-bold bg-gradient-to-r from-[#DFB87A] to-[#C6A355] bg-clip-text text-transparent">Our Story</h2>
               <p className="text-xl text-gray-300 leading-relaxed">
-                With over 20 years of experience, we've guided hundreds of students in mastering Indian classical music through authentic teaching methods and dedicated mentorship.
+                With over 20 years of experience, we&apos;ve guided hundreds of students in mastering Indian classical music through authentic teaching methods and dedicated mentorship.
               </p>
               <div className="grid grid-cols-2 gap-6">
                 <div className="bg-[#1A1A1A]/80 backdrop-blur-sm rounded-2xl p-8 border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300 transform hover:scale-105">

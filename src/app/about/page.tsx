@@ -152,7 +152,7 @@ export default function About() {
                       icon: <Music className="w-8 h-8" />,
                       description: "Committed to student success"
                     }
-                  ].map((stat, index) => (
+                  ].map((stat) => (
                     <div
                       key={`${setIndex}-${stat.label}`}
                       className="bg-[#1A1A1A] rounded-[2rem] p-6 border border-[#333333] text-center min-w-[250px]"

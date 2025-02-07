@@ -186,10 +186,6 @@ export default function Register() {
     );
   };
 
-  const handleClassSelectionDone = () => {
-    setShowClassTypesPopup(false);
-  };
-
   const getSelectedClassesDisplay = () => {
     return formData.selectedClasses
       .map(id => classTypes.find(type => type.id === id)?.label)
