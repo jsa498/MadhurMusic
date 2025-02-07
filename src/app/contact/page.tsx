@@ -1,55 +1,102 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import { Mail, Phone, MapPin, Clock } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 import HeroSection from '@/components/ui/hero-section';
 
-const contactFormSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Please enter a valid email address'),
-  phone: z.string().min(10, 'Please enter a valid phone number'),
-  message: z.string().min(10, 'Message must be at least 10 characters'),
-});
-
-type ContactFormData = z.infer<typeof contactFormSchema>;
-
 export default function Contact() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<ContactFormData>({
-    resolver: zodResolver(contactFormSchema),
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    message: ''
   });
 
-  const onSubmit = async (data: ContactFormData) => {
-    setIsSubmitting(true);
+  const [errors, setErrors] = useState({
+    fullName: '',
+    phone: '',
+    message: ''
+  });
+
+  const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (errors[name as keyof typeof errors]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = {
+      fullName: '',
+      phone: '',
+      message: ''
+    };
+    let isValid = true;
+
+    if (!formData.fullName.trim()) {
+      newErrors.fullName = 'Full name is required';
+      isValid = false;
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone number is required';
+      isValid = false;
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required';
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  const formatMessage = () => {
+    return `Name: ${formData.fullName}
+${formData.email ? `Email: ${formData.email}` : ''}
+Phone: ${formData.phone}
+
+Message:
+${formData.message}`;
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setHasAttemptedSubmit(true);
+
+    if (!validateForm()) {
+      return;
+    }
+
+    // Format phone number to standard format
+    const cleanPhone = '+16047007466';
+    const encodedMessage = encodeURIComponent(formatMessage());
+
+    // Try SMS first for all devices
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
+      // Different formats for iOS and Android
+      const messageUrl = `sms:${cleanPhone}${
+        /iPhone|iPad|iPod/i.test(navigator.userAgent) ? '&' : '?'
+      }body=${encodedMessage}`;
 
-      if (!response.ok) throw new Error('Submission failed');
+      window.location.href = messageUrl;
 
-      setSubmitStatus('success');
-      reset();
+      // If SMS fails (after a short delay), fall back to email
+      setTimeout(() => {
+        const currentUrl = window.location.href;
+        if (currentUrl === messageUrl) {
+          const emailUrl = `mailto:mgsvidyala@gmail.com?subject=New Message from ${formData.fullName}&body=${encodedMessage}`;
+          window.location.href = emailUrl;
+        }
+      }, 500);
     } catch (error) {
-      console.error('Contact form error:', error);
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
+      // Fallback to email if SMS fails
+      const emailUrl = `mailto:mgsvidyala@gmail.com?subject=New Message from ${formData.fullName}&body=${encodedMessage}`;
+      window.location.href = emailUrl;
     }
   };
 
@@ -57,154 +104,164 @@ export default function Contact() {
     <div className="min-h-screen bg-black">
       <HeroSection
         title="Contact Us"
-        subtitle="Get in touch with us for any questions or inquiries about our music programs"
+        subtitle="Get in touch with us for any inquiries about our music classes"
         backgroundImage="/hero-bg.jpg"
       />
 
-      <div className="container mx-auto px-4 py-20 lg:py-32">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Contact Information - Left Column */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="bg-[#1A1A1A] rounded-2xl p-8 border border-[#333333]"
-          >
-            <h2 className="text-3xl font-bold mb-8 text-white">Get In Touch</h2>
-            <div className="space-y-8">
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 rounded-full bg-[#C6A355]/10 flex items-center justify-center">
-                  <Phone className="w-6 h-6 text-[#C6A355]" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-white">Phone</h3>
-                  <p className="text-[#C6A355]">+1 (604) 700-7466</p>
-                </div>
-              </div>
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Contact Information */}
+            <div className="lg:bg-[#1A1A1A]/80 lg:backdrop-blur-xl lg:rounded-[2rem] lg:p-12 lg:border lg:border-[#333333] h-fit">
+              <h2 className="text-4xl font-bold bg-gradient-to-r from-[#DFB87A] to-[#C6A355] bg-clip-text text-transparent mb-8">
+                Get In Touch
+              </h2>
 
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 rounded-full bg-[#C6A355]/10 flex items-center justify-center">
-                  <Mail className="w-6 h-6 text-[#C6A355]" />
+              <div className="space-y-8">
+                {/* Phone */}
+                <div className="group lg:bg-black/30 lg:p-6 lg:rounded-xl lg:border lg:border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 rounded-full bg-[#1A1A1A] lg:bg-[#C6A355]/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <Phone className="w-6 h-6 text-[#C6A355]" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-gray-400 text-sm">Phone</p>
+                      <a 
+                        href="tel:+16047007466" 
+                        className="text-white hover:text-[#DFB87A] transition-colors text-lg font-medium"
+                      >
+                        +1 (604) 700-7466
+                      </a>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-white">Email</h3>
-                  <p className="text-[#C6A355]">mgsvidyala@gmail.com</p>
-                </div>
-              </div>
 
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 rounded-full bg-[#C6A355]/10 flex items-center justify-center">
-                  <MapPin className="w-6 h-6 text-[#C6A355]" />
+                {/* Email */}
+                <div className="group lg:bg-black/30 lg:p-6 lg:rounded-xl lg:border lg:border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 rounded-full bg-[#1A1A1A] lg:bg-[#C6A355]/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <Mail className="w-6 h-6 text-[#C6A355]" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-gray-400 text-sm">Email</p>
+                      <a 
+                        href="mailto:mgsvidyala@gmail.com" 
+                        className="text-white hover:text-[#DFB87A] transition-colors text-lg font-medium break-all"
+                      >
+                        mgsvidyala@gmail.com
+                      </a>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-white">Location</h3>
-                  <p className="text-[#C6A355]">Lower Mainland, BC</p>
-                </div>
-              </div>
 
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 rounded-full bg-[#C6A355]/10 flex items-center justify-center">
-                  <Clock className="w-6 h-6 text-[#C6A355]" />
+                {/* Location */}
+                <div className="group lg:bg-black/30 lg:p-6 lg:rounded-xl lg:border lg:border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 rounded-full bg-[#1A1A1A] lg:bg-[#C6A355]/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <MapPin className="w-6 h-6 text-[#C6A355]" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-gray-400 text-sm">Location</p>
+                      <p className="text-white text-lg font-medium">Lower Mainland, BC</p>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-white">Hours</h3>
-                  <p className="text-[#C6A355]">Flexible Class Timings</p>
+
+                {/* Hours */}
+                <div className="group lg:bg-black/30 lg:p-6 lg:rounded-xl lg:border lg:border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 rounded-full bg-[#1A1A1A] lg:bg-[#C6A355]/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <Clock className="w-6 h-6 text-[#C6A355]" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-gray-400 text-sm">Hours</p>
+                      <p className="text-white text-lg font-medium">Flexible Class Timings</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </motion.div>
 
-          {/* Contact Form - Right Column */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="bg-[#1A1A1A] rounded-2xl p-8 border border-[#333333]"
-          >
-            <h2 className="text-3xl font-bold mb-8 text-white">Send Message</h2>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-gray-400 mb-2">
-                  Full Name *
-                </label>
-                <input
-                  {...register('name')}
-                  type="text"
-                  className="w-full px-4 py-3 rounded-xl bg-[#0D0D0D] border border-[#333333] text-white placeholder-gray-500 focus:outline-none focus:border-[#C6A355] transition-colors"
-                  placeholder="John Doe"
-                />
-                {errors.name && (
-                  <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>
-                )}
-              </div>
+            {/* Contact Form */}
+            <div className="bg-[#1A1A1A]/80 backdrop-blur-xl rounded-[2rem] p-8 md:p-12 border border-[#333333]">
+              <h2 className="text-3xl font-bold mb-8 bg-gradient-to-r from-[#DFB87A] to-[#C6A355] bg-clip-text text-transparent">
+                Send Message
+              </h2>
 
-              <div>
-                <label htmlFor="email" className="block text-gray-400 mb-2">
-                  Email Address *
-                </label>
-                <input
-                  {...register('email')}
-                  type="email"
-                  className="w-full px-4 py-3 rounded-xl bg-[#0D0D0D] border border-[#333333] text-white placeholder-gray-500 focus:outline-none focus:border-[#C6A355] transition-colors"
-                  placeholder="john@example.com"
-                />
-                {errors.email && (
-                  <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
-                )}
-              </div>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label className="block text-gray-300 mb-2">Full Name *</label>
+                  <input
+                    type="text"
+                    name="fullName"
+                    value={formData.fullName}
+                    onChange={handleInputChange}
+                    className={`w-full px-4 py-3 rounded-xl bg-black/50 border ${
+                      errors.fullName ? 'border-red-500' : 'border-[#333333]'
+                    } text-white focus:border-[#C6A355] focus:ring-1 focus:ring-[#C6A355] transition-all duration-300`}
+                    placeholder="Enter your name"
+                  />
+                  {errors.fullName && (
+                    <p className="mt-2 text-red-500 text-sm">{errors.fullName}</p>
+                  )}
+                </div>
 
-              <div>
-                <label htmlFor="phone" className="block text-gray-400 mb-2">
-                  Phone Number
-                </label>
-                <input
-                  {...register('phone')}
-                  type="tel"
-                  className="w-full px-4 py-3 rounded-xl bg-[#0D0D0D] border border-[#333333] text-white placeholder-gray-500 focus:outline-none focus:border-[#C6A355] transition-colors"
-                  placeholder="(123) 456-7890"
-                />
-                {errors.phone && (
-                  <p className="mt-1 text-sm text-red-500">{errors.phone.message}</p>
-                )}
-              </div>
+                <div>
+                  <label className="block text-gray-300 mb-2">Email Address</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 rounded-xl bg-black/50 border border-[#333333] text-white focus:border-[#C6A355] focus:ring-1 focus:ring-[#C6A355] transition-all duration-300"
+                    placeholder="Enter your email (optional)"
+                  />
+                </div>
 
-              <div>
-                <label htmlFor="message" className="block text-gray-400 mb-2">
-                  Message *
-                </label>
-                <textarea
-                  {...register('message')}
-                  rows={4}
-                  className="w-full px-4 py-3 rounded-xl bg-[#0D0D0D] border border-[#333333] text-white placeholder-gray-500 focus:outline-none focus:border-[#C6A355] transition-colors resize-none"
-                  placeholder="How can we help you?"
-                />
-                {errors.message && (
-                  <p className="mt-1 text-sm text-red-500">{errors.message.message}</p>
-                )}
-              </div>
+                <div>
+                  <label className="block text-gray-300 mb-2">Phone Number *</label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className={`w-full px-4 py-3 rounded-xl bg-black/50 border ${
+                      errors.phone ? 'border-red-500' : 'border-[#333333]'
+                    } text-white focus:border-[#C6A355] focus:ring-1 focus:ring-[#C6A355] transition-all duration-300`}
+                    placeholder="Enter your phone number"
+                  />
+                  {errors.phone && (
+                    <p className="mt-2 text-red-500 text-sm">{errors.phone}</p>
+                  )}
+                </div>
 
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full px-8 py-3 bg-[#C6A355] hover:bg-[#DFB87A] text-black font-semibold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isSubmitting ? 'Sending...' : 'Send Message'}
-              </button>
+                <div>
+                  <label className="block text-gray-300 mb-2">Message *</label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    className={`w-full px-4 py-3 rounded-xl bg-black/50 border ${
+                      errors.message ? 'border-red-500' : 'border-[#333333]'
+                    } text-white focus:border-[#C6A355] focus:ring-1 focus:ring-[#C6A355] transition-all duration-300 min-h-[120px]`}
+                    placeholder="How can we help you?"
+                  />
+                  {errors.message && (
+                    <p className="mt-2 text-red-500 text-sm">{errors.message}</p>
+                  )}
+                </div>
 
-              {submitStatus === 'success' && (
-                <p className="mt-4 text-green-500 text-center">
-                  Message sent successfully! We&apos;ll get back to you soon.
-                </p>
-              )}
-              {submitStatus === 'error' && (
-                <p className="mt-4 text-red-500 text-center">
-                  Something went wrong. Please try again later.
-                </p>
-              )}
-            </form>
-          </motion.div>
+                <button
+                  type="submit"
+                  className="w-full inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[#DFB87A] to-[#C6A355] hover:from-[#C6A355] hover:to-[#DFB87A] text-black font-semibold rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-[#C6A355]/20 transform hover:scale-105"
+                >
+                  Send Message
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 } 
