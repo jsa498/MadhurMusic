@@ -15,7 +15,7 @@ export default function About() {
     <div className="min-h-screen bg-black">
       <HeroSection
         title="Our Story"
-        subtitle="Preserving and teaching the rich heritage of Indian classical music for generations"
+        subtitle="Preserving and teaching the rich heritage of Gurmat Sangeet for generations"
         backgroundImage="/hero-bg.jpg"
       />
 
@@ -38,7 +38,7 @@ export default function About() {
                 <h2 className="text-5xl font-bold mb-8 bg-gradient-to-r from-[#DFB87A] to-[#C6A355] bg-clip-text text-transparent">Our Mission</h2>
                 <div className="space-y-6">
                   <p className="text-xl text-gray-300 leading-relaxed">
-                    At Madhur Gurmat Sangeet Vidyala, our mission is to preserve and promote the rich heritage of Indian classical music through authentic teaching methods and dedicated mentorship.
+                    At Madhur Gurmat Sangeet Vidyala, our mission is to preserve and promote the rich heritage of Gurmat Sangeet through authentic teaching methods and dedicated mentorship.
                   </p>
                   <p className="text-xl text-gray-300 leading-relaxed">
                     We strive to create an environment where students can immerse themselves in the traditional art form while developing their musical abilities under expert guidance.
@@ -209,7 +209,7 @@ export default function About() {
               {
                 name: "Manjit Singh",
                 role: "FOUNDER & PRINCIPAL INSTRUCTOR",
-                bio: "A master of traditional Indian classical music with over 20 years of teaching experience.",
+                bio: "A master of Gurmat Sangeet with over 20 years of teaching experience.",
                 image: "/Mgsv photos/IMG_7836.JPG"
               },
               {

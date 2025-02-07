@@ -8,16 +8,16 @@ import Script from 'next/script';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Madhur Gurmat Sangeet Vidyala - Traditional Indian Classical Music Academy",
-  description: "Learn traditional Indian classical music at Madhur Gurmat Sangeet Vidyala. Expert instructors, comprehensive courses in Gurmat Kirtan, Tanti Saaj, and Tabla. Join our vibrant musical community in Surrey, BC.",
+  title: "Madhur Gurmat Sangeet Vidyala - Traditional Gurmat Sangeet Academy",
+  description: "Learn traditional Gurmat Sangeet at Madhur Gurmat Sangeet Vidyala. Expert instructors, comprehensive courses in Gurmat Kirtan, Tanti Saaj, and Tabla. Join our vibrant musical community in Surrey, BC.",
   keywords: [
-    "Indian Classical Music",
+    "Gurmat Sangeet",
     "Music Academy",
     "Gurmat Sangeet",
     "Music Education",
     "Traditional Music",
     "Music Classes",
-    "Indian Music School",
+    "Gurmat Sangeet School",
     "Kirtan Classes",
     "Tabla Classes",
     "Surrey Music School",
@@ -88,7 +88,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "MusicSchool",
               "name": "Madhur Gurmat Sangeet Vidyala",
-              "description": "Traditional Indian classical music academy offering comprehensive courses in Gurmat Kirtan, Tanti Saaj, and Tabla.",
+              "description": "Traditional Gurmat Sangeet academy offering comprehensive courses in Gurmat Kirtan, Tanti Saaj, and Tabla.",
               "url": "https://mgsvidyala.ca",
               "telephone": "+1 (604) 700-7466",
               "email": "mgsvidyala@gmail.com",
@@ -123,7 +123,7 @@ export default function RootLayout({
               {/* Left side - Mission with subtle gradient */}
               <div className="relative group cursor-default">
                 <p className="text-gray-200 text-base relative z-10 transition-colors duration-300 group-hover:text-[#DFB87A]">
-                  Preserving and teaching traditional Indian classical music.
+                  Preserving and teaching traditional Gurmat Sangeet.
                 </p>
                 <div className="absolute inset-0 bg-gradient-to-r from-[#DFB87A]/0 via-[#DFB87A]/0 to-[#DFB87A]/0 group-hover:via-[#DFB87A]/5 transition-all duration-500 rounded-lg -z-10" />
               </div>

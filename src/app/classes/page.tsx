@@ -34,7 +34,7 @@ const itemVariants = {
 const classes = [
   {
     title: 'Tanti Saaj',
-    description: 'Master the fundamentals of Indian classical string instruments with comprehensive training in ragas, taal, and traditional techniques.',
+    description: 'Master the fundamentals of Gurmat Sangeet string instruments with comprehensive training in ragas, taal, and traditional techniques.',
     image: '/Mgsv photos/IMG_5041.JPG',
     features: [
       'Personalized attention',

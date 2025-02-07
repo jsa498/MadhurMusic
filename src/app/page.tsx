@@ -27,7 +27,7 @@ export default function Home() {
       <HeroSection
         isHomePage
         title="MADHUR GURMAT"
-        subtitle="Discover the rich heritage of Indian classical music through expert guidance and traditional teaching methods"
+        subtitle="Discover the rich heritage of Gurmat Sangeet through expert guidance and traditional teaching methods"
         backgroundImage="/hero-bg.jpg"
         buttonText="Start Your Journey"
         buttonLink="/register"
@@ -52,7 +52,7 @@ export default function Home() {
               >
                 <h2 className="text-5xl font-bold bg-gradient-to-r from-[#DFB87A] to-[#C6A355] bg-clip-text text-transparent">Our Story</h2>
                 <p className="text-xl text-gray-300 leading-relaxed">
-                  With over 20 years of experience, we&apos;ve guided hundreds of students in mastering Indian classical music through authentic teaching methods and dedicated mentorship.
+                  With over 20 years of experience, we&apos;ve guided hundreds of students in mastering Gurmat Sangeet through authentic teaching methods and dedicated mentorship.
                 </p>
                 <div className="grid grid-cols-2 gap-6">
                   <motion.div
@@ -214,7 +214,7 @@ export default function Home() {
               {
                 title: "Tanti Saaj",
                 icon: <Music className="w-8 h-8" />,
-                description: "Master the fundamentals of Indian classical string instruments with comprehensive training in ragas, taal, and traditional techniques.",
+                description: "Master the fundamentals of Gurmat Sangeet string instruments with comprehensive training in ragas, taal, and traditional techniques.",
                 image: classImages[0],
                 objectPosition: "center 70%"
               },
