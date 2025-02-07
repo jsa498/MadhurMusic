@@ -25,39 +25,51 @@ export default function About() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: missionImageLoaded ? 1 : 0, y: missionImageLoaded ? 0 : 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.7, ease: "easeOut" }}
-              className="bg-[#1A1A1A]/90 backdrop-blur-xl rounded-[2.5rem] p-12 border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700 shadow-2xl"
             >
-              <h2 className="text-5xl font-bold mb-8 bg-gradient-to-r from-[#DFB87A] to-[#C6A355] bg-clip-text text-transparent">Our Mission</h2>
-              <div className="space-y-6">
-                <p className="text-xl text-gray-300 leading-relaxed">
-                  At Madhur Gurmat Sangeet Vidyala, our mission is to preserve and promote the rich heritage of Indian classical music through authentic teaching methods and dedicated mentorship.
-                </p>
-                <p className="text-xl text-gray-300 leading-relaxed">
-                  We strive to create an environment where students can immerse themselves in the traditional art form while developing their musical abilities under expert guidance.
-                </p>
-              </div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: missionImageLoaded ? 1 : 0 }}
+                transition={{ duration: 0.3 }}
+                className="bg-[#1A1A1A]/90 backdrop-blur-xl rounded-[2.5rem] p-12 border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700 shadow-2xl"
+              >
+                <h2 className="text-5xl font-bold mb-8 bg-gradient-to-r from-[#DFB87A] to-[#C6A355] bg-clip-text text-transparent">Our Mission</h2>
+                <div className="space-y-6">
+                  <p className="text-xl text-gray-300 leading-relaxed">
+                    At Madhur Gurmat Sangeet Vidyala, our mission is to preserve and promote the rich heritage of Indian classical music through authentic teaching methods and dedicated mentorship.
+                  </p>
+                  <p className="text-xl text-gray-300 leading-relaxed">
+                    We strive to create an environment where students can immerse themselves in the traditional art form while developing their musical abilities under expert guidance.
+                  </p>
+                </div>
+              </motion.div>
             </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: missionImageLoaded ? 1 : 0, y: missionImageLoaded ? 0 : 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
-              className="relative h-[400px] rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700 group shadow-2xl"
             >
-              <Image
-                src="/Mgsv photos/mission.jpeg"
-                alt="Our Mission"
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                loading="eager"
-                sizes="(max-width: 768px) 100vw, 50vw"
-                priority={true}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: missionImageLoaded ? 1 : 0 }}
+                transition={{ duration: 0.3 }}
+                className="relative h-[400px] rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700 group shadow-2xl"
+              >
+                <Image
+                  src="/Mgsv photos/mission.jpeg"
+                  alt="Our Mission"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                  loading="eager"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  priority={true}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
+              </motion.div>
             </motion.div>
           </div>
         </div>
