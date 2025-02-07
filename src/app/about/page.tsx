@@ -23,9 +23,9 @@ export default function About() {
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, type: "tween" }}
-              className="bg-[#1A1A1A]/90 backdrop-blur-xl rounded-[2.5rem] p-12 border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300 shadow-2xl"
+              viewport={{ once: true, margin: "-25px" }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+              className="bg-[#1A1A1A]/90 backdrop-blur-xl rounded-[2.5rem] p-12 border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700 shadow-2xl"
             >
               <h2 className="text-5xl font-bold mb-8 bg-gradient-to-r from-[#DFB87A] to-[#C6A355] bg-clip-text text-transparent">Our Mission</h2>
               <div className="space-y-6">
@@ -41,19 +41,19 @@ export default function About() {
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, type: "tween" }}
-              className="relative h-[400px] rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300 group shadow-2xl"
+              viewport={{ once: true, margin: "-25px" }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+              className="relative h-[400px] rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700 group shadow-2xl"
             >
               <Image
                 src="/Mgsv photos/mission.jpeg"
                 alt="Our Mission"
                 fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                 loading="eager"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
             </motion.div>
           </div>
         </div>
@@ -263,7 +263,7 @@ export default function About() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, type: "tween" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
             className="text-4xl font-bold text-center mb-16 text-white"
           >
             Our Core Values
@@ -288,13 +288,13 @@ export default function About() {
                 key={value.title}
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
-                viewport={{ once: true, margin: "-50px" }}
+                viewport={{ once: true, margin: "-25px" }}
                 transition={{ 
-                  duration: 0.5,
+                  duration: 0.7,
                   delay: index * 0.1,
-                  type: "tween"
+                  ease: "easeOut"
                 }}
-                className="bg-[#1A1A1A] rounded-[2rem] p-8 border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300"
+                className="bg-[#1A1A1A] rounded-[2rem] p-8 border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700"
               >
                 <h3 className="text-2xl font-semibold mb-4 text-[#C6A355] text-center">{value.title}</h3>
                 <p className="text-gray-400 text-center text-lg">{value.description}</p>

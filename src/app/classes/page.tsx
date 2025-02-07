@@ -11,22 +11,20 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.2,
+      staggerChildren: 0.2,
+      delayChildren: 0.1,
       when: "beforeChildren",
-      type: "tween"
+      ease: "easeOut"
     }
   }
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    y: 0,
     transition: {
-      duration: 0.5,
-      type: "tween",
+      duration: 0.7,
       ease: "easeOut"
     }
   }
@@ -209,7 +207,7 @@ export default function Classes() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        transition={{ duration: 0.5, type: "tween" }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
         className="relative py-20"
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black via-[#1A1A1A]/50 to-black" />
@@ -220,24 +218,24 @@ export default function Classes() {
                 key={classItem.title}
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
-                viewport={{ once: true, margin: "-50px" }}
+                viewport={{ once: true, margin: "-25px" }}
                 transition={{ 
-                  duration: 0.5,
+                  duration: 0.7,
                   delay: index * 0.1,
-                  type: "tween"
+                  ease: "easeOut"
                 }}
-                className="bg-[#1A1A1A]/80 backdrop-blur-sm rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300 group"
+                className="bg-[#1A1A1A]/80 backdrop-blur-sm rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700 group"
               >
                 <div className="relative h-56 overflow-hidden">
                   <Image
                     src={classItem.image}
                     alt={classItem.title}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                     loading={index === 0 ? "eager" : "lazy"}
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-[#1A1A1A]/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-[#1A1A1A]/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
                   <div className="absolute bottom-6 left-6 z-10">
                     <div className="inline-flex items-center px-4 py-2 rounded-lg bg-black/50 backdrop-blur-md border border-white/5 shadow-lg">
                       <div className="w-1 h-6 bg-[#C6A355] mr-3"></div>

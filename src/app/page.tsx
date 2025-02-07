@@ -26,8 +26,8 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, type: "tween" }}
+              viewport={{ once: true, margin: "-25px" }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
               className="space-y-8"
             >
               <h2 className="text-5xl font-bold bg-gradient-to-r from-[#DFB87A] to-[#C6A355] bg-clip-text text-transparent">Our Story</h2>
@@ -55,20 +55,20 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, type: "tween" }}
-              className="relative h-[400px] rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300 group shadow-2xl"
+              viewport={{ once: true, margin: "-25px" }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+              className="relative h-[400px] rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700 group shadow-2xl"
             >
               <Image
                 src="/Mgsv photos/mission.jpeg"
                 alt="Our Story"
                 fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                 loading="eager"
                 sizes="(max-width: 768px) 100vw, 50vw"
                 priority={true}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
             </motion.div>
           </div>
         </div>
@@ -198,16 +198,16 @@ export default function Home() {
                 key={item.title}
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, type: "tween", delay: index * 0.1 }}
-                className="group bg-[#1A1A1A]/80 backdrop-blur-sm rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300"
+                viewport={{ once: true, margin: "-25px" }}
+                transition={{ duration: 0.7, ease: "easeOut", delay: index * 0.1 }}
+                className="group bg-[#1A1A1A]/80 backdrop-blur-sm rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700"
               >
                 <div className="relative h-48 overflow-hidden">
                   <Image
                     src={item.image}
                     alt={item.title}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                     sizes="(max-width: 768px) 100vw, 33vw"
                     style={{ objectPosition: item.objectPosition }}
                   />
