@@ -273,12 +273,7 @@ export default function Classes() {
       </motion.section>
 
       {/* CTA Section */}
-      <motion.section 
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="relative py-20 mt-4 md:mt-12"
-      >
+      <section className="relative py-20 mt-4 md:mt-12">
         {/* Background Container */}
         <div className="absolute inset-0 mx-4">
           <div className="absolute inset-0 rounded-[3rem] overflow-hidden">
@@ -299,26 +294,22 @@ export default function Classes() {
         
         {/* Content Container */}
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-white px-4">
-          <motion.div
-            variants={itemVariants}
-            className="text-center bg-black/10 backdrop-blur-sm rounded-[2rem] p-8 md:p-10 border border-white/10 max-w-[90%] md:max-w-2xl mx-auto shadow-2xl"
-          >
-            <h2 className="text-4xl font-bold mb-6 text-white">
-              Start Your Musical Journey Today
+          <div className="text-center bg-black/10 backdrop-blur-sm rounded-[2rem] p-6 md:p-10 border border-white/10 max-w-[90%] md:max-w-2xl mx-auto shadow-2xl">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 md:mb-6">
+              Ready to Start Learning?
             </h2>
-            <p className="text-xl text-gray-300 mb-10">
-              Join our community of passionate learners and begin your journey in Indian classical music
+            <p className="text-lg md:text-xl text-gray-300 mb-6 md:mb-10">
+              Join our classes and begin your musical journey with expert guidance.
             </p>
             <Link
               href="/register"
-              className="inline-flex items-center px-10 py-4 bg-gradient-to-r from-[#DFB87A] to-[#C6A355] hover:from-[#C6A355] hover:to-[#DFB87A] text-black text-lg font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-[#C6A355]/20"
+              className="inline-flex items-center px-6 md:px-8 py-2.5 md:py-3 rounded-full bg-gradient-to-r from-[#DFB87A] to-[#C6A355] hover:from-[#C6A355] hover:to-[#DFB87A] text-black font-medium text-base md:text-lg w-full sm:w-auto justify-center"
             >
-              Register Now
-              <ChevronRight className="w-5 h-5 ml-2" />
+              Register Now <ChevronRight className="w-5 h-5 ml-2" />
             </Link>
-          </motion.div>
+          </div>
         </div>
-      </motion.section>
+      </section>
     </div>
   );
 } 

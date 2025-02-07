@@ -98,6 +98,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-white">Location</h3>
+                  <p className="text-[#C6A355]">Lower Mainland, BC</p>
                 </div>
               </div>
 
@@ -107,6 +108,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-white">Hours</h3>
+                  <p className="text-[#C6A355]">Flexible Class Timings</p>
                 </div>
               </div>
             </div>

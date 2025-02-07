@@ -173,19 +173,22 @@ export default function Home() {
                 title: "Tanti Saaj",
                 icon: <Music className="w-8 h-8" />,
                 description: "Master the fundamentals of Indian classical string instruments with comprehensive training in ragas, taal, and traditional techniques.",
-                image: "/Mgsv photos/IMG_5611.JPG"
+                image: "/Mgsv photos/IMG_5611.JPG",
+                objectPosition: "center 70%"
               },
               {
                 title: "Gurmat Kirtan",
                 icon: <BookOpen className="w-8 h-8" />,
                 description: "Learn the sacred art of Gurmat Kirtan with proper techniques and understanding of ragas, from basic compositions to advanced kirtans.",
-                image: "/Mgsv photos/c3f107bf-f274-43a9-b6e2-ecdc7b3db2f6.jpg"
+                image: "/Mgsv photos/6.jpg",
+                objectPosition: "center center"
               },
               {
                 title: "Tabla",
                 icon: <Award className="w-8 h-8" />,
                 description: "Discover the rhythmic world of tabla through systematic training in various taals and traditional compositions.",
-                image: "/Mgsv photos/IMG_5002.PNG"
+                image: "/Mgsv photos/IMG_5002.PNG",
+                objectPosition: "center 70%"
               }
             ].map((item, index) => (
               <motion.div
@@ -203,6 +206,7 @@ export default function Home() {
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                     sizes="(max-width: 768px) 100vw, 33vw"
+                    style={{ objectPosition: item.objectPosition }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-[#1A1A1A]/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
                   <div className="absolute bottom-4 left-6 right-6">
@@ -252,23 +256,23 @@ export default function Home() {
         
         {/* Content Container */}
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-white px-4">
-          <div className="text-center bg-black/10 backdrop-blur-sm rounded-[2rem] p-8 md:p-10 border border-white/10 max-w-[90%] md:max-w-2xl mx-auto shadow-2xl">
-            <h2 className="text-5xl font-bold text-white mb-6">
+          <div className="text-center bg-black/10 backdrop-blur-sm rounded-[2rem] p-6 md:p-10 border border-white/10 max-w-[90%] md:max-w-2xl mx-auto shadow-2xl">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 md:mb-6">
               Ready to Begin Your Musical Journey?
             </h2>
-            <p className="text-xl text-gray-300 mb-10">
+            <p className="text-lg md:text-xl text-gray-300 mb-6 md:mb-10">
               Join our community and experience the difference of learning with dedicated professionals.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link 
                 href="/register" 
-                className="inline-flex items-center px-8 py-3 rounded-full bg-gradient-to-r from-[#DFB87A] to-[#C6A355] hover:from-[#C6A355] hover:to-[#DFB87A] text-black font-medium"
+                className="inline-flex items-center px-6 md:px-8 py-2.5 md:py-3 rounded-full bg-gradient-to-r from-[#DFB87A] to-[#C6A355] hover:from-[#C6A355] hover:to-[#DFB87A] text-black font-medium text-base md:text-lg w-full sm:w-auto justify-center"
               >
                 Register Now <ChevronRight className="w-5 h-5 ml-2" />
               </Link>
               <Link 
                 href="/contact" 
-                className="inline-flex items-center px-8 py-3 rounded-full border border-[#DFB87A] text-[#DFB87A] hover:bg-[#DFB87A]/10 transition-colors"
+                className="inline-flex items-center px-6 md:px-8 py-2.5 md:py-3 rounded-full border border-[#DFB87A] text-[#DFB87A] hover:bg-[#DFB87A]/10 transition-colors text-base md:text-lg w-full sm:w-auto justify-center"
               >
                 Contact Us <ChevronRight className="w-5 h-5 ml-2" />
               </Link>

@@ -198,7 +198,8 @@ export default function About() {
                 name: "Hargun Singh",
                 role: "INSTRUMENTAL INSTRUCTOR",
                 bio: "Expert in multiple traditional instruments with a passion for teaching young musicians.",
-                image: "/Mgsv photos/3e2dcedb-0315-4065-873c-10fed4345d36.jpg"
+                image: "/Mgsv photos/3e2dcedb-0315-4065-873c-10fed4345d36.jpg",
+                objectPosition: "95% center"
               },
               {
                 name: "Gurnoor Singh",
@@ -221,6 +222,7 @@ export default function About() {
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                   sizes="(max-width: 768px) 100vw, 33vw"
+                  style={{ objectPosition: member.objectPosition || "center center" }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 
@@ -311,16 +313,16 @@ export default function About() {
         
         {/* Content Container */}
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-white px-4">
-          <div className="text-center bg-black/10 backdrop-blur-sm rounded-[2rem] p-8 md:p-10 border border-white/10 max-w-[90%] md:max-w-2xl mx-auto shadow-2xl">
-            <h2 className="text-5xl font-bold text-white mb-6">
+          <div className="text-center bg-black/10 backdrop-blur-sm rounded-[2rem] p-6 md:p-10 border border-white/10 max-w-[90%] md:max-w-2xl mx-auto shadow-2xl">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 md:mb-6">
               Start Your Journey With Us
             </h2>
-            <p className="text-xl text-gray-300 mb-10">
+            <p className="text-lg md:text-xl text-gray-300 mb-6 md:mb-10">
               Join our community and experience the difference of learning with dedicated professionals.
             </p>
             <Link
               href="/register"
-              className="inline-flex items-center px-8 py-3 rounded-full bg-gradient-to-r from-[#DFB87A] to-[#C6A355] hover:from-[#C6A355] hover:to-[#DFB87A] text-black font-medium"
+              className="inline-flex items-center px-6 md:px-8 py-2.5 md:py-3 rounded-full bg-gradient-to-r from-[#DFB87A] to-[#C6A355] hover:from-[#C6A355] hover:to-[#DFB87A] text-black font-medium text-base md:text-lg"
             >
               Register Now <ChevronRight className="w-5 h-5 ml-2" />
             </Link>
