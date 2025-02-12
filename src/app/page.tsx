@@ -169,9 +169,9 @@ export default function Home() {
                     "/Mgsv photos/IMG-20190810-WA0020.JPG",
                     "/Mgsv photos/3e2dcedb-0315-4065-873c-10fed4345d36.jpg",
                     "/Mgsv photos/86004a69-c3a3-4b08-8632-fa9f46e3e2b9.jpg"
-                  ].map((image, index) => (
+                  ].map((image, _) => (
                     <div
-                      key={`${setIndex}-${index}`}
+                      key={`${setIndex}-${image}`}
                       className="relative w-[450px] h-[300px] rounded-[2rem] overflow-hidden border border-[#333333] group"
                     >
                       <Image
@@ -180,7 +180,7 @@ export default function Home() {
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-110"
                         sizes="450px"
-                        loading={index < 3 ? "eager" : "lazy"}
+                        loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
