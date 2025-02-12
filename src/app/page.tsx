@@ -10,16 +10,16 @@ import { useImageLoad } from '@/hooks/useImageLoad';
 export default function Home() {
   const storyImageLoaded = useImageLoad('/Mgsv photos/mission.jpeg');
   
-  const firstClassImageLoaded = useImageLoad('/Mgsv photos/IMG_5611.JPG');
-  const secondClassImageLoaded = useImageLoad('/Mgsv photos/6.jpg');
-  const thirdClassImageLoaded = useImageLoad('/Mgsv photos/IMG_5002.PNG');
+  const firstClassImageLoaded = useImageLoad('/Mgsv photos/IMG_7860.JPG');
+  const secondClassImageLoaded = useImageLoad('/Mgsv photos/IMG_5002.PNG');
+  const thirdClassImageLoaded = useImageLoad('/Mgsv photos/IMG_7861.JPG');
   
   const classImagesLoaded = [firstClassImageLoaded, secondClassImageLoaded, thirdClassImageLoaded];
   
   const classImages = [
-    '/Mgsv photos/IMG_5611.JPG',
-    '/Mgsv photos/6.jpg',
-    '/Mgsv photos/IMG_5002.PNG'
+    '/Mgsv photos/IMG_7860.JPG',
+    '/Mgsv photos/IMG_5002.PNG',
+    '/Mgsv photos/IMG_7861.JPG'
   ];
 
   return (
@@ -216,14 +216,14 @@ export default function Home() {
                 icon: <Music className="w-8 h-8" />,
                 description: "Master the fundamentals of Gurmat Sangeet string instruments with comprehensive training in ragas, taal, and traditional techniques.",
                 image: classImages[0],
-                objectPosition: "center 70%"
+                objectPosition: "center 59%"
               },
               {
                 title: "Gurmat Kirtan",
                 icon: <BookOpen className="w-8 h-8" />,
                 description: "Learn the sacred art of Gurmat Kirtan with proper techniques and understanding of ragas, from basic compositions to advanced kirtans.",
                 image: classImages[1],
-                objectPosition: "center center"
+                objectPosition: "center 80%"
               },
               {
                 title: "Tabla",
@@ -284,6 +284,53 @@ export default function Home() {
                 </motion.div>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Instruments Preview Section */}
+      <section className="relative py-16 md:py-24">
+        <div className="container mx-auto px-4">
+          <div className="bg-[#1A1A1A]/80 backdrop-blur-xl rounded-[2rem] p-6 md:p-10 border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#DFB87A] to-[#C6A355] bg-clip-text text-transparent mb-4">
+                  Traditional Instruments
+                </h2>
+                <p className="text-lg text-gray-300 mb-6">
+                  From Tanpuras to Tablas, discover our curated collection of premium Indian classical instruments.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link
+                    href="/instruments"
+                    className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-[#DFB87A] to-[#C6A355] hover:from-[#C6A355] hover:to-[#DFB87A] text-black font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-[#C6A355]/20 transform hover:scale-105"
+                  >
+                    Learn More
+                  </Link>
+                  <Link
+                    href="/register"
+                    className="inline-flex items-center justify-center px-6 py-3 border border-[#C6A355] text-[#C6A355] hover:bg-[#C6A355]/10 rounded-xl transition-all duration-300"
+                  >
+                    Start Learning
+                  </Link>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                {['Tanpura', 'Tabla', 'Dilruba', 'Harmonium'].map((instrument, index) => (
+                  <div
+                    key={instrument}
+                    className="bg-black/30 backdrop-blur-sm rounded-xl p-4 border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300 group"
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-[#C6A355]/10 group-hover:bg-[#C6A355] flex items-center justify-center mb-3 transition-all duration-300">
+                      <Music className="w-5 h-5 text-[#C6A355] group-hover:text-black transition-colors duration-300" />
+                    </div>
+                    <p className="text-white text-sm font-medium group-hover:text-[#DFB87A] transition-colors duration-300">
+                      {instrument}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>

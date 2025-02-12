@@ -33,6 +33,7 @@ export default function Navbar() {
     { path: '/about', name: 'About' },
     { path: '/classes', name: 'Classes' },
     { path: '/register', name: 'Register' },
+    { path: '/instruments', name: 'Instruments' },
     { path: '/contact', name: 'Contact' }
   ];
 
@@ -96,8 +97,16 @@ export default function Navbar() {
             </AnimatePresence>
           </div>
 
-          {/* ====== Desktop CTA Button ====== */}
+          {/* ====== Desktop CTA Buttons ====== */}
           <div className="hidden md:flex items-center space-x-4">
+            <a
+              href="https://madhur-92ff9.web.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-2 text-[#C6A355] border border-[#C6A355] hover:bg-[#C6A355]/10 rounded-full transition-all duration-300 font-medium"
+            >
+              Student Login
+            </a>
             <Link
               href="/register"
               className="px-6 py-2 text-black bg-gradient-to-r from-[#DFB87A] to-[#C6A355] hover:from-[#C6A355] hover:to-[#DFB87A] rounded-full transition-all duration-300 font-semibold shadow-lg hover:shadow-[#C6A355]/20 hover:scale-105"
@@ -159,6 +168,17 @@ export default function Navbar() {
                     </Link>
                   );
                 })}
+                <a
+                  href="https://madhur-92ff9.web.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span className="px-6 py-2 text-lg text-[#C6A355] hover:text-[#DFB87A] font-normal rounded-full border border-[#C6A355] hover:bg-[#C6A355]/10 transition-all duration-300">
+                    Student Login
+                  </span>
+                </a>
                 <Link
                   href="/register"
                   onClick={() => setIsOpen(false)}
