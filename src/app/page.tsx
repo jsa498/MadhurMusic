@@ -169,7 +169,7 @@ export default function Home() {
                     "/Mgsv photos/IMG-20190810-WA0020.JPG",
                     "/Mgsv photos/3e2dcedb-0315-4065-873c-10fed4345d36.jpg",
                     "/Mgsv photos/86004a69-c3a3-4b08-8632-fa9f46e3e2b9.jpg"
-                  ].map((image, _) => (
+                  ].map(image => (
                     <div
                       key={`${setIndex}-${image}`}
                       className="relative w-[450px] h-[300px] rounded-[2rem] overflow-hidden border border-[#333333] group"
@@ -316,7 +316,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                {['Tanpura', 'Tabla', 'Dilruba', 'Harmonium'].map((instrument, index) => (
+                {['Tanpura', 'Tabla', 'Dilruba', 'Harmonium'].map(instrument => (
                   <div
                     key={instrument}
                     className="bg-black/30 backdrop-blur-sm rounded-xl p-4 border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300 group"
