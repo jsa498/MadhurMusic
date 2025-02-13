@@ -10,11 +10,11 @@ import { useImageLoad } from '@/hooks/useImageLoad';
 
 export default function Home() {
   const storyImageLoaded = useImageLoad('/Mgsv photos/mission.jpeg');
-  
+
   const firstClassImageLoaded = useImageLoad('/Mgsv photos/IMG_7860.JPG');
   const secondClassImageLoaded = useImageLoad('/Mgsv photos/IMG_5002.PNG');
   const thirdClassImageLoaded = useImageLoad('/Mgsv photos/IMG_7861.JPG');
-  
+
   const classImagesLoaded = [firstClassImageLoaded, secondClassImageLoaded, thirdClassImageLoaded];
   const classImages = [
     '/Mgsv photos/IMG_7860.JPG',
@@ -22,11 +22,11 @@ export default function Home() {
     '/Mgsv photos/IMG_7861.JPG'
   ];
 
-  // Type the ref as HTMLDivElement to avoid the "never" type error.
+  // Type the ref as HTMLDivElement.
   const carouselContainerRef = useRef<HTMLDivElement>(null);
   const controls = useAnimation();
   const [carouselWidth, setCarouselWidth] = useState(0);
-  // Use a motion value to track the x position of the carousel.
+  // Use a motion value to track the x position.
   const x = useMotionValue(0);
 
   useEffect(() => {
@@ -34,12 +34,12 @@ export default function Home() {
       // Since the content is duplicated (using [...Array(2)]), one full cycle is half the scrollWidth.
       const totalWidth = carouselContainerRef.current.scrollWidth / 2;
       setCarouselWidth(totalWidth);
-      // Start the auto-play animation from x = 0 to -totalWidth.
+      // Start the auto-play animation from x = 0 to -totalWidth with duration 140.
       controls.start({
         x: [0, -totalWidth],
         transition: {
           x: {
-            duration: 280,
+            duration: 140,
             ease: "linear",
             repeat: Infinity,
             repeatType: "loop"
@@ -47,20 +47,20 @@ export default function Home() {
         }
       });
     }
-    // Removed carouselContainerRef.current from the dependency array as it's mutable.
+    // Removed carouselContainerRef.current from dependency array.
   }, [controls]);
 
   const handleDragEnd = () => {
     const currentX = x.get();
     // Immediately set the motion value to the current x to prevent any overshoot.
     x.set(currentX);
-    // Restart auto-play after a slight delay to allow the drag to settle.
+    // Restart auto-play after a slight delay with duration 140.
     setTimeout(() => {
       controls.start({
         x: [currentX, currentX - carouselWidth],
         transition: {
           x: {
-            duration: 280,
+            duration: 140,
             ease: "linear",
             repeat: Infinity,
             repeatType: "loop"
