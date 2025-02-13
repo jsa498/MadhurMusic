@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { Clock, Users, BookOpen, Star, ChevronRight } from 'lucide-react';
 import HeroSection from '@/components/ui/hero-section';
 import { useImageLoad } from '@/hooks/useImageLoad';
-import { useState } from 'react';
 
 const containerVariants = {
   hidden: { opacity: 0 },
