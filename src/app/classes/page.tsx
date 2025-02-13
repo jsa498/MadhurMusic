@@ -110,15 +110,6 @@ export default function Classes() {
   // Create an array of loading states that corresponds to the classes array
   const classImagesLoaded = [firstImageLoaded, secondImageLoaded, thirdImageLoaded];
 
-  // Add state for image zoom and pan
-  const [imageStates, setImageStates] = useState(classes.map(() => ({ scale: 1, x: 0, y: 0 })));
-
-  const handleImageInteraction = (index: number, newState: { scale?: number; x?: number; y?: number }) => {
-    setImageStates(prev => prev.map((state, i) => 
-      i === index ? { ...state, ...newState } : state
-    ));
-  };
-
   return (
     <div className="min-h-screen bg-black">
       <HeroSection
