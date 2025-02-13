@@ -22,11 +22,11 @@ export default function Home() {
     '/Mgsv photos/IMG_7861.JPG'
   ];
 
-  // Setup for the Photo Gallery carousel
-  const carouselContainerRef = useRef(null);
+  // Type the ref as HTMLDivElement to avoid the "never" type error.
+  const carouselContainerRef = useRef<HTMLDivElement>(null);
   const controls = useAnimation();
   const [carouselWidth, setCarouselWidth] = useState(0);
-  // Use a motion value to track the x position of the carousel
+  // Use a motion value to track the x position of the carousel.
   const x = useMotionValue(0);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function Home() {
       // Since the content is duplicated (using [...Array(2)]), one full cycle is half the scrollWidth.
       const totalWidth = carouselContainerRef.current.scrollWidth / 2;
       setCarouselWidth(totalWidth);
-      // Start the auto-play animation from x = 0 to -totalWidth
+      // Start the auto-play animation from x = 0 to -totalWidth.
       controls.start({
         x: [0, -totalWidth],
         transition: {
@@ -47,13 +47,14 @@ export default function Home() {
         }
       });
     }
-  }, [carouselContainerRef.current, controls]);
+    // Removed carouselContainerRef.current from the dependency array as it's mutable.
+  }, [controls]);
 
   const handleDragEnd = () => {
     const currentX = x.get();
-    // Immediately set the motion value to the current x to prevent any overshoot
+    // Immediately set the motion value to the current x to prevent any overshoot.
     x.set(currentX);
-    // Restart auto-play after a slight delay to allow the drag to settle
+    // Restart auto-play after a slight delay to allow the drag to settle.
     setTimeout(() => {
       controls.start({
         x: [currentX, currentX - carouselWidth],
@@ -97,7 +98,9 @@ export default function Home() {
                 transition={{ duration: 0.3 }}
                 className="space-y-8 max-w-xl"
               >
-                <h2 className="text-5xl font-bold bg-gradient-to-r from-[#DFB87A] to-[#C6A355] bg-clip-text text-transparent">Our Story</h2>
+                <h2 className="text-5xl font-bold bg-gradient-to-r from-[#DFB87A] to-[#C6A355] bg-clip-text text-transparent">
+                  Our Story
+                </h2>
                 <p className="text-xl text-gray-300 leading-relaxed mb-8">
                   With over 20 years of experience, we&apos;ve guided hundreds of students in mastering Gurmat Sangeet through authentic teaching methods and dedicated mentorship.
                 </p>
@@ -280,7 +283,9 @@ export default function Home() {
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold bg-gradient-to-r from-[#DFB87A] to-[#C6A355] bg-clip-text text-transparent mb-6">Our Classes</h2>
+            <h2 className="text-4xl font-bold bg-gradient-to-r from-[#DFB87A] to-[#C6A355] bg-clip-text text-transparent mb-6">
+              Our Classes
+            </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Choose from our comprehensive range of classes designed to nurture your musical journey
             </p>
