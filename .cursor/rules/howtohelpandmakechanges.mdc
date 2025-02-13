@@ -1,0 +1,9 @@
+---
+description: if there are linter erros or anything else that you are unsure of, and are seeing, please always ask, DO NOT make any assumptions.  and alsways if you dont know omething, Carefully analyze the project and the entire workspace and all the code base reading every single file very carefully and deeply, understanding the functionality and features we have implemented in this project. Go through every single file very carefully and very deeply, understanding all the logic and all the implementations, every single feature, and basically the overall functioning of this project. Just do a very thorough analysis and understand it. and then also ask the user for any confusion or clarificatiuons still needed, because we do not want to delete anything as that will mess up the things and stuff, which we do not want
+globs: 
+---
+
+# Your rule content
+
+- You can @ files here
+- You can use markdown but dont have to
