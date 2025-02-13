@@ -48,33 +48,21 @@ export default function Home() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: storyImageLoaded ? 1 : 0 }}
                 transition={{ duration: 0.3 }}
-                className="space-y-8"
+                className="space-y-8 max-w-xl"
               >
                 <h2 className="text-5xl font-bold bg-gradient-to-r from-[#DFB87A] to-[#C6A355] bg-clip-text text-transparent">Our Story</h2>
-                <p className="text-xl text-gray-300 leading-relaxed">
+                <p className="text-xl text-gray-300 leading-relaxed mb-8">
                   With over 20 years of experience, we&apos;ve guided hundreds of students in mastering Gurmat Sangeet through authentic teaching methods and dedicated mentorship.
                 </p>
                 <div className="grid grid-cols-2 gap-6">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
-                    className="bg-[#1A1A1A]/80 backdrop-blur-sm rounded-2xl p-8 border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300 transform hover:scale-105"
-                  >
-                    <div className="text-4xl font-bold text-[#C6A355] mb-3">500+</div>
+                  <div className="bg-[#1A1A1A]/80 backdrop-blur-sm rounded-xl p-6 border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300 transform hover:scale-105">
+                    <div className="text-4xl font-bold text-[#C6A355] mb-2">500+</div>
                     <div className="text-gray-300 text-lg">Students Taught</div>
-                  </motion.div>
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
-                    className="bg-[#1A1A1A]/80 backdrop-blur-sm rounded-2xl p-8 border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300 transform hover:scale-105"
-                  >
-                    <div className="text-4xl font-bold text-[#C6A355] mb-3">20+</div>
+                  </div>
+                  <div className="bg-[#1A1A1A]/80 backdrop-blur-sm rounded-xl p-6 border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-300 transform hover:scale-105">
+                    <div className="text-4xl font-bold text-[#C6A355] mb-2">20+</div>
                     <div className="text-gray-300 text-lg">Years Experience</div>
-                  </motion.div>
+                  </div>
                 </div>
                 <Link 
                   href="/about" 
@@ -91,23 +79,42 @@ export default function Home() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
             >
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: storyImageLoaded ? 1 : 0 }}
-                transition={{ duration: 0.3 }}
-                className="relative h-[400px] rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700 group shadow-2xl"
-              >
-                <Image
-                  src="/Mgsv photos/mission.jpeg"
-                  alt="Our Story"
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                  loading="eager"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  priority={true}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
-              </motion.div>
+              <div className="grid grid-cols-2 gap-4 lg:gap-6">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: storyImageLoaded ? 1 : 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="relative h-[300px] md:h-[350px] lg:h-[450px] rounded-2xl overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700 group shadow-2xl"
+                >
+                  <Image
+                    src="/Mgsv photos/IMG-20200226-WA0131.JPG"
+                    alt="Our Story"
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                    loading="eager"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 50vw"
+                    priority={true}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: storyImageLoaded ? 1 : 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="relative h-[300px] md:h-[350px] lg:h-[450px] rounded-2xl overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700 group shadow-2xl"
+                >
+                  <Image
+                    src="/Mgsv photos/IMG-20180806-WA0021.jpeg"
+                    alt="Our Story"
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                    loading="eager"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 50vw"
+                    priority={true}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
+                </motion.div>
+              </div>
             </motion.div>
           </div>
         </div>
@@ -384,4 +391,3 @@ export default function Home() {
     </div>
   );
 }
-

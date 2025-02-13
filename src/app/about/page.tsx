@@ -9,7 +9,7 @@ import { ChevronRight } from 'lucide-react';
 import { useImageLoad } from '@/hooks/useImageLoad';
 
 export default function About() {
-  const missionImageLoaded = useImageLoad('/Mgsv photos/mission.jpeg');
+  const missionImageLoaded = useImageLoad('/Mgsv photos/IMG-20180806-WA0021.jpeg');
 
   return (
     <div className="min-h-screen bg-black">
@@ -33,15 +33,24 @@ export default function About() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: missionImageLoaded ? 1 : 0 }}
                 transition={{ duration: 0.3 }}
-                className="bg-[#1A1A1A]/90 backdrop-blur-xl rounded-[2.5rem] p-12 border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700 shadow-2xl"
+                className="space-y-8 max-w-xl"
               >
                 <h2 className="text-5xl font-bold mb-8 bg-gradient-to-r from-[#DFB87A] to-[#C6A355] bg-clip-text text-transparent">Our Mission</h2>
                 <div className="space-y-6">
-                  <p className="text-xl text-gray-300 leading-relaxed">
-                    At Madhur Gurmat Sangeet Vidyala, our mission is to preserve and promote the rich heritage of Gurmat Sangeet through authentic teaching methods and dedicated mentorship.
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-1.5 h-8 bg-[#C6A355] rounded-full"></div>
+                    <h3 className="text-2xl font-semibold text-[#C6A355]">Heritage</h3>
+                  </div>
+                  <p className="text-lg text-gray-300 leading-relaxed">
+                    Preserving and promoting the rich heritage of Gurmat Sangeet through authentic teaching methods and dedicated mentorship.
                   </p>
-                  <p className="text-xl text-gray-300 leading-relaxed">
-                    We strive to create an environment where students can immerse themselves in the traditional art form while developing their musical abilities under expert guidance.
+                  
+                  <div className="flex items-center gap-4 mb-4 mt-8">
+                    <div className="w-1.5 h-8 bg-[#C6A355] rounded-full"></div>
+                    <h3 className="text-2xl font-semibold text-[#C6A355]">Environment</h3>
+                  </div>
+                  <p className="text-lg text-gray-300 leading-relaxed">
+                    Creating an immersive space where students develop their musical abilities under expert guidance.
                   </p>
                 </div>
               </motion.div>
@@ -53,23 +62,42 @@ export default function About() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
             >
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: missionImageLoaded ? 1 : 0 }}
-                transition={{ duration: 0.3 }}
-                className="relative h-[400px] rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700 group shadow-2xl"
-              >
-                <Image
-                  src="/Mgsv photos/mission.jpeg"
-                  alt="Our Mission"
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                  loading="eager"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  priority={true}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
-              </motion.div>
+              <div className="grid grid-cols-2 gap-4 lg:gap-6">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: missionImageLoaded ? 1 : 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="relative h-[300px] md:h-[350px] lg:h-[450px] rounded-2xl overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700 group shadow-2xl"
+                >
+                  <Image
+                    src="/Mgsv photos/IMG-20180806-WA0021.jpeg"
+                    alt="Our Mission"
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                    loading="eager"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 50vw"
+                    priority={true}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: missionImageLoaded ? 1 : 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="relative h-[300px] md:h-[350px] lg:h-[450px] rounded-2xl overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700 group shadow-2xl"
+                >
+                  <Image
+                    src="/Mgsv photos/IMG-20200226-WA0131.JPG"
+                    alt="Our Mission"
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                    loading="eager"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 50vw"
+                    priority={true}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
+                </motion.div>
+              </div>
             </motion.div>
           </div>
         </div>

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Clock, Users, BookOpen, Star, ChevronRight } from 'lucide-react';
 import HeroSection from '@/components/ui/hero-section';
 import { useImageLoad } from '@/hooks/useImageLoad';
+import { useState } from 'react';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -35,7 +36,12 @@ const classes = [
   {
     title: 'Tanti Saaj',
     description: 'Master the fundamentals of Gurmat Sangeet string instruments with comprehensive training in ragas, taal, and traditional techniques.',
-    image: '/Mgsv photos/IMG_5041.JPG',
+    image: '/Mgsv photos/IMG_0380.jpg',
+    imageStyle: {
+      scale: 2.1,
+      x: -20,
+      y: -60
+    },
     features: [
       'Personalized attention',
       'Traditional techniques',
@@ -52,7 +58,12 @@ const classes = [
   {
     title: 'Gurmat Kirtan',
     description: 'Learn the sacred art of Gurmat Kirtan with proper techniques and understanding of ragas, from basic compositions to advanced kirtans.',
-    image: '/Mgsv photos/c3f107bf-f274-43a9-b6e2-ecdc7b3db2f6.jpg',
+    image: '/Mgsv photos/IMG_0385.jpg',
+    imageStyle: {
+      scale: 1.3,
+      x: 10,
+      y: 30
+    },
     features: [
       'Instrument basics',
       'Raga theory',
@@ -70,6 +81,11 @@ const classes = [
     title: 'Tabla',
     description: 'Discover the rhythmic world of tabla through systematic training in various taals and traditional compositions.',
     image: '/Mgsv photos/IMG_5001.PNG',
+    imageStyle: {
+      scale: 1.1,
+      x: 0,
+      y: 0
+    },
     features: [
       'Basic techniques',
       'Taal system',
@@ -87,12 +103,21 @@ const classes = [
 
 export default function Classes() {
   // Move hook calls to the top level
-  const firstImageLoaded = useImageLoad('/Mgsv photos/IMG_5041.JPG');
-  const secondImageLoaded = useImageLoad('/Mgsv photos/c3f107bf-f274-43a9-b6e2-ecdc7b3db2f6.jpg');
+  const firstImageLoaded = useImageLoad('/Mgsv photos/IMG_0380.jpg');
+  const secondImageLoaded = useImageLoad('/Mgsv photos/IMG_0385.jpg');
   const thirdImageLoaded = useImageLoad('/Mgsv photos/IMG_5001.PNG');
   
   // Create an array of loading states that corresponds to the classes array
   const classImagesLoaded = [firstImageLoaded, secondImageLoaded, thirdImageLoaded];
+
+  // Add state for image zoom and pan
+  const [imageStates, setImageStates] = useState(classes.map(() => ({ scale: 1, x: 0, y: 0 })));
+
+  const handleImageInteraction = (index: number, newState: { scale?: number; x?: number; y?: number }) => {
+    setImageStates(prev => prev.map((state, i) => 
+      i === index ? { ...state, ...newState } : state
+    ));
+  };
 
   return (
     <div className="min-h-screen bg-black">
@@ -237,15 +262,26 @@ export default function Classes() {
                   className="bg-[#1A1A1A]/80 backdrop-blur-sm rounded-[2.5rem] overflow-hidden border border-[#333333] hover:border-[#C6A355]/50 transition-all duration-700 group"
                 >
                   <div className="relative h-56 overflow-hidden">
-                    <Image
-                      src={classItem.image}
-                      alt={classItem.title}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                      loading={index === 0 ? "eager" : "lazy"}
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      priority={index === 0}
-                    />
+                    <motion.div
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        position: 'relative',
+                        scale: classItem.imageStyle?.scale || 1,
+                        x: classItem.imageStyle?.x || 0,
+                        y: classItem.imageStyle?.y || 0
+                      }}
+                    >
+                      <Image
+                        src={classItem.image}
+                        alt={classItem.title}
+                        fill
+                        className="object-cover"
+                        loading={index === 0 ? "eager" : "lazy"}
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        priority={index === 0}
+                      />
+                    </motion.div>
                     <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-[#1A1A1A]/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
                     <div className="absolute bottom-6 left-6 z-10">
                       <div className="inline-flex items-center px-4 py-2 rounded-lg bg-black/50 backdrop-blur-md border border-white/5 shadow-lg">
