@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, useAnimation, useMotionValue } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Music, ChevronRight, Award, BookOpen } from 'lucide-react';
@@ -15,12 +16,58 @@ export default function Home() {
   const thirdClassImageLoaded = useImageLoad('/Mgsv photos/IMG_7861.JPG');
   
   const classImagesLoaded = [firstClassImageLoaded, secondClassImageLoaded, thirdClassImageLoaded];
-  
   const classImages = [
     '/Mgsv photos/IMG_7860.JPG',
     '/Mgsv photos/IMG_5002.PNG',
     '/Mgsv photos/IMG_7861.JPG'
   ];
+
+  // Setup for the Photo Gallery carousel
+  const carouselContainerRef = useRef(null);
+  const controls = useAnimation();
+  const [carouselWidth, setCarouselWidth] = useState(0);
+  // Use a motion value to track the x position of the carousel
+  const x = useMotionValue(0);
+
+  useEffect(() => {
+    if (carouselContainerRef.current) {
+      // Since the content is duplicated (using [...Array(2)]), one full cycle is half the scrollWidth.
+      const totalWidth = carouselContainerRef.current.scrollWidth / 2;
+      setCarouselWidth(totalWidth);
+      // Start the auto-play animation from x = 0 to -totalWidth
+      controls.start({
+        x: [0, -totalWidth],
+        transition: {
+          x: {
+            duration: 280,
+            ease: "linear",
+            repeat: Infinity,
+            repeatType: "loop"
+          }
+        }
+      });
+    }
+  }, [carouselContainerRef.current, controls]);
+
+  const handleDragEnd = () => {
+    const currentX = x.get();
+    // Immediately set the motion value to the current x to prevent any overshoot
+    x.set(currentX);
+    // Restart auto-play after a slight delay to allow the drag to settle
+    setTimeout(() => {
+      controls.start({
+        x: [currentX, currentX - carouselWidth],
+        transition: {
+          x: {
+            duration: 280,
+            ease: "linear",
+            repeat: Infinity,
+            repeatType: "loop"
+          }
+        }
+      });
+    }, 300);
+  };
 
   return (
     <div className="relative min-h-screen bg-black">
@@ -130,26 +177,30 @@ export default function Home() {
             transition={{ duration: 0.5, type: "tween", ease: "easeOut" }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold bg-gradient-to-r from-[#DFB87A] to-[#C6A355] bg-clip-text text-transparent mb-6">Our Gallery</h2>
+            <h2 className="text-4xl font-bold bg-gradient-to-r from-[#DFB87A] to-[#C6A355] bg-clip-text text-transparent mb-6">
+              Our Gallery
+            </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Glimpses of our vibrant community and musical journey
             </p>
           </motion.div>
 
-          <div className="relative">
+          <div 
+            className="relative overflow-hidden cursor-grab active:cursor-grabbing"
+            ref={carouselContainerRef}
+          >
             <motion.div
-              animate={{
-                x: [0, -50 + '%']
-              }}
-              transition={{
-                x: {
-                  duration: 50,
-                  repeat: Infinity,
-                  ease: "linear",
-                  repeatType: "loop"
-                }
-              }}
-              className="flex gap-6 w-fit"
+              drag="x"
+              dragMomentum={false}
+              dragConstraints={{ left: -carouselWidth, right: 0 }}
+              dragElastic={0.1}
+              dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
+              whileTap={{ cursor: "grabbing" }}
+              onDragStart={() => controls.stop()}
+              onDragEnd={handleDragEnd}
+              style={{ x }}
+              animate={controls}
+              className="flex gap-6 w-fit will-change-transform"
             >
               {[...Array(2)].map((_, setIndex) => (
                 <div key={setIndex} className="flex gap-6">
@@ -291,7 +342,9 @@ export default function Home() {
                     <div className="absolute bottom-4 left-6 right-6">
                       <div className="inline-flex items-center px-4 py-2 rounded-lg bg-black/50 backdrop-blur-md border border-white/5 shadow-lg">
                         <div className="w-1 h-6 bg-[#C6A355] mr-3"></div>
-                        <h3 className="text-xl font-medium tracking-wide text-white/95">{item.title}</h3>
+                        <h3 className="text-xl font-medium tracking-wide text-white/95">
+                          {item.title}
+                        </h3>
                       </div>
                     </div>
                   </div>
@@ -363,10 +416,8 @@ export default function Home() {
 
       {/* Registration CTA Section */}
       <section className="relative py-20 mt-4 md:mt-12">
-        {/* Background Container */}
         <div className="absolute inset-0 mx-4">
           <div className="absolute inset-0 rounded-[3rem] overflow-hidden">
-            {/* Background Image */}
             <div className="absolute inset-0 bg-black">
               <Image 
                 src="/logo.png" 
@@ -376,12 +427,10 @@ export default function Home() {
                 sizes="100vw"
               />
             </div>
-            {/* Subtle Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70" />
           </div>
         </div>
         
-        {/* Content Container */}
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-white px-4">
           <div className="text-center bg-black/10 backdrop-blur-sm rounded-[2rem] p-6 md:p-10 border border-white/10 max-w-[90%] md:max-w-2xl mx-auto shadow-2xl">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 md:mb-6">
