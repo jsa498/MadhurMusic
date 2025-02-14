@@ -68,7 +68,6 @@ export default function Register() {
   const [showClassTypesPopup, setShowClassTypesPopup] = useState(false);
   const [showSuccessNotification, setShowSuccessNotification] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
   const [errors, setErrors] = useState({
     parentName: '',
     childName: '',
@@ -195,11 +194,9 @@ export default function Register() {
   };
 
   const handleNext = () => {
-    setHasAttemptedSubmit(true);
     // Validate personal step immediately; if invalid, errors will show on this tab.
     if (currentStep === 'personal' && validatePersonalStep()) {
       setCurrentStep('class');
-      setHasAttemptedSubmit(false);
       // Clear errors when moving to next step
       setErrors({
         parentName: '',
@@ -213,7 +210,6 @@ export default function Register() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setHasAttemptedSubmit(true);
 
     // Validate both steps before submission
     if (!validatePersonalStep()) {
@@ -394,7 +390,6 @@ export default function Register() {
                     key={step.id}
                     onClick={() => {
                       setCurrentStep(step.id);
-                      setHasAttemptedSubmit(false);
                       setErrors({
                         parentName: '',
                         childName: '',
