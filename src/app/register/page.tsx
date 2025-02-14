@@ -1,3 +1,4 @@
+// src/app/register/page.tsx
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -85,7 +86,7 @@ export default function Register() {
     additionalInfo: ''
   });
 
-  // Add useEffect to control navbar visibility
+  // Hide navbar when modals are open
   useEffect(() => {
     const navbar = document.querySelector('nav');
     if (navbar) {
@@ -95,8 +96,6 @@ export default function Register() {
         navbar.style.display = 'block';
       }
     }
-    
-    // Cleanup function
     return () => {
       const navbar = document.querySelector('nav');
       if (navbar) {
@@ -135,13 +134,13 @@ export default function Register() {
 
   const handleExperienceSelection = (level: string) => {
     setFormData(prev => ({ ...prev, experience: level }));
-    // Clear the experience error when user makes a selection
     if (errors.experience) {
       setErrors(prev => ({ ...prev, experience: '' }));
     }
     setShowExperiencePopup(false);
   };
 
+  // Updated: Always update error messages immediately
   const validatePersonalStep = () => {
     const newErrors = {
       parentName: '',
@@ -167,9 +166,7 @@ export default function Register() {
       isValid = false;
     }
 
-    if (hasAttemptedSubmit) {
-      setErrors(newErrors);
-    }
+    setErrors(prev => ({ ...prev, ...newErrors }));
     return isValid;
   };
 
@@ -193,17 +190,17 @@ export default function Register() {
       isValid = false;
     }
 
-    if (hasAttemptedSubmit) {
-      setErrors(newErrors);
-    }
+    setErrors(prev => ({ ...prev, ...newErrors }));
     return isValid;
   };
 
   const handleNext = () => {
     setHasAttemptedSubmit(true);
+    // Validate personal step immediately; if invalid, errors will show on this tab.
     if (currentStep === 'personal' && validatePersonalStep()) {
       setCurrentStep('class');
-      setHasAttemptedSubmit(false); // Reset attempt flag when moving to next step
+      setHasAttemptedSubmit(false);
+      // Clear errors when moving to next step
       setErrors({
         parentName: '',
         childName: '',
@@ -217,15 +214,21 @@ export default function Register() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setHasAttemptedSubmit(true);
-    
+
+    // Validate both steps before submission
+    if (!validatePersonalStep()) {
+      setCurrentStep('personal');
+      return;
+    }
     if (!validateClassStep()) {
+      setCurrentStep('class');
       return;
     }
 
     setIsSubmitting(true);
 
     try {
-      // Initialize EmailJS
+      // Initialize EmailJS with your public key
       emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '');
 
       const templateParams = {
@@ -240,7 +243,6 @@ export default function Register() {
 
       console.log('Sending registration with data:', templateParams);
 
-      // Send the email using EmailJS
       const response = await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
@@ -252,7 +254,6 @@ export default function Register() {
       if (response.status === 200) {
         console.log('Registration successful, showing notification');
         setShowSuccessNotification(true);
-        
         // Reset form after 5 seconds
         setTimeout(() => {
           setFormData({
@@ -314,7 +315,7 @@ export default function Register() {
             <p className="text-gray-400">{subtitle}</p>
           </div>
 
-          {/* Content with Scroll */}
+          {/* Content */}
           <div className="flex-1 overflow-y-auto p-6 min-h-0">
             {children}
           </div>
@@ -653,4 +654,4 @@ export default function Register() {
       </section>
     </div>
   );
-} 
+}
