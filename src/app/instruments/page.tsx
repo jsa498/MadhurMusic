@@ -53,6 +53,42 @@ export default function Instruments() {
       name: 'Saranda', 
       description: 'Bowed string instrument from Punjab',
       longDescription: 'The Saranda is a bowed string instrument traditionally used in Punjab. It has a rich, resonant sound and is particularly suited for accompanying vocal music and folk traditions.'
+    },
+    { 
+      id: 'taus', 
+      name: 'Taus', 
+      description: 'Peacock-shaped bowed string instrument of Sikh heritage',
+      longDescription: 'The Taus, meaning peacock, is a unique bowed string instrument shaped like a peacock. It was created during the time of the Sikh Gurus and produces a deep, resonant sound similar to the human voice.'
+    },
+    { 
+      id: 'esraj', 
+      name: 'Esraj', 
+      description: 'Elegant bowed instrument combining sitar and violin elements',
+      longDescription: 'The Esraj is a bowed instrument that combines elements of the sitar and violin. It produces a sweet, melodious sound and is particularly well-suited for performing classical ragas and devotional music.'
+    },
+    { 
+      id: 'sarangi', 
+      name: 'Sarangi', 
+      description: 'Versatile bowed instrument known for emotional expression',
+      longDescription: 'The Sarangi is a bowed string instrument known for its ability to closely imitate the human voice. It has a rich, haunting tone and is considered one of the most expressive instruments in Indian classical music.'
+    },
+    { 
+      id: 'swarmandal', 
+      name: 'Swarmandal', 
+      description: 'Multi-stringed harp used for melodic accompaniment',
+      longDescription: 'The Swarmandal is a small harp-like instrument used primarily to accompany classical vocal music. It provides melodic accompaniment and helps maintain pitch accuracy during performances.'
+    },
+    { 
+      id: 'violin', 
+      name: 'Violin', 
+      description: 'Adapted Western instrument integral to Indian classical music',
+      longDescription: 'The Violin, though originally Western, has been beautifully adapted to Indian classical music. Its versatility allows for the intricate gamakas and ornamentations essential to Indian ragas.'
+    },
+    { 
+      id: 'tarshenai', 
+      name: 'Tarshenai', 
+      description: 'The Tar Shehnai is a higher-pitched variation of the traditional shehnai, known for its shriller and more delicate sound',
+      longDescription: 'The Tarshenai is a double-reed wind instrument with a distinctive timbre. It has a rich heritage in Indian classical music and is particularly effective in conveying the emotional depth of ragas.'
     }
   ];
 

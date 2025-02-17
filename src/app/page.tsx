@@ -74,7 +74,7 @@ export default function Home() {
     <div className="relative min-h-screen bg-black">
       <HeroSection
         isHomePage
-        title="MADHUR GURMAT"
+        title="MGS VIDYALA"
         subtitle="Discover the rich heritage of Gurmat Sangeet through expert guidance and traditional teaching methods"
         backgroundImage="/hero-bg.jpg"
         buttonText="Start Your Journey"
@@ -211,7 +211,6 @@ export default function Home() {
                     "/Mgsv photos/1.png",
                     "/Mgsv photos/2.png",
                     "/Mgsv photos/3.png",
-                    "/Mgsv photos/3e2dcedb-0315-4065-873c-10fed4345d36.jpg",
                     "/Mgsv photos/6.jpg",
                     "/Mgsv photos/86004a69-c3a3-4b08-8632-fa9f46e3e2b9.jpg",
                     "/Mgsv photos/h.JPG",
@@ -247,7 +246,6 @@ export default function Home() {
                     "/Mgsv photos/IMG_7837.JPG",
                     "/Mgsv photos/IMG_7860.JPG",
                     "/Mgsv photos/IMG_7861.JPG",
-                    "/Mgsv photos/IMG_7869.JPG",
                     "/Mgsv photos/mission.jpeg"
                   ].map(image => (
                     <div
@@ -261,6 +259,17 @@ export default function Home() {
                         className="object-cover transition-transform duration-700 group-hover:scale-110"
                         sizes="450px"
                         loading="lazy"
+                        style={
+                          image === "/Mgsv photos/h.JPG" ? {
+                            objectFit: "cover",
+                            scale: "1",
+                            objectPosition: "center 20%"
+                          } : image === "/Mgsv photos/IMG_0378.jpg" ? {
+                            objectFit: "cover",
+                            scale: "1",
+                            objectPosition: "center 30%"
+                          } : undefined
+                        }
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
