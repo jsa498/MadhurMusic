@@ -79,11 +79,11 @@ const classes = [
   {
     title: 'Tabla',
     description: 'Discover the rhythmic world of tabla through systematic training in various taals and traditional compositions.',
-    image: '/Mgsv photos/IMG_5001.PNG',
+    image: '/Mgsv photos/IMG_5908.jpeg',
     imageStyle: {
-      scale: 1.1,
+      scale: 1,
       x: 0,
-      y: 0
+      y: -12
     },
     features: [
       'Basic techniques',
@@ -104,7 +104,7 @@ export default function Classes() {
   // Move hook calls to the top level
   const firstImageLoaded = useImageLoad('/Mgsv photos/IMG_0380.jpg');
   const secondImageLoaded = useImageLoad('/Mgsv photos/IMG_0385.jpg');
-  const thirdImageLoaded = useImageLoad('/Mgsv photos/IMG_5001.PNG');
+  const thirdImageLoaded = useImageLoad('/Mgsv photos/IMG_5908.jpeg');
   
   // Create an array of loading states that corresponds to the classes array
   const classImagesLoaded = [firstImageLoaded, secondImageLoaded, thirdImageLoaded];
