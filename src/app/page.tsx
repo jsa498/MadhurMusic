@@ -229,7 +229,7 @@ export default function Home() {
                     "/Mgsv photos/IMG_5980.jpg",
                     "/Mgsv photos/IMG_5984.jpg",
                     "/Mgsv photos/IMG_5985.jpg",
-                    "/Mgsv photos/IMG_5988.png",
+                    "/Mgsv photos/IMG_5988.jpg",
                     "/Mgsv photos/IMG_0385.jpg",
                     "/Mgsv photos/IMG_0386.jpg",
                     "/Mgsv photos/IMG_0387.jpg",
