@@ -267,10 +267,10 @@ export default function Home() {
                         loading={image === "/Mgsv photos/IMG_7914.jpg" ? "eager" : "lazy"}
                         priority={image === "/Mgsv photos/IMG_7914.jpg"}
                         quality={image === "/Mgsv photos/IMG_7914.jpg" ? 100 : 75}
-                        onError={(e) => {
-                          console.error(`Error loading image ${image}:`, e);
+                        onError={() => {
+                          console.error(`Error loading image ${image}`);
                         }}
-                        onLoad={(e) => {
+                        onLoad={() => {
                           console.log(`Successfully loaded image ${image}`);
                         }}
                         style={
