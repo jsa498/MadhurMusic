@@ -222,6 +222,7 @@ export default function Home() {
                     "/Mgsv photos/IMG-20200226-WA0122.JPG",
                     "/Mgsv photos/IMG-20200226-WA0123.JPG",
                     "/Mgsv photos/IMG-20200226-WA0131.JPG",
+                    "/Mgsv photos/IMG_7914.jpg",
                     "/Mgsv photos/IMG_0378.jpg",
                     "/Mgsv photos/IMG_5977.jpg",
                     "/Mgsv photos/IMG_0379.jpg",
@@ -263,7 +264,15 @@ export default function Home() {
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-110"
                         sizes="450px"
-                        loading="lazy"
+                        loading={image === "/Mgsv photos/IMG_7914.jpg" ? "eager" : "lazy"}
+                        priority={image === "/Mgsv photos/IMG_7914.jpg"}
+                        quality={image === "/Mgsv photos/IMG_7914.jpg" ? 100 : 75}
+                        onError={(e) => {
+                          console.error(`Error loading image ${image}:`, e);
+                        }}
+                        onLoad={(e) => {
+                          console.log(`Successfully loaded image ${image}`);
+                        }}
                         style={
                           image === "/Mgsv photos/h.JPG" ? {
                             objectFit: "cover",
@@ -273,6 +282,13 @@ export default function Home() {
                             objectFit: "cover",
                             scale: "1",
                             objectPosition: "center 30%"
+                          } : image === "/Mgsv photos/IMG_7914.jpg" ? {
+                            objectFit: "cover",
+                            scale: "1.2",
+                            objectPosition: "center 40%",
+                            width: "100%",
+                            height: "100%",
+                            transform: "scale(1) translateY(-5%)"
                           } : undefined
                         }
                       />
