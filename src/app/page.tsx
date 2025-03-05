@@ -229,11 +229,16 @@ export default function Home() {
                     "/Mgsv photos/IMG_0380.jpg",
                     "/Mgsv photos/IMG_5980.jpg",
                     "/Mgsv photos/IMG_5984.jpg",
+                    "/Mgsv photos/IMG_6144.jpeg",
                     "/Mgsv photos/IMG_5985.jpg",
                     "/Mgsv photos/IMG_5988.jpg",
+                    "/Mgsv photos/IMG_6145.jpeg",
                     "/Mgsv photos/IMG_0385.jpg",
+                    "/Mgsv photos/IMG_6147.jpeg",
                     "/Mgsv photos/IMG_0386.jpg",
+                    "/Mgsv photos/IMG_6148.jpeg",
                     "/Mgsv photos/IMG_0387.jpg",
+                    "/Mgsv photos/IMG_6149.jpeg",
                     "/Mgsv photos/IMG_0388.jpg",
                     "/Mgsv photos/IMG_0389.jpg",
                     "/Mgsv photos/IMG_0390.jpg",
@@ -289,6 +294,34 @@ export default function Home() {
                             width: "100%",
                             height: "100%",
                             transform: "scale(1) translateY(-5%)"
+                          } : image === "/Mgsv photos/IMG_6145.jpeg" ? {
+                            objectFit: "cover",
+                            scale: "1",
+                            objectPosition: "center 50%",
+                            width: "100%",
+                            height: "100%",
+                            transform: "scale(1) translateY(0%)"
+                          } : image === "/Mgsv photos/IMG_6147.jpeg" ? {
+                            objectFit: "cover",
+                            scale: "1",
+                            objectPosition: "center 40%",
+                            width: "100%",
+                            height: "100%",
+                            transform: "scale(1) translateY(0%)"
+                          } : image === "/Mgsv photos/IMG_5988.jpg" ? {
+                            objectFit: "cover",
+                            scale: "1.1",
+                            objectPosition: "center 40%",
+                            width: "100%",
+                            height: "100%",
+                            transform: "scale(1.2) translateY(-12%)"
+                          } : image === "/Mgsv photos/IMG_5985.jpg" ? {
+                            objectFit: "cover",
+                            scale: "1.2",
+                            objectPosition: "center 40%",
+                            width: "100%",
+                            height: "100%",
+                            transform: "scale(1.1) translateY(-10%)"
                           } : undefined
                         }
                       />
