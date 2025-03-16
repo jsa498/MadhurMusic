@@ -244,9 +244,9 @@ export default function About() {
                 name: "Hargun Singh",
                 role: "INSTRUMENTAL INSTRUCTOR",
                 bio: "Expert in multiple traditional instruments with a passion for teaching young musicians.",
-                image: "/Mgsv photos/h.JPG",
-                objectPosition: "120% 6%",
-                scale: 0.999
+                image: "/Mgsv photos/IMG_8107.JPG",
+                objectPosition: "50% 73%",
+                scale: 1.2
               },
               {
                 name: "Gurnoor Singh",
