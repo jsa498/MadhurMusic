@@ -236,13 +236,13 @@ export default function About() {
             {[
               {
                 name: "Manjit Singh",
-                role: "FOUNDER & PRINCIPAL INSTRUCTOR",
+                role: "PRINCIPAL INSTRUCTOR",
                 bio: "A master of Gurmat Sangeet with over 20 years of teaching experience.",
                 image: "/Mgsv photos/IMG_7836.JPG"
               },
               {
                 name: "Hargun Singh",
-                role: "INSTRUMENTAL INSTRUCTOR",
+                role: "FOUNDER & INSTRUCTOR",
                 bio: "Expert in multiple traditional instruments with a passion for teaching young musicians.",
                 image: "/Mgsv photos/IMG_8107.JPG",
                 objectPosition: "50% 73%",
@@ -250,7 +250,7 @@ export default function About() {
               },
               {
                 name: "Gurnoor Singh",
-                role: "INSTRUMENTAL INSTRUCTOR",
+                role: "SENIOR INSTRUCTOR",
                 bio: "Expert in multiple traditional instruments with a passion for teaching young musicians.",
                 image: "/Mgsv photos/IMG_7837.JPG"
               }
